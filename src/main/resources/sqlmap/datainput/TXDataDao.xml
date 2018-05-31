@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+    <typeAlias alias="TXDataInfo" type="com.sooying.pay.third.api.model.datainput.TXDataInfo"/>
+
+	<select id="selectTXDataCountByOrderid" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+	   select count(*) from dp_sp_payresult_txdatasyn where orderid = #orderId#;
+	</select>
+	
+	<insert id="addTXData" parameterClass="TXDataInfo"> 
+	   insert into dp_sp_payresult_txdatasyn
+	       (spid, orderid, addtime, endtime, userid, price, paytype, status)
+	   values
+	       (#spId#,#orderId#,#addTime#,#endTime#,#userId#,#price#,#payType#,#status#);
+	</insert>
+	
+	<update id="updateTXData" parameterClass="TXDataInfo">
+	   update dp_sp_payresult_txdatasyn
+	      set spid = #spId#, 
+	          addtime = #addTime#, 
+	          endtime = #endTime#, 
+	          userid = #userId#, 
+	          price = #price#, 
+	          paytype = #payType#, 
+	          status =#status#
+	    where orderid = #orderId#
+	</update>
+	
+</sqlMap>

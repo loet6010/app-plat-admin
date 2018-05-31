@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:component-scan base-package="com.sooying.province.service.dao"/>
+    
+    <!--数据库地址信息声明-->
+    <bean id="devplatformDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.dev.platform.driver}"/>
+        <property name="url"             value="${jdbc.dev.platform.url}"/>
+        <property name="username"        value="${jdbc.dev.platform.username}"/>
+        <property name="password"        value="${jdbc.dev.platform.password}"/>
+        <property name="maxActive"       value="${jdbc.dev.platform.max.active}"/>
+        <property name="minIdle"         value="${jdbc.dev.platform.min.idle}"/>
+        <!--maxIdle: 最大空闲连接-->    
+        <property name="maxIdle"         value="${jdbc.dev.platform.max.idle}"/>
+        <!--initialSize: 初始化连接-->    
+        <property name="initialSize"     value="${jdbc.dev.platform.initialsize}"/>
+        <property name="logAbandoned"    value="false"/>
+        <property name="testOnBorrow"    value="true"/>
+        <property name="validationQuery" value="select now()"/>
+    </bean>
+
+	<!--事务管理声明-->
+    <bean id="devplatformTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          lazy-init="default">
+        <property name="dataSource">
+            <ref local="devplatformDataSource"/>
+        </property>
+    </bean>
+    <!--tx:annotation-driven transaction-manager="transactionManager"/--> 
+    
+    <bean id="devplatformTransactionTemplate" class ="org.springframework.transaction.support.TransactionTemplate">
+       <property name="transactionManager"><ref bean="devplatformTransactionManager"/>
+    </property>
+    </bean>
+    
+	<!--映射表信息声明-->
+    <bean id="devplatformSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="dataSource">
+            <ref local="devplatformDataSource"/>
+        </property>
+        <property name="configLocations">
+                <value>classpath:sqlmap/pay-dev-platform-sqlmap.xml</value>
+        </property>
+    </bean>
+</beans>

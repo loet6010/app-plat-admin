@@ -1,0 +1,42 @@
+<assembly>
+	<id>assembly</id>
+	<formats>
+	   <format>tar.gz</format>
+	  <!--  <format>dir</format>-->
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<fileSets>
+		 <!-- 这个目前还没有想到通用start -->
+		<fileSet>
+			<directory>src/main/resources</directory>
+			<outputDirectory>.</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/webapp</directory>
+			<outputDirectory>webapp</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<!-- 这个目前还没有想到通用End 暂时处理 -->
+		<fileSet>
+			<directory>src/main/assembly/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/assembly/conf</directory>
+			<outputDirectory>conf</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>src/test/resources</directory>
+			<outputDirectory>conf</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+</assembly>

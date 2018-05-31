@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+	<select id="selectMerchantInfoByMerchantId" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from dp_merchant_info where merchant_id = #merchantId#;
+	</select>
+</sqlMap>
