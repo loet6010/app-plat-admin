@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap>
-    <typeAlias alias="TXDataInfo" type="com.sooying.pay.third.api.model.datainput.TXDataInfo"/>
+    <typeAlias alias="TXDataInfo" type="com.sooying.pay.app.api.dao.datainput.model.TXDataInfo"/>
 
 	<select id="selectTXDataCountByOrderid" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
 	   select count(*) from dp_sp_payresult_txdatasyn where orderid = #orderId#;
