@@ -2,7 +2,8 @@ package com.sooying.pay.third.api.service.thirdpay.impl;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sooying.pay.third.api.dao.thirdpay.MyDaoTest;
@@ -16,7 +17,7 @@ import com.sooying.pay.third.api.service.thirdpay.OrderInfoService;
  */
 @Service("orderInfoService")
 public class OrderInfoServiceImpl implements OrderInfoService {
-    private final static Logger logger = Logger.getLogger(OrderInfoServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(OrderInfoServiceImpl.class);
     
     @Resource
     private MyDaoTest myDaoTest;

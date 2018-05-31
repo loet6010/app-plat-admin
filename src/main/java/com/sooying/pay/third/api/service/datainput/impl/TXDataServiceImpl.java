@@ -2,7 +2,8 @@ package com.sooying.pay.third.api.service.datainput.impl;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sooying.pay.third.api.commom.ResultBase;
@@ -18,7 +19,7 @@ import com.sooying.pay.third.api.service.thirdpay.impl.OrderInfoServiceImpl;
  */
 @Service("tXDataService")
 public class TXDataServiceImpl implements TXDataService {
-    private final static Logger logger = Logger.getLogger(OrderInfoServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(OrderInfoServiceImpl.class);
 
     @Resource
     private TXDataDao tXDataDao;
