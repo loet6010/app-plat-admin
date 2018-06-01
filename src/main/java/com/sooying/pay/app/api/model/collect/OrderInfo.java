@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.model.thirdpay;
+package com.sooying.pay.app.api.model.collect;
 
 import java.util.Date;
 

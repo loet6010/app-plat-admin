@@ -2,9 +2,9 @@
  * sooying.com Inc.
  * Copyright (c) 2004-2016 All Rights Reserved.
  */
-package com.sooying.pay.app.api.dao.datainput;
+package com.sooying.pay.app.api.dao.platform.datainput;
 
-import com.sooying.pay.app.api.model.datainput.TXDataInfo;
+import com.sooying.pay.app.api.model.platform.datainput.TXDataInfo;
 
 public interface TXDataDao {
 

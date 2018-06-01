@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sooying.pay.app.api.dao.datainput.TXDataDao">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.datainput.TXDataDao">
 	<select id="selectTXDataCountByOrderid" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		select count(*) from dp_sp_payresult_txdatasyn where orderid = #{orderId};

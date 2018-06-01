@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sooying.pay.app.api.model.thirdpay.OrderInfo;
+import com.sooying.pay.app.api.model.collect.OrderInfo;
 import com.sooying.pay.app.api.service.thirdpay.OrderInfoService;
 
 /**
@@ -53,7 +53,8 @@ public class QueryController {
             return orderInfo.getPayState();
             
         } catch (Exception e) {
-            logger.info(LOG_INFO + "处理异常：" + e.getMessage());
+            e.printStackTrace();
+            logger.info(LOG_INFO + "处理异常：" + e);
             return PAY_STATUS_0;
         }
     }

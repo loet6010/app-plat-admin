@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.service.thirdpay;
 
-import com.sooying.pay.app.api.model.thirdpay.OrderInfo;
+import com.sooying.pay.app.api.model.collect.OrderInfo;
 
 /**
  * @Description:订单Service

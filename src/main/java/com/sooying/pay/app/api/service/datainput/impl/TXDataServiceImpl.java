@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sooying.pay.app.api.base.ResultBase;
-import com.sooying.pay.app.api.dao.datainput.TXDataDao;
-import com.sooying.pay.app.api.model.datainput.TXDataInfo;
+import com.sooying.pay.app.api.dao.platform.datainput.TXDataDao;
+import com.sooying.pay.app.api.model.platform.datainput.TXDataInfo;
 import com.sooying.pay.app.api.service.datainput.TXDataService;
 import com.sooying.pay.app.api.service.thirdpay.impl.OrderInfoServiceImpl;
 

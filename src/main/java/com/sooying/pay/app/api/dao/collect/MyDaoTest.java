@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.dao.thirdpay;
+package com.sooying.pay.app.api.dao.collect;
 
 public interface MyDaoTest {
 
