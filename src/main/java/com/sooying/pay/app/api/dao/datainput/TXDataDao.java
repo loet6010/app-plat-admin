@@ -4,25 +4,9 @@
  */
 package com.sooying.pay.app.api.dao.datainput;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.sooying.pay.app.api.model.datainput.TXDataInfo;
 
-import javax.annotation.Resource;
-
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
-import org.springframework.stereotype.Repository;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
-import com.sooying.pay.app.api.dao.datainput.model.TXDataInfo;
-
-@SuppressWarnings("deprecation")
-@Repository
-public class TXDataDao extends SqlMapClientTemplate {
-    
-    @Resource(name="devplatformSqlMapClient")
-    public void setSqlMapClient(SqlMapClient sqlMapClient) {
-        super.setSqlMapClient(sqlMapClient);
-    }
+public interface TXDataDao {
 
     /**
      * 根据订单号查询记录是否存在
@@ -30,33 +14,20 @@ public class TXDataDao extends SqlMapClientTemplate {
      * @param orderId
      * @return
      */
-    public int selectTXDataCountByOrderid(String orderId) {
-        Map<String, String> parameterObject = new HashMap<String, String>();
-        parameterObject.put("orderId", orderId);
-        
-        return (Integer) this.queryForObject("selectTXDataCountByOrderid", parameterObject);
-    }
-    
+    int selectTXDataCountByOrderid(String orderId);
+
     /**
      * 插入订单数据
      *
      * @param txDataInfo
      */
-    public void addTXData(TXDataInfo txDataInfo) {
-        if (txDataInfo != null) {
-            this.insert("addTXData", txDataInfo);
-        }
-    }
-    
+    void addTXData(TXDataInfo txDataInfo);
+
     /**
      * 更新订单数据
      *
      * @param txDataInfo
      */
-    public void updateTXData(TXDataInfo txDataInfo) {
-        if (txDataInfo != null) {
-            this.update("updateTXData", txDataInfo);
-        }
-    }
-    
+    void updateTXData(TXDataInfo txDataInfo);
+
 }

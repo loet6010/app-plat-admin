@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.dao.thirdpay.model;
+package com.sooying.pay.app.api.model.thirdpay;
 
 import java.util.Date;
 

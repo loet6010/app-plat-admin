@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.dao.datainput.model;
+package com.sooying.pay.app.api.model.datainput;
 
 import java.util.Date;
 

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sooying.pay.app.api.dao.thirdpay.MyDaoTest;
-import com.sooying.pay.app.api.dao.thirdpay.model.OrderInfo;
+import com.sooying.pay.app.api.model.thirdpay.OrderInfo;
 import com.sooying.pay.app.api.service.thirdpay.OrderInfoService;
 
 /**
@@ -48,7 +48,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      */
     @Override
     public OrderInfo queryOrderInfoByOrderCode(String orderCode) {
-        int count = myDaoTest.selectMyTestCount(10010);
+        int count = myDaoTest.selectMerchantInfoByMerchantId(10010);
         logger.info("DATABASE TEST :" + count);
         return null;
     }

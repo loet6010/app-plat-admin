@@ -25,12 +25,25 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.36</version>
 		</dependency>
+
+		<!-- 数据库相关 -->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc3</version>
 		</dependency>
-		<!--linux shell启动mian函数-->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<!--linux shell启动mian函数 -->
 		<dependency>
 			<groupId>com.sooying.dev.plat.common</groupId>
 			<artifactId>dev-plat-common</artifactId>

@@ -1,7 +1,7 @@
 package com.sooying.pay.app.api.service.datainput;
 
 import com.sooying.pay.app.api.base.ResultBase;
-import com.sooying.pay.app.api.dao.datainput.model.TXDataInfo;
+import com.sooying.pay.app.api.model.datainput.TXDataInfo;
 
 /**
  * @Description TXDataService

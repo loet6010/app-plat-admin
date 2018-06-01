@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-     
-    <!--数据库地址信息声明-->
-    <bean id="devplatformDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="${jdbc.dev.platform.driver}"/>
-        <property name="url"             value="${jdbc.dev.platform.url}"/>
-        <property name="username"        value="${jdbc.dev.platform.username}"/>
-        <property name="password"        value="${jdbc.dev.platform.password}"/>
-        <property name="maxActive"       value="${jdbc.dev.platform.max.active}"/>
-        <property name="minIdle"         value="${jdbc.dev.platform.min.idle}"/>
-        <!--maxIdle: 最大空闲连接-->    
-        <property name="maxIdle"         value="${jdbc.dev.platform.max.idle}"/>
-        <!--initialSize: 初始化连接-->    
-        <property name="initialSize"     value="${jdbc.dev.platform.initialsize}"/>
-        <property name="logAbandoned"    value="false"/>
-        <property name="testOnBorrow"    value="true"/>
-        <property name="validationQuery" value="select now()"/>
-    </bean>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!--事务管理声明-->
-    <bean id="devplatformTransactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-          lazy-init="default">
-        <property name="dataSource">
-            <ref local="devplatformDataSource"/>
-        </property>
-    </bean>
-    
-    <bean id="devplatformTransactionTemplate" class ="org.springframework.transaction.support.TransactionTemplate">
-       <property name="transactionManager"><ref bean="devplatformTransactionManager"/>
-    </property>
-    </bean>
-    
-	<!--映射表信息声明-->
-    <bean id="devplatformSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-        <property name="dataSource">
-            <ref local="devplatformDataSource"/>
-        </property>
-        <property name="configLocations">
-                <value>classpath:sqlmap/platform-sqlmap.xml</value>
-        </property>
-    </bean>
+	<!--数据库地址信息声明 -->
+	<bean id="platformDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.dev.platform.driver}" />
+		<property name="url" value="${jdbc.dev.platform.url}" />
+		<property name="username" value="${jdbc.dev.platform.username}" />
+		<property name="password" value="${jdbc.dev.platform.password}" />
+		<!--属性配置 -->
+		<property name="initialSize" value="${jdbc.common.initialSize}" />
+		<property name="maxActive" value="${jdbc.common.maxActive}" />
+		<property name="maxIdle" value="${jdbc.common.maxIdle}" />
+		<property name="minIdle" value="${jdbc.common.minIdle}" />
+		<property name="logAbandoned" value="false" />
+		<property name="testOnBorrow" value="true" />
+		<property name="validationQuery" value="select now()" />
+	</bean>
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="platformSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="platformDataSource" />
+		<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<!-- 扫描entity包 使用别名 -->
+		<property name="typeAliasesPackage" value="com.sooying.pay.app.api.model" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:sqlmap/**/*.xml" />
+	</bean>
+	
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 租机 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.sooying.pay.app.api.dao" />
+		<property name="sqlSessionFactoryBeanName" value="platformSqlSessionFactory" />
+	</bean>
 </beans>

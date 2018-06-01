@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sooying.pay.app.api.dao.thirdpay.model.OrderInfo;
+import com.sooying.pay.app.api.model.thirdpay.OrderInfo;
 import com.sooying.pay.app.api.service.thirdpay.OrderInfoService;
 
 /**
