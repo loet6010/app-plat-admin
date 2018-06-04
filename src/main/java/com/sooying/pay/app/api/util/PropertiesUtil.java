@@ -14,11 +14,15 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-/**
- * @Description: Properties文件处理
- * @author caimiao
- */
+import com.bench.common.lang.NumberUtils;
 
+/**
+ * 获取配置文件
+ * 
+ * @Description PropertiesUtil
+ * @author liurh
+ * @date 2018年6月4日
+ */
 public class PropertiesUtil {
     private static final Map<String, Properties> allProperties = new HashMap<String, Properties>();
 
@@ -63,6 +67,23 @@ public class PropertiesUtil {
     }
 
     /**
+     * 取出int类型的Property,如果都为Null则抛出异常.
+     */
+    public int getIntProperty(String key) {
+        String value = getValue(key);
+
+        if (value == null) {
+            throw new NoSuchElementException();
+        }
+
+        if (!NumberUtils.isNumber(value)) {
+            throw new IllegalArgumentException();
+        }
+
+        return Integer.parseInt(value);
+    }
+
+    /**
      * 取出String类型的Property.如果都为Null返回Default值.
      */
     public String getProperty(String key, String defaultValue) {
@@ -78,7 +99,7 @@ public class PropertiesUtil {
 
         for (String location : resourcesPaths) {
 
-            logger.debug("Loading properties file from path:{}", location);
+            logger.info("Loading properties file from path:{}", location);
 
             InputStream is = null;
             try {

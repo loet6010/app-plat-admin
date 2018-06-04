@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sooying.pay.app.api.util.CacheUtil;
+
 /**
  * 权限校验
  * 
@@ -35,6 +37,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = request.getParameter("token");
 
         System.out.println(token);
+
+        // 查询缓存token
+        String cacheToken = CacheUtil.getToken(token);
+        System.out.println("查询token=" + cacheToken);
 
         if ("abcde".equals(token)) {
             return Boolean.TRUE;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sooying.pay.app.api.model.collect.OrderInfo;
 import com.sooying.pay.app.api.service.thirdpay.OrderInfoService;
+import com.sooying.pay.app.api.util.CacheUtil;
 
 /**
  * 
@@ -42,6 +43,10 @@ public class QueryController {
         try {
             logger.info(LOG_INFO + "支付结果查询接口！");
 
+            // 设置缓存
+            CacheUtil.setToken("abcde", "GEADFDASGEAFDSAFSD");
+            logger.info("查询token={}", CacheUtil.getToken("abcde"));
+            
             // 根据订单号查询订单
             OrderInfo orderInfo = orderInfoService.queryOrderInfoByOrderCode(orderCode);
             if (orderInfo == null) {
@@ -51,7 +56,7 @@ public class QueryController {
 
             // 订单已处理
             return orderInfo.getPayState();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.info(LOG_INFO + "处理异常：" + e);
