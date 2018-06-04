@@ -1,12 +1,10 @@
 package com.sooying.pay.app.api.controller.auth;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sooying.pay.app.api.util.ConstantUtil;
-
+import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
  * 拦截器错误信息返回
@@ -18,17 +16,17 @@ import com.sooying.pay.app.api.util.ConstantUtil;
 @Controller
 public class AuthErrMsgController {
 
+    /**
+     * 拦截器错误信息返回
+     *
+     * @param resultStatus
+     * @param message
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/auth/showAuthMsg.do")
     @ResponseBody
-    public String showAuthMsg(String errMsg) throws Exception {
-        System.out.println(errMsg);
-
-        byte[] encrypted = errMsg.getBytes(ConstantUtil.UTF8);
-        
-        String returnMsg = new String(Base64.encodeBase64(encrypted));
-        
-        System.out.println(returnMsg);
-
-        return returnMsg;
+    public String showAuthMsg(String resultStatus, String message) throws Exception {
+        return ResultReturnUtil.getResultString(resultStatus, message);
     }
 }

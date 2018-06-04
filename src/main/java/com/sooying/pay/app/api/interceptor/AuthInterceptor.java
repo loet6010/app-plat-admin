@@ -2,13 +2,16 @@ package com.sooying.pay.app.api.interceptor;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sooying.pay.app.api.constants.ApiStatusEnum;
 import com.sooying.pay.app.api.util.CacheUtil;
 
 /**
@@ -32,23 +35,25 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("AuthInterceptor");
-
+        // 登录用户token验证
+        String loginName = request.getParameter("loginName");
         String token = request.getParameter("token");
 
-        System.out.println(token);
+        if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(token)) {
+            forward(ApiStatusEnum.API_STATUS_FAIL.getStatus(), "用户名和token都不能为空！", request, response);
+            return false;
+        }
 
         // 查询缓存token
-        String cacheToken = CacheUtil.getToken(token);
-        System.out.println("查询token=" + cacheToken);
+        String cacheToken = CacheUtil.getToken(loginName);
 
-        if ("abcde".equals(token)) {
-            return Boolean.TRUE;
-        } else {
-            forward("您没有登录或登录超时，请重新登录！", request, response);
-
-            return Boolean.FALSE;
+        if (!token.equals(cacheToken)) {
+            forward(ApiStatusEnum.API_STATUS_TOKEN_INVALID.getStatus(), "当前用户未登录或token已失效，请重新登录获取token！", request,
+                    response);
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -81,9 +86,21 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     }
 
-    private void forward(String msg, HttpServletRequest request, HttpServletResponse response)
+    /**
+     * 设置拦截返回信息
+     *
+     * @param status
+     * @param msg
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void forward(String resultStatus, String message, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/auth/showAuthMsg.do?errMsg=" + msg).forward(request, response);
+        RequestDispatcher rd = request
+                .getRequestDispatcher("/auth/showAuthMsg.do?resultStatus=" + resultStatus + "&message=" + message);
+        rd.forward(request, response);
     }
 
 }

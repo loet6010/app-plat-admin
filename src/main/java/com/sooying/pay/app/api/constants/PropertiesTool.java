@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.util;
+package com.sooying.pay.app.api.constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,16 +23,16 @@ import com.bench.common.lang.NumberUtils;
  * @author liurh
  * @date 2018年6月4日
  */
-public class PropertiesUtil {
+public class PropertiesTool {
     private static final Map<String, Properties> allProperties = new HashMap<String, Properties>();
 
-    private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(PropertiesTool.class);
 
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
     private final Properties properties;
 
-    public PropertiesUtil(String... resourcesPaths) {
+    public PropertiesTool(String... resourcesPaths) {
         properties = loadProperties(resourcesPaths);
     }
 

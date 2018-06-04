@@ -2,6 +2,8 @@ package com.sooying.pay.app.api.util;
 
 import java.security.MessageDigest;
 
+import com.sooying.pay.app.api.constants.Constants;
+
 public class MD5Util {
 
     private static String byteArrayToHexString(byte b[]) {
@@ -30,7 +32,7 @@ public class MD5Util {
         try {
             resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            resultString = byteArrayToHexString(md.digest(resultString.getBytes(ConstantUtil.UTF8)));
+            resultString = byteArrayToHexString(md.digest(resultString.getBytes(Constants.UTF8)));
         } catch (Exception exception) {
         }
         return resultString;

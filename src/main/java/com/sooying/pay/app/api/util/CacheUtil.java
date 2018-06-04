@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.sooying.pay.app.api.constants.Constants;
 
 /**
  * @Description CacheUtil
@@ -24,10 +25,10 @@ public class CacheUtil {
      * 缓存形式存放token信息
      */
     static {
-        logger.info("CacheUtil cacheTokenList init hour is {},maximumSize is {}", ConstantUtil.CACHE_HOUR,
-                ConstantUtil.MAXIMUM_SIZE);
-        cacheTokenList = CacheBuilder.newBuilder().maximumSize(ConstantUtil.MAXIMUM_SIZE)
-                .expireAfterWrite(ConstantUtil.CACHE_HOUR, TimeUnit.HOURS).build(new CacheLoader<String, String>() {
+        logger.info("CacheUtil cacheTokenList init hour is {},maximumSize is {}", Constants.CACHE_HOUR,
+                Constants.MAXIMUM_SIZE);
+        cacheTokenList = CacheBuilder.newBuilder().maximumSize(Constants.MAXIMUM_SIZE)
+                .expireAfterWrite(Constants.CACHE_HOUR, TimeUnit.HOURS).build(new CacheLoader<String, String>() {
                     public String load(String key) {
                         return "";
                     }

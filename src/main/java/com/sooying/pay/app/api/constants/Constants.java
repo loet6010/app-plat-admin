@@ -1,13 +1,13 @@
-package com.sooying.pay.app.api.util;
+package com.sooying.pay.app.api.constants;
 
 /**
- * 平台常量参数工具类
+ * 平台常量参数
  * 
  * @Description ConstantUtil
  * @author liurh
  * @date 2018年6月4日
  */
-public class ConstantUtil {
+public class Constants {
     // UTF-8字符集编码
     public static final String UTF8 = "UTF-8";
     // token缓存有效小时数
@@ -16,8 +16,8 @@ public class ConstantUtil {
     public static final int MAXIMUM_SIZE;
 
     static {
-        PropertiesUtil pu = new PropertiesUtil("classpath:conf/params.properties");
-        CACHE_HOUR = pu.getIntProperty("guava.cache.hour");
-        MAXIMUM_SIZE = pu.getIntProperty("guava.cache.maximumSize");
+        PropertiesTool propertiesTool = new PropertiesTool("classpath:conf/params.properties");
+        CACHE_HOUR = propertiesTool.getIntProperty("guava.cache.hour");
+        MAXIMUM_SIZE = propertiesTool.getIntProperty("guava.cache.maximumSize");
     }
 }
