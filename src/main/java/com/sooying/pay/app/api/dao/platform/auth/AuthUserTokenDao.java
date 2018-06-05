@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @date 2018年6月4日
  */
 public interface AuthUserTokenDao {
+    
     /**
      * 查询用户数量
      *

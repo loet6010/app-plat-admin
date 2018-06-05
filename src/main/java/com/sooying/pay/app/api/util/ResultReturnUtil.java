@@ -28,7 +28,7 @@ public class ResultReturnUtil {
      * @return
      */
     public static String getResultString(String resultStatus) {
-        return getResultString(resultStatus, null);
+        return getResultString(resultStatus, "");
     }
 
     /**

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.note.NoteInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.sooying.pay.app.api.model.platform.note.NoteInfo">
+		<id column="id" property="id" />
+		<id column="passageway_id" property="passagewayId" />
+		<id column="passageway_name" property="passagewayName" />
+		<id column="code_type" property="codeType" />
+		<id column="status" property="status" />
+	</resultMap>
+
+	<select id="selectNoteInfoCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_note_info
+		where 1 = 1
+		<if test="passagewayId !=null and passagewayId != ''">
+			and passageway_id = #{passagewayId}
+		</if>
+	</select>
+
+	<select id="selectNoteInfoList" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		select *
+		from dp_note_info
+		where 1 = 1
+		<if test="passagewayId !=null and passagewayId != ''">
+			and passageway_id = #{passagewayId}
+		</if>
+		order by create_time desc
+		limit #{rowsPerPage} offset #{start}
+	</select>
+
+	<update id="updateNoteInfoStatus" parameterType="java.util.HashMap">
+		update
+		dp_note_info
+		set status = #{status}
+		where id = #{id}
+	</update>
+</mapper>

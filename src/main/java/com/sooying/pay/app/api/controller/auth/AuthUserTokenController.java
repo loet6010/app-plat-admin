@@ -14,6 +14,13 @@ import com.sooying.pay.app.api.controller.auth.dto.UserInfoDto;
 import com.sooying.pay.app.api.service.auth.AuthUserTokenService;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
+/**
+ * 用户登录获取token
+ * 
+ * @Description AuthUserTokenController
+ * @author liurh
+ * @date 2018年6月5日
+ */
 @Controller
 public class AuthUserTokenController {
     private static Logger logger = LoggerFactory.getLogger(AuthUserTokenController.class);

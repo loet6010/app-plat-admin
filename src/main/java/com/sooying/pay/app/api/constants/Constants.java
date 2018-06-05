@@ -10,6 +10,10 @@ package com.sooying.pay.app.api.constants;
 public class Constants {
     // UTF-8字符集编码
     public static final String UTF8 = "UTF-8";
+    // 状态有效
+    public static final String STATUS_VALID = "1";
+    // 状态无效
+    public static final String STATUS_INVALID = "0";
     // token缓存有效小时数
     public static final int CACHE_HOUR;
     // token缓存最大个数
