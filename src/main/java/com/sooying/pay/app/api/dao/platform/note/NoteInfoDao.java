@@ -33,7 +33,7 @@ public interface NoteInfoDao {
     /**
      * 修改短信明细激活状态
      *
-     * @param paramsMap
+     * @param noteInfo
      */
-    void updateNoteInfoStatus(Map<String, Object> paramsMap);
+    void updateNoteInfoStatus(NoteInfo noteInfo);
 }

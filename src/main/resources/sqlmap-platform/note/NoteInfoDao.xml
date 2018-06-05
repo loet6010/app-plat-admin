@@ -34,7 +34,7 @@
 		limit #{rowsPerPage} offset #{start}
 	</select>
 
-	<update id="updateNoteInfoStatus" parameterType="java.util.HashMap">
+	<update id="updateNoteInfoStatus" parameterType="NoteInfo">
 		update
 		dp_note_info
 		set status = #{status}

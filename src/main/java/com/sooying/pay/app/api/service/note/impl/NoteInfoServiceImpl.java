@@ -88,11 +88,11 @@ public class NoteInfoServiceImpl implements NoteInfoService {
             return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_FAIL.getStatus(), "激活状态必须是0或1！");
         }
 
-        Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("id", Long.parseLong(noteInfoDto.getId()));
-        paramsMap.put("status", noteInfoDto.getStatus());
+        NoteInfo noteInfo = new NoteInfo();
+        noteInfo.setId(Long.parseLong(noteInfoDto.getId()));
+        noteInfo.setStatus(noteInfoDto.getStatus());
 
-        noteInfoDao.updateNoteInfoStatus(paramsMap);
+        noteInfoDao.updateNoteInfoStatus(noteInfo);
 
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
     }
