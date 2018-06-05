@@ -21,10 +21,17 @@ public class AuthUserTokenController {
     @Resource
     private AuthUserTokenService authUserTokenService;
 
+    /**
+     * 用户登录获取token
+     *
+     * @param request
+     * @param userInfoDto
+     * @return
+     */
     @RequestMapping(value = "/token/getUserAccountToken.do", method = { RequestMethod.GET })
     @ResponseBody
     public String getUserAccountToken(HttpServletRequest request, UserInfoDto userInfoDto) {
-        logger.info("AuthUserTokenController 获取用户token");
+        logger.info("AuthUserTokenController 获取用户token，用户：" + userInfoDto.getLoginName());
         try {
             return authUserTokenService.getUserAccountToken(userInfoDto);
         } catch (Exception e) {

@@ -15,7 +15,7 @@ import com.sooying.pay.app.api.constants.ApiStatusEnum;
 import com.sooying.pay.app.api.util.CacheUtil;
 
 /**
- * 权限校验
+ * token校验
  * 
  * @Description AuthInterceptor
  * @author liurh

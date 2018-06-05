@@ -59,6 +59,7 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
             CacheUtil.setToken(loginName, token);
         }
 
+        // 设置返回信息
         AuthUserTokenInfo authUserTokenInfo = new AuthUserTokenInfo();
         authUserTokenInfo.setLoginName(loginName);
         authUserTokenInfo.setToken(token);
