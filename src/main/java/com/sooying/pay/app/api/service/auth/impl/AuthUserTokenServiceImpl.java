@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.sooying.pay.app.api.constants.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.auth.dto.UserInfoDto;
 import com.sooying.pay.app.api.dao.platform.auth.AuthUserTokenDao;
-import com.sooying.pay.app.api.model.platform.auth.AuthUserTokenInfo;
+import com.sooying.pay.app.api.model.platform.auth.UserInfo;
 import com.sooying.pay.app.api.service.auth.AuthUserTokenService;
 import com.sooying.pay.app.api.util.CacheUtil;
 import com.sooying.pay.app.api.util.MD5Util;
@@ -60,12 +60,12 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
         }
 
         // 设置返回信息
-        AuthUserTokenInfo authUserTokenInfo = new AuthUserTokenInfo();
-        authUserTokenInfo.setLoginName(loginName);
-        authUserTokenInfo.setToken(token);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setLoginName(loginName);
+        userInfo.setToken(token);
 
         List<Object> dataList = new ArrayList<Object>();
-        dataList.add(authUserTokenInfo);
+        dataList.add(userInfo);
 
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), "获取token成功", dataList);
     }

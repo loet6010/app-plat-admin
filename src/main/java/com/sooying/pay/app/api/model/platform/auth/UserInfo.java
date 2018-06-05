@@ -3,11 +3,11 @@ package com.sooying.pay.app.api.model.platform.auth;
 /**
  * 用户登录获取token
  * 
- * @Description AuthUserTokenInfo
+ * @Description UserInfo
  * @author liurh
  * @date 2018年6月4日
  */
-public class AuthUserTokenInfo {
+public class UserInfo {
     // 用户名
     private String loginName;
     // token字段
