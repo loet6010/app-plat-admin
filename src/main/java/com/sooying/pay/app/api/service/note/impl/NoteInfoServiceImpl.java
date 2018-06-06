@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bench.common.lang.NumberUtils;
-import com.sooying.pay.app.api.base.Pagination;
+import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.constant.Constants;
 import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
@@ -52,7 +52,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         int totalCount = noteInfoDao.selectNoteInfoCount(paramsMap);
 
         // 初始化分页信息
-        Pagination pagination = new Pagination(totalCount);
+        BasePagination pagination = new BasePagination(totalCount);
         pagination.setCurrentPage(noteInfoDto.getPage());
         pagination.setRowsPerPage(noteInfoDto.getRows());
         pagination.initPage();
