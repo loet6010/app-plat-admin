@@ -14,7 +14,7 @@ import java.util.List;
  * @author chendiwen
  * @version $ v 0.1 2015-9-14 下午2:14:34 chendiwen Exp $
  */
-public class Pagination implements Serializable {
+public class BasePagination implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,21 +36,21 @@ public class Pagination implements Serializable {
     @SuppressWarnings("rawtypes")
     private List pageResultList = new ArrayList();
 
-    public Pagination() {
+    public BasePagination() {
         this.start = 0;
         this.end = 0;
         this.currentPage = 1;
         this.totalCount = 0;
     }
 
-    public Pagination(int totalCount) {
+    public BasePagination(int totalCount) {
         this.start = 0;
         this.end = 0;
         this.currentPage = 1;
         this.totalCount = totalCount;
     }
 
-    public Pagination(int totalCount, int numPerPage) {
+    public BasePagination(int totalCount, int numPerPage) {
         this.start = 0;
         this.end = 0;
         this.totalCount = totalCount;
@@ -67,7 +67,7 @@ public class Pagination implements Serializable {
      *            要翻到的目标页码
      * @return 返回翻页对象
      */
-    public Pagination doPagination(int currentPage) {
+    public BasePagination doPagination(int currentPage) {
         gotoPage(currentPage);
         return this;
     }

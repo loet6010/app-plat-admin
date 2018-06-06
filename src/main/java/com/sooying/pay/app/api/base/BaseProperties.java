@@ -23,16 +23,16 @@ import com.bench.common.lang.NumberUtils;
  * @author liurh
  * @date 2018年6月4日
  */
-public class PropertiesTool {
+public class BaseProperties {
     private static final Map<String, Properties> allProperties = new HashMap<String, Properties>();
 
-    private static Logger logger = LoggerFactory.getLogger(PropertiesTool.class);
+    private static Logger logger = LoggerFactory.getLogger(BaseProperties.class);
 
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
     private final Properties properties;
 
-    public PropertiesTool(String... resourcesPaths) {
+    public BaseProperties(String... resourcesPaths) {
         properties = loadProperties(resourcesPaths);
     }
 

@@ -23,9 +23,10 @@ public class CacheUtil {
 
     /**
      * 构造方法私有，防止类被实例化
+     * @throws InstantiationException 
      */
-    private CacheUtil() {
-
+    private CacheUtil() throws InstantiationException {
+        throw new InstantiationException();
     }
 
     /**

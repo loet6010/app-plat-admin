@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.constant;
 
-import com.sooying.pay.app.api.base.PropertiesTool;
+import com.sooying.pay.app.api.base.BaseProperties;
 
 /**
  * 平台常量参数
@@ -22,7 +22,7 @@ public class Constants {
     public static final int MAXIMUM_SIZE;
 
     static {
-        PropertiesTool propertiesTool = new PropertiesTool("classpath:conf/params.properties");
+        BaseProperties propertiesTool = new BaseProperties("classpath:conf/params.properties");
         CACHE_HOUR = propertiesTool.getIntProperty("guava.cache.hour");
         MAXIMUM_SIZE = propertiesTool.getIntProperty("guava.cache.maximumSize");
     }
