@@ -93,4 +93,15 @@ public class NoteInfo {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    /**
+     * toString
+     * 
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "NoteInfo [id=" + id + ", passagewayId=" + passagewayId + ", passagewayName=" + passagewayName
+                + ", codeType=" + codeType + ", status=" + status + "]";
+    }
 }

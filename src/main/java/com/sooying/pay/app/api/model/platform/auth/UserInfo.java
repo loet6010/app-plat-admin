@@ -43,4 +43,14 @@ public class UserInfo {
         this.token = token;
     }
 
+    /**
+     * toString
+     * 
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "UserInfo [loginName=" + loginName + ", token=" + token + "]";
+    }
+
 }
