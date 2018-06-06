@@ -6,7 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sooying.pay.app.api.constants.Constants;
+import com.sooying.pay.app.api.constant.Constants;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -21,6 +21,13 @@ import net.sf.json.JSONObject;
 public class ResultReturnUtil {
     private final static Logger logger = LoggerFactory.getLogger(ResultReturnUtil.class);
 
+    /**
+     * 构造方法私有，防止类被实例化
+     */
+    private ResultReturnUtil() {
+        
+    }
+    
     /**
      * 获取返回内容
      *

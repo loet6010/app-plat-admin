@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sooying.pay.app.api.constants.ApiStatusEnum;
+import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.util.CacheUtil;
 
 /**

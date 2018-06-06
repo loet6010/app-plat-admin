@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.sooying.pay.app.api.constants.ApiStatusEnum;
+import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.auth.dto.UserInfoDto;
 import com.sooying.pay.app.api.dao.platform.auth.AuthUserTokenDao;
 import com.sooying.pay.app.api.model.platform.auth.UserInfo;

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.sooying.pay.app.api.constants.Constants;
+import com.sooying.pay.app.api.constant.Constants;
 
 /**
  * @Description CacheUtil
@@ -20,6 +20,13 @@ public class CacheUtil {
     private static Logger logger = LoggerFactory.getLogger(CacheUtil.class);
 
     private static LoadingCache<String, String> cacheTokenList;
+
+    /**
+     * 构造方法私有，防止类被实例化
+     */
+    private CacheUtil() {
+
+    }
 
     /**
      * 缓存形式存放token信息

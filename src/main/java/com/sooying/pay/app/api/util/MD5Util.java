@@ -2,9 +2,15 @@ package com.sooying.pay.app.api.util;
 
 import java.security.MessageDigest;
 
-import com.sooying.pay.app.api.constants.Constants;
+import com.sooying.pay.app.api.constant.Constants;
 
 public class MD5Util {
+    /**
+     * 构造方法私有，防止类被实例化
+     */
+    private MD5Util() {
+        
+    }
 
     private static String byteArrayToHexString(byte b[]) {
         StringBuffer resultSb = new StringBuffer();
