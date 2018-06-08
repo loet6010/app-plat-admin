@@ -7,7 +7,8 @@ import com.sooying.pay.app.api.constant.Constants;
 public class MD5Util {
     /**
      * 构造方法私有，防止类被实例化
-     * @throws InstantiationException 
+     * 
+     * @throws InstantiationException
      */
     private MD5Util() throws InstantiationException {
         throw new InstantiationException();

@@ -23,12 +23,13 @@ public class ResultReturnUtil {
 
     /**
      * 构造方法私有，防止类被实例化
-     * @throws InstantiationException 
+     * 
+     * @throws InstantiationException
      */
     private ResultReturnUtil() throws InstantiationException {
         throw new InstantiationException();
     }
-    
+
     /**
      * 获取返回内容
      *
