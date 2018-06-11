@@ -41,6 +41,8 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
      */
     @Override
     public String getUserAccountToken(UserInfoDto userInfoDto) {
+        logger.info("AuthUserTokenServiceImpl getUserAccountToken user is {}", userInfoDto.getLoginName());
+
         String loginName = userInfoDto.getLoginName();
         String loginPassword = userInfoDto.getLoginPassword();
         String token = null;
