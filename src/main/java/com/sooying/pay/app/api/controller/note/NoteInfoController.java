@@ -38,13 +38,18 @@ public class NoteInfoController {
     @RequestMapping(value = "/note/getNoteInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getNoteInfoList(HttpServletRequest request, NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoController 获取电信明细列表，通道ID：" + noteInfoDto.getPassagewayId());
+        logger.info("NoteInfoController 获取电信明细列表，通道ID：{}", noteInfoDto.getPassagewayId());
+
         try {
             return noteInfoService.getNoteInfoList(noteInfoDto);
-        } catch (Exception e) {
-            logger.info("NoteInfoController 获取电信明细列表异常：" + e);
+        } catch (IllegalArgumentException e) {
+            logger.info("获取短信明细列表，参数验证错误：{}", e.getMessage());
 
-            return ResultReturnUtil.getExceptionString();
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("NoteInfoController 获取电信明细列表异常：{}", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
 
@@ -58,13 +63,18 @@ public class NoteInfoController {
     @RequestMapping(value = "/note/modifyNoteInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyNoteInfoStatus(HttpServletRequest request, NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoController 修改短信明细激活状态，主键ID：" + noteInfoDto.getId());
+        logger.info("NoteInfoController 修改短信明细激活状态，主键ID：{}", noteInfoDto.getId());
+
         try {
             return noteInfoService.modifyNoteInfoStatus(noteInfoDto);
-        } catch (Exception e) {
-            logger.info("NoteInfoController 修改短信明细激活状态异常：" + e);
+        } catch (IllegalArgumentException e) {
+            logger.info("修改短信明细激活状态，参数验证错误：{}", e.getMessage());
 
-            return ResultReturnUtil.getExceptionString();
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("NoteInfoController 修改短信明细激活状态异常：{}", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
 }

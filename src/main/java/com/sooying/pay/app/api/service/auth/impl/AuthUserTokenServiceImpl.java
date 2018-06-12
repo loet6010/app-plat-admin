@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.auth.dto.UserInfoDto;
@@ -47,11 +48,7 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
         String loginPassword = userInfoDto.getLoginPassword();
         String token = null;
 
-        if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(loginPassword)) {
-            logger.info("AuthUserTokenServiceImpl 用户名或密码不能为空");
-
-            return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_FAIL.getStatus(), "用户名或密码不能为空");
-        }
+        Assert.isTrue(StringUtils.isNotBlank(loginName) && StringUtils.isNotBlank(loginPassword), "用户名或密码不能为空！");
 
         int userCount = authUserTokenDao.selectUserAccountCount(loginName, MD5Util.MD5EncodeUpperCase(loginPassword));
 

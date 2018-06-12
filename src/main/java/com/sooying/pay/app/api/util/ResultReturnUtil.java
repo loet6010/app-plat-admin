@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.constant.Constants;
 
 import net.sf.json.JSONArray;
@@ -82,13 +83,23 @@ public class ResultReturnUtil {
 
         return returnString;
     }
-
+    
+    /**
+     * 接口异常返回信息
+     *
+     * @param msg
+     * @return
+     */
+    public static String getExceptionString(String msg) {
+        return getResultString(ApiStatusEnum.API_STATUS_FAIL.getStatus(),msg);
+    }
+    
     /**
      * 接口异常返回信息
      *
      * @return
      */
-    public static String getExceptionString() {
+    private static String getExceptionString() {
         return "eyJtZXNzYWdlIjoiQVBJIEV4Y2VwdGlvbiIsInJlc3VsdFN0YXR1cyI6IjIifQ==";
     }
 }

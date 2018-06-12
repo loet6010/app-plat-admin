@@ -38,13 +38,18 @@ public class AuthUserTokenController {
     @RequestMapping(value = "/token/getUserAccountToken.do", method = { RequestMethod.GET })
     @ResponseBody
     public String getUserAccountToken(HttpServletRequest request, UserInfoDto userInfoDto) {
-        logger.info("AuthUserTokenController 获取用户token，用户：" + userInfoDto.getLoginName());
+        logger.info("AuthUserTokenController 获取用户token，用户：{}", userInfoDto.getLoginName());
+
         try {
             return authUserTokenService.getUserAccountToken(userInfoDto);
-        } catch (Exception e) {
-            logger.info("AuthUserTokenController 获取用户token异常：" + e);
+        } catch (IllegalArgumentException e) {
+            logger.info("用户登录获取token，参数验证错误：{}", e.getMessage());
 
-            return ResultReturnUtil.getExceptionString();
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("AuthUserTokenController 获取用户token异常：{}", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
 }

@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.bench.common.lang.NumberUtils;
 import com.sooying.pay.app.api.base.BasePagination;
@@ -61,8 +62,10 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
 
+        // 查询list
         List<NoteInfo> list = noteInfoDao.selectNoteInfoList(paramsMap);
 
+        // list装入返回类型
         List<Object> dataList = new ArrayList<Object>();
         dataList.addAll(list);
 
@@ -81,13 +84,10 @@ public class NoteInfoServiceImpl implements NoteInfoService {
                 noteInfoDto.getLoginName(), noteInfoDto.getId(), noteInfoDto.getStatus());
 
         // 参数验证
-        if (!NumberUtils.isNumber(noteInfoDto.getId()) || Long.parseLong(noteInfoDto.getId()) <= 0) {
-            return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_FAIL.getStatus(), "id必须是数字且大于0！");
-        }
-        if (!(Constants.STATUS_VALID.equals(noteInfoDto.getStatus())
-                || Constants.STATUS_INVALID.equals(noteInfoDto.getStatus()))) {
-            return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_FAIL.getStatus(), "激活状态必须是0或1！");
-        }
+        Assert.isTrue(NumberUtils.isNumber(noteInfoDto.getId()) && Long.parseLong(noteInfoDto.getId()) > 0,
+                "id必须是数字且大于0！");
+        Assert.isTrue(Constants.STATUS_VALID.equals(noteInfoDto.getStatus())
+                || Constants.STATUS_INVALID.equals(noteInfoDto.getStatus()), "激活状态必须是0或1！");
 
         NoteInfo noteInfo = new NoteInfo();
         noteInfo.setId(Long.parseLong(noteInfoDto.getId()));
