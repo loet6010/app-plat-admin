@@ -69,7 +69,9 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         List<Object> dataList = new ArrayList<Object>();
         dataList.addAll(list);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), "获取短信明细成功", dataList);
+        String msg = "获取短信明细成功";
+        logger.info("NoteInfoServiceImpl getNoteInfoList {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
     /**
@@ -95,7 +97,9 @@ public class NoteInfoServiceImpl implements NoteInfoService {
 
         noteInfoDao.updateNoteInfoStatus(noteInfo);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
+        String msg = "修改短信明细激活状态成功";
+        logger.info("NoteInfoServiceImpl modifyNoteInfoStatus {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
     }
 
 }

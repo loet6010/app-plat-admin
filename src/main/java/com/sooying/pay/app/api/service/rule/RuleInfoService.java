@@ -12,7 +12,7 @@ import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
 public interface RuleInfoService {
 
     /**
-     * 获取通道过滤列表
+     * 获取通道过滤规则列表
      *
      * @param ruleInfoDto
      * @return
@@ -36,7 +36,7 @@ public interface RuleInfoService {
     String removeRuleInfo(RuleInfoDto ruleInfoDto);
 
     /**
-     * 通道过滤规则的激活与关停
+     * 修改通道过滤规则激活状态
      *
      * @param ruleInfoDto
      * @return
@@ -44,7 +44,7 @@ public interface RuleInfoService {
     String modifyRuleInfoStatus(RuleInfoDto ruleInfoDto);
 
     /**
-     * 新增通道规律规则
+     * 新增通道过滤规则
      *
      * @param ruleInfoDto
      * @return

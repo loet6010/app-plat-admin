@@ -104,7 +104,7 @@ public class RuleInfoController {
     }
 
     /**
-     * 通道过滤规则的激活与关停
+     * 修改通道过滤规则激活状态
      *
      * @param request
      * @param ruleInfoDto
@@ -113,16 +113,16 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/modifyRuleInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyRuleInfoStatus(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 通道过滤规则的激活与关停，id：{}", ruleInfoDto.getId());
+        logger.info("RuleInfoController 修改通道过滤规则激活状态，id：{}", ruleInfoDto.getId());
 
         try {
             return ruleInfoService.modifyRuleInfoStatus(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("通道过滤规则的激活与关停，参数验证错误：{}", e.getMessage());
+            logger.info("修改通道过滤规则激活状态，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 通道过滤规则的激活与关停异常：{}", e);
+            logger.info("RuleInfoController 修改通道过滤规则激活状态异常：{}", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

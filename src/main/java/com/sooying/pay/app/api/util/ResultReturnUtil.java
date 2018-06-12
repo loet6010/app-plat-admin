@@ -32,13 +32,13 @@ public class ResultReturnUtil {
     }
 
     /**
-     * 获取返回内容
+     * 获取处理成功返回内容
      *
-     * @param resultStatus
+     * @param msg
      * @return
      */
-    public static String getResultString(String resultStatus) {
-        return getResultString(resultStatus, "");
+    public static String getSuccessString(String msg) {
+        return getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg);
     }
 
     /**

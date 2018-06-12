@@ -1,5 +1,7 @@
 package com.sooying.pay.app.api.controller.auth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,7 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
  */
 @Controller
 public class AuthErrMsgController {
+    Logger logger = LoggerFactory.getLogger(AuthErrMsgController.class);
 
     /**
      * 拦截器错误信息返回
@@ -27,6 +30,7 @@ public class AuthErrMsgController {
     @RequestMapping(value = "/auth/showAuthMsg.do")
     @ResponseBody
     public String showAuthMsg(String resultStatus, String message) throws Exception {
+        logger.info(message);
         return ResultReturnUtil.getResultString(resultStatus, message);
     }
 }

@@ -46,17 +46,14 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
 
         String loginName = userInfoDto.getLoginName();
         String loginPassword = userInfoDto.getLoginPassword();
-        String token = null;
 
         Assert.isTrue(StringUtils.isNotBlank(loginName) && StringUtils.isNotBlank(loginPassword), "用户名或密码不能为空！");
-
         int userCount = authUserTokenDao.selectUserAccountCount(loginName, MD5Util.MD5EncodeUpperCase(loginPassword));
+        Assert.isTrue(userCount > 0, "用户名或密码错误！");
 
-        if (userCount > 0) {
-            // 用户存在，设置token
-            token = MD5Util.MD5EncodeUpperCase(loginName + System.currentTimeMillis());
-            CacheUtil.setToken(loginName, token);
-        }
+        // 用户存在，设置token
+        String token = MD5Util.MD5EncodeUpperCase(loginName + System.currentTimeMillis());
+        CacheUtil.setToken(loginName, token);
 
         // 设置返回信息
         UserInfo userInfo = new UserInfo();
@@ -66,7 +63,9 @@ public class AuthUserTokenServiceImpl implements AuthUserTokenService {
         List<Object> dataList = new ArrayList<Object>();
         dataList.add(userInfo);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), "获取token成功", dataList);
+        String msg = "获取token成功";
+        logger.info("AuthUserTokenServiceImpl getUserAccountToken {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
 }

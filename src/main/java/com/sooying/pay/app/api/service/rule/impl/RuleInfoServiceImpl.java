@@ -42,7 +42,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
     RuleInfoDao ruleInfoDao;
 
     /**
-     * 获取通道过滤列表
+     * 获取通道过滤规则列表
      * 
      * @param ruleInfoDto
      * @return
@@ -77,7 +77,9 @@ public class RuleInfoServiceImpl implements RuleInfoService {
         List<Object> dataList = new ArrayList<Object>();
         dataList.addAll(list);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), "获取通道过滤规则成功", dataList);
+        String msg = "获取通道过滤规则成功";
+        logger.info("RuleInfoServiceImpl getRuleInfoList {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
     /**
@@ -103,7 +105,9 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
         ruleInfoDao.updateRuleInfo(ruleInfo);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
+        String msg = "修改通道过滤规则成功";
+        logger.info("RuleInfoServiceImpl modifyRuleInfo {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
     }
 
     /**
@@ -124,11 +128,13 @@ public class RuleInfoServiceImpl implements RuleInfoService {
         long id = Long.parseLong(ruleInfoDto.getId());
         ruleInfoDao.deleteRuleInfo(id);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
+        String msg = "删除通道过滤规则成功";
+        logger.info("RuleInfoServiceImpl removeRuleInfo {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
     }
 
     /**
-     * 通道过滤规则的激活与关停
+     * 修改通道过滤规则激活状态
      * 
      * @param ruleInfoDto
      * @return
@@ -150,11 +156,13 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
         ruleInfoDao.updateRuleInfoStatus(ruleInfo);
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
+        String msg = "修改通道过滤规则激活状态成功";
+        logger.info("RuleInfoServiceImpl modifyRuleInfoStatus {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
     }
 
     /**
-     * 新增通道规律规则
+     * 新增通道过滤规则
      * 
      * @param ruleInfoDto
      * @return
@@ -237,7 +245,9 @@ public class RuleInfoServiceImpl implements RuleInfoService {
             ruleInfoDao.insertRuleInfo(ruleInfo);
         }
 
-        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus());
+        String msg = "新增通道过滤规则成功";
+        logger.info("RuleInfoServiceImpl addRuleInfo {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
     }
 
     /**
