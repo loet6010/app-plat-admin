@@ -4,7 +4,15 @@ import java.security.MessageDigest;
 
 import com.sooying.pay.app.api.constant.Constants;
 
+/**
+ * MD5工具类
+ * 
+ * @Description MD5Util
+ * @author liurh
+ * @date 2018年6月12日
+ */
 public class MD5Util {
+    
     /**
      * 构造方法私有，防止类被实例化
      * 

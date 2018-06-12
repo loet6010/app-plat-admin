@@ -12,6 +12,8 @@ import com.google.common.cache.LoadingCache;
 import com.sooying.pay.app.api.constant.Constants;
 
 /**
+ * 缓存工具类
+ * 
  * @Description CacheUtil
  * @author liurh
  * @date 2018年6月4日

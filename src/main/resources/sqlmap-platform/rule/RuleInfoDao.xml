@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.sooying.pay.app.api.model.platform.rule.RuleInfo">
+		<id column="id" property="id" />
+		<id column="passageway_id" property="passagewayId" />
+		<id column="code_type" property="codeType" />
+		<id column="rule_type" property="ruleType" />
+		<id column="rule_value" property="ruleValue" />
+		<id column="start_time" property="startTime" />
+		<id column="status" property="status" />
+	</resultMap>
+
+	<select id="selectRuleInfoCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_rule_info
+		where open_rule = '0'
+		<if test="passagewayId !=null and passagewayId != ''">
+            and passageway_id = #{passagewayId}
+        </if>
+	</select>
+
+	<select id="selectRuleInfoList" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		select *
+		from dp_rule_info
+		where open_rule = '0'
+		<if test="passagewayId !=null and passagewayId != ''">
+			and passageway_id = #{passagewayId}
+		</if>
+		order by create_time desc
+		limit #{rowsPerPage} offset #{start}
+	</select>
+	
+	<update id="updateRuleInfo" parameterType="RuleInfo">
+        update dp_rule_info
+        set rule_value = #{ruleValue},
+            start_time = #{startTime}
+        where id = #{id}
+    </update>
+
+	<delete id="deleteRuleInfo" parameterType="java.lang.Long">
+		delete from dp_rule_info where id = #{id}
+	</delete>
+
+	<update id="updateRuleInfoStatus" parameterType="RuleInfo">
+		update dp_rule_info
+		set status = #{status}
+		where id = #{id}
+	</update>
+
+	<insert id="insertRuleInfo" parameterType="RuleInfo">
+		insert into dp_rule_info(
+		  rule_value,
+		  code_type,
+		  passageway_id,
+		  rule_type,
+		  start_time,
+		  filter_type,
+		  status,
+		  create_time
+		)values(
+		  #{ruleValue},
+		  #{codeType},
+		  #{passagewayId},
+		  #{ruleType},
+		  #{startTime},
+		  '1',
+		  '1',
+		  now()
+		)
+	</insert>
+
+	<select id="selectPluginType" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select plugin_type
+		from dp_pay_plugin
+		where plugin_id = #{pluginId}
+	</select>
+
+	<select id="selectFeeGroupCount" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_fee_group
+		where group_id = #{groupId}
+	</select>
+
+	<select id="selectRuleValueExistCount" parameterType="RuleInfo"
+		resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM dp_rule_info 
+        where passageway_id = #{passagewayId} 
+          and rule_type = #{ruleType}
+          and start_time >= #{startTime}
+          and open_rule = '0'
+	</select>
+</mapper>
