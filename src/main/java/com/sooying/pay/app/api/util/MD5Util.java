@@ -12,9 +12,12 @@ import com.sooying.pay.app.api.constant.Constants;
  * @date 2018年6月12日
  */
 public class MD5Util {
-    
+
+    private static final String hexDigits[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",
+            "e", "f" };
+
     /**
-     * 构造方法私有，防止类被实例化
+     * 构造方法私有，禁止实例化
      * 
      * @throws InstantiationException
      */
@@ -22,27 +25,22 @@ public class MD5Util {
         throw new InstantiationException();
     }
 
-    private static String byteArrayToHexString(byte b[]) {
-        StringBuffer resultSb = new StringBuffer();
-        for (int i = 0; i < b.length; i++)
-            resultSb.append(byteToHexString(b[i]));
-
-        return resultSb.toString();
-    }
-
-    private static String byteToHexString(byte b) {
-        int n = b;
-        if (n < 0)
-            n += 256;
-        int d1 = n / 16;
-        int d2 = n % 16;
-        return hexDigits[d1] + hexDigits[d2];
-    }
-
+    /**
+     * 获取大写MD5加密字符串
+     *
+     * @param origin
+     * @return
+     */
     public static String MD5EncodeUpperCase(String origin) {
         return MD5Encode(origin).toUpperCase();
     }
 
+    /**
+     * 获取小写MD5加密字符串
+     *
+     * @param origin
+     * @return
+     */
     public static String MD5Encode(String origin) {
         String resultString = null;
         try {
@@ -54,7 +52,33 @@ public class MD5Util {
         return resultString;
     }
 
-    private static final String hexDigits[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",
-            "e", "f" };
+    /**
+     * 二进制数组转为字符串
+     *
+     * @param b
+     * @return
+     */
+    private static String byteArrayToHexString(byte b[]) {
+        StringBuffer resultSb = new StringBuffer();
+        for (int i = 0; i < b.length; i++)
+            resultSb.append(byteToHexString(b[i]));
+
+        return resultSb.toString();
+    }
+
+    /**
+     * 二进制数转为字符串
+     *
+     * @param b
+     * @return
+     */
+    private static String byteToHexString(byte b) {
+        int n = b;
+        if (n < 0)
+            n += 256;
+        int d1 = n / 16;
+        int d2 = n % 16;
+        return hexDigits[d1] + hexDigits[d2];
+    }
 
 }

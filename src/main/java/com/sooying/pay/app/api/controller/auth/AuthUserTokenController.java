@@ -43,7 +43,7 @@ public class AuthUserTokenController {
         try {
             return authUserTokenService.getUserAccountToken(userInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("用户登录获取token，参数验证错误：{}", e.getMessage());
+            logger.info("AuthUserTokenController 用户登录获取token，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {

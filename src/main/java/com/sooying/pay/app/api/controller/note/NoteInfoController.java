@@ -43,7 +43,7 @@ public class NoteInfoController {
         try {
             return noteInfoService.getNoteInfoList(noteInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("获取短信明细列表，参数验证错误：{}", e.getMessage());
+            logger.info("NoteInfoController 获取短信明细列表，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class NoteInfoController {
         try {
             return noteInfoService.modifyNoteInfoStatus(noteInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("修改短信明细激活状态，参数验证错误：{}", e.getMessage());
+            logger.info("NoteInfoController 修改短信明细激活状态，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {

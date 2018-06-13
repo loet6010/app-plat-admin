@@ -43,7 +43,7 @@ public class RuleInfoController {
         try {
             return ruleInfoService.getRuleInfoList(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("获取通道过滤规则列表，参数验证错误：{}", e.getMessage());
+            logger.info("RuleInfoController 获取通道过滤规则列表，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class RuleInfoController {
         try {
             return ruleInfoService.modifyRuleInfo(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("修改通道过滤规则，参数验证错误：{}", e.getMessage());
+            logger.info("RuleInfoController 修改通道过滤规则，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class RuleInfoController {
         try {
             return ruleInfoService.removeRuleInfo(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("删除通道过滤规则，参数验证错误：{}", e.getMessage());
+            logger.info("RuleInfoController 删除通道过滤规则，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class RuleInfoController {
         try {
             return ruleInfoService.modifyRuleInfoStatus(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("修改通道过滤规则激活状态，参数验证错误：{}", e.getMessage());
+            logger.info("RuleInfoController 修改通道过滤规则激活状态，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public class RuleInfoController {
         try {
             return ruleInfoService.addRuleInfo(ruleInfoDto);
         } catch (IllegalArgumentException e) {
-            logger.info("新增通道过滤规则，参数验证错误：{}", e.getMessage());
+            logger.info("RuleInfoController 新增通道过滤规则，参数验证错误：{}", e.getMessage());
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
