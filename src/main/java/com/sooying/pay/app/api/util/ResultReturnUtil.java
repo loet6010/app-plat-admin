@@ -23,7 +23,7 @@ public class ResultReturnUtil {
     private final static Logger logger = LoggerFactory.getLogger(ResultReturnUtil.class);
 
     /**
-     * 构造方法私有，防止类被实例化
+     * 构造方法私有，禁止实例化
      * 
      * @throws InstantiationException
      */
