@@ -141,7 +141,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
      */
     @Override
     public String modifyRuleInfoStatus(RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoServiceImpl modifyRuleInfoStatus user is {}, id is {},status is {}",
+        logger.info("RuleInfoServiceImpl modifyRuleInfoStatus user is {}, id is {}, status is {}",
                 ruleInfoDto.getLoginName(), ruleInfoDto.getId(), ruleInfoDto.getStatus());
 
         // 参数验证

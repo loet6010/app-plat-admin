@@ -38,7 +38,7 @@ public class NoteInfoController {
     @RequestMapping(value = "/note/getNoteInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getNoteInfoList(HttpServletRequest request, NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoController 获取电信明细列表，通道ID：{}", noteInfoDto.getPassagewayId());
+        logger.info("NoteInfoController 获取短信明细列表，通道ID：{}", noteInfoDto.getPassagewayId());
 
         try {
             return noteInfoService.getNoteInfoList(noteInfoDto);
@@ -47,7 +47,7 @@ public class NoteInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("NoteInfoController 获取电信明细列表异常：{}", e);
+            logger.info("NoteInfoController 获取短信明细列表异常：{}", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
