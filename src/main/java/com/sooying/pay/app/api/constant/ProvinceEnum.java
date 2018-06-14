@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * 省份枚举信息
  * 
- * @author lhb
- * 
- * @version $Id: ProvinceEnum.java, v 0.1 2014-4-15 上午11:32:59 lhb Exp $
+ * @Description ProvinceEnum
+ * @author liurh
+ * @date 2018年6月14日
  */
 public enum ProvinceEnum {
     BEI_JING("北京", 1),
@@ -74,6 +74,36 @@ public enum ProvinceEnum {
         }
 
         return provinceList;
+    }
+    
+    /**
+     * 获取省份枚举名称
+     *
+     * @param code
+     * @return
+     */
+    public static String getEnumNameByCode(int code) {
+        for (ProvinceEnum provinceEnum : ProvinceEnum.values()) {
+            if (provinceEnum.getCode() == code) {
+                return provinceEnum.toString();
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * 获取省份名称
+     *
+     * @param enumName
+     * @return
+     */
+    public static String getNameByEnumName(String enumName) {
+        for (ProvinceEnum provinceEnum : ProvinceEnum.values()) {
+            if (provinceEnum.toString().equals(enumName)) {
+                return provinceEnum.getName();
+            }
+        }
+        return null;
     }
 
     /**

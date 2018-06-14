@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.grade.PassagewayGradeInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.sooying.pay.app.api.model.platform.grade.PassagewayGradeInfo">
+		<id column="id" property="id" />
+		<id column="passageway_id" property="passagewayId" />
+		<id column="province" property="province" />
+		<id column="price" property="price" />
+		<id column="net_operator" property="netOperator" />
+		<id column="priority_number" property="priorityNumber" />
+		<id column="change_status" property="changeStatus" />
+	</resultMap>
+
+	<select id="selectPassagewayGradeInfoCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_passageway_grade_info
+		where 1 = 1
+		<if test="passagewayId !=null and passagewayId != ''">
+            and passageway_id = #{passagewayId}
+        </if>
+        <if test="province !=null and province != ''">
+            and province = #{province}
+        </if>
+        <if test="price !=null">
+            and price = #{price}
+        </if>
+        <if test="netOperator !=null and netOperator != ''">
+            and net_operator = #{netOperator}
+        </if>
+	</select>
+
+	<select id="selectPassagewayGradeInfoList" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		select *
+		from dp_passageway_grade_info
+        where 1 = 1
+        <if test="passagewayId !=null and passagewayId != ''">
+            and passageway_id = #{passagewayId}
+        </if>
+        <if test="province !=null and province != ''">
+            and province = #{province}
+        </if>
+        <if test="price !=null">
+            and price = #{price}
+        </if>
+        <if test="netOperator !=null and netOperator != ''">
+            and net_operator = #{netOperator}
+        </if>
+		order by priority_number desc
+		limit #{rowsPerPage} offset #{start}
+	</select>
+</mapper>
