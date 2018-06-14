@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.popup.PopUpInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.sooying.pay.app.api.model.platform.popup.PopUpInfo">
+		<id column="id" property="id" />
+		<id column="plugin_id" property="passagewayId" />
+		<id column="net_type" property="netType" />
+		<id column="channel_no" property="channelNo" />
+		<id column="province" property="province" />
+		<id column="popup_rule" property="popUpRule" />
+		<id column="plugin_status" property="pluginStatus" />
+		<id column="app_id" property="appId" />
+		<id column="priority" property="priority" />
+		<id column="status" property="status" />
+	</resultMap>
+
+	<select id="selectPopUpInfoCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_pop_up_info
+		where 1 = 1
+		<if test="passagewayId !=null and passagewayId != ''">
+            and plugin_id = #{passagewayId}
+        </if>
+        <if test="netType !=null and netType != ''">
+            and net_type = #{netType}
+        </if>
+        <if test="channelNo !=null and channelNo != ''">
+            and channel_no = #{channelNo}
+        </if>
+        <if test="province !=null and province != ''">
+            and province = #{province}
+        </if>
+	</select>
+
+	<select id="selectPopUpInfoList" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		select *
+		from dp_pop_up_info
+        where 1 = 1
+        <if test="passagewayId !=null and passagewayId != ''">
+            and plugin_id = #{passagewayId}
+        </if>
+        <if test="netType !=null and netType != ''">
+            and net_type = #{netType}
+        </if>
+        <if test="channelNo !=null and channelNo != ''">
+            and channel_no = #{channelNo}
+        </if>
+        <if test="province !=null and province != ''">
+            and province = #{province}
+        </if>
+		order by create_time desc
+		limit #{rowsPerPage} offset #{start}
+	</select>
+	
+	<update id="updatePopUpInfo" parameterType="PopUpInfo">
+        update dp_pop_up_info
+        set plugin_id = #{passagewayId},
+            net_type = #{netType},
+            channel_no = #{channelNo},
+            province = #{province},
+            popup_rule = #{popUpRule},
+            plugin_status = #{pluginStatus},
+            app_id = #{appId},
+            priority = #{priority},
+            modify_time = now()
+        where id = #{id}
+    </update>
+
+	<delete id="deletePopUpInfo" parameterType="java.lang.Long">
+		delete from dp_pop_up_info where id = #{id}
+	</delete>
+
+	<update id="updatePopUpInfoStatus" parameterType="PopUpInfo">
+        update dp_pop_up_info
+        set status = #{status}
+        where id = #{id}
+	</update>
+
+	<insert id="insertPopUpInfo" parameterType="PopUpInfo">
+		insert into dp_pop_up_info(
+		  plugin_id,
+		  net_type,
+		  channel_no,
+		  province,
+		  popup_rule,
+		  plugin_status,
+		  app_id,
+		  priority,
+		  status,
+		  create_time
+		)values(
+		  #{passagewayId},
+		  #{netType},
+          #{channelNo},
+          #{province},
+          #{popUpRule},
+          #{pluginStatus},
+          #{appId},
+          #{priority},
+		  '1',
+		  now()
+		)
+	</insert>
+</mapper>
