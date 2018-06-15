@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.Assert;
+
 /**
  * 储存分页处理工具类 在调用此类的方法之前需设置总页数(即得先从数据库查询到相应数据的数据量)
  * 
@@ -192,6 +194,8 @@ public class BasePagination implements Serializable {
      * @param pageNumber
      */
     public void gotoPage(int pageNumber) {
+        Assert.isTrue((pageNumber - 1) * rowsPerPage < this.totalCount, "当前已是最后一页！");
+        
         if (pageNumber <= 1) {
             currentPage = 1;
         } else if (getTotalCount() < this.getRowsPerPage()) {
