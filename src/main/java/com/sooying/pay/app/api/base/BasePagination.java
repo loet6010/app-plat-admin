@@ -194,8 +194,8 @@ public class BasePagination implements Serializable {
      * @param pageNumber
      */
     public void gotoPage(int pageNumber) {
-        Assert.isTrue((pageNumber - 1) * rowsPerPage < this.totalCount, "当前已是最后一页！");
-        
+        Assert.isTrue(pageNumber == 1 || ((pageNumber - 1) * rowsPerPage < this.totalCount), "当前已是最后一页！");
+
         if (pageNumber <= 1) {
             currentPage = 1;
         } else if (getTotalCount() < this.getRowsPerPage()) {
