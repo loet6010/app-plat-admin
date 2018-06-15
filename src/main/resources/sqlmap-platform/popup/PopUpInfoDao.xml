@@ -77,7 +77,8 @@
 
 	<update id="updatePopUpInfoStatus" parameterType="PopUpInfo">
         update dp_pop_up_info
-        set status = #{status}
+        set status = #{status},
+            modify_time = now()
         where id = #{id}
 	</update>
 

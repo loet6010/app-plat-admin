@@ -39,7 +39,8 @@
 	<update id="updateRuleInfo" parameterType="RuleInfo">
         update dp_rule_info
         set rule_value = #{ruleValue},
-            start_time = #{startTime}
+            start_time = #{startTime},
+            modify_time = now()
         where id = #{id}
     </update>
 
@@ -49,7 +50,8 @@
 
 	<update id="updateRuleInfoStatus" parameterType="RuleInfo">
 		update dp_rule_info
-		set status = #{status}
+		set status = #{status},
+		    modify_time = now()
 		where id = #{id}
 	</update>
 

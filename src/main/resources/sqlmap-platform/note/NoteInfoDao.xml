@@ -36,7 +36,8 @@
 
 	<update id="updateNoteInfoStatus" parameterType="NoteInfo">
 		update dp_note_info
-		set status = #{status}
+		set status = #{status},
+		    modify_time = now()
 		where id = #{id}
 	</update>
 </mapper>
