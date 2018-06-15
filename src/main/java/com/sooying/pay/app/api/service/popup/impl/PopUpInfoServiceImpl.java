@@ -95,20 +95,9 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         CheckUtil.idCheck(popUpInfoDto.getId());
         Assert.isTrue(StringUtils.isNotBlank(popUpInfoDto.getPriority()), "优先级不能为空！");
 
-        // Bean拷贝
+        // 设置内容
         PopUpInfo popUpInfo = new PopUpInfo();
-        BeanDateCopyUtil.copyProperties(popUpInfo, popUpInfoDto);
-
-        // 设置规则格式
-        String popUpRule = getPopUpRule(popUpInfoDto);
-        popUpInfo.setPopUpRule(popUpRule);
-
-        // 设置通道ID存在状态
-        if (StringUtils.isNotBlank(popUpInfoDto.getPassagewayId())) {
-            popUpInfo.setPluginStatus(Constants.STRING_ONE);
-        } else {
-            popUpInfo.setPluginStatus(Constants.STRING_ZERO);
-        }
+        setPopUpInfo(popUpInfo, popUpInfoDto);
 
         popUpInfoDao.updatePopUpInfo(popUpInfo);
 
@@ -179,8 +168,25 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         // 参数验证
         Assert.isTrue(StringUtils.isNotBlank(popUpInfoDto.getPriority()), "优先级不能为空！");
 
-        // Bean拷贝
+        // 设置内容
         PopUpInfo popUpInfo = new PopUpInfo();
+        setPopUpInfo(popUpInfo, popUpInfoDto);
+
+        popUpInfoDao.insertPopUpInfo(popUpInfo);
+
+        String msg = "新增二次确认弹窗成功";
+        logger.info("PopUpInfoServiceImpl addPopUpInfo {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
+    }
+
+    /**
+     * 设置二次确认弹窗内容
+     *
+     * @param popUpInfo
+     * @param popUpInfoDto
+     */
+    private void setPopUpInfo(PopUpInfo popUpInfo, PopUpInfoDto popUpInfoDto) {
+        // Bean拷贝
         BeanDateCopyUtil.copyProperties(popUpInfo, popUpInfoDto);
 
         // 设置规则格式
@@ -193,12 +199,6 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         } else {
             popUpInfo.setPluginStatus(Constants.STRING_ZERO);
         }
-
-        popUpInfoDao.insertPopUpInfo(popUpInfo);
-
-        String msg = "新增二次确认弹窗成功";
-        logger.info("PopUpInfoServiceImpl addPopUpInfo {}", msg);
-        return ResultReturnUtil.getSuccessString(msg);
     }
 
     /**
