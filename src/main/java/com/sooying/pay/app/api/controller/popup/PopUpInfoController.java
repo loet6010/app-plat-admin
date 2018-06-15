@@ -38,7 +38,7 @@ public class PopUpInfoController {
     @RequestMapping(value = "/popup/getPopUpInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getPopUpInfoList(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoController 获取二次确认弹窗列表，通道ID：{}", popUpInfoDto.getPassagewayId());
+        logger.info("PopUpInfoController getPopUpInfoList 获取二次确认弹窗列表");
 
         try {
             return popUpInfoService.getPopUpInfoList(popUpInfoDto);
@@ -63,7 +63,7 @@ public class PopUpInfoController {
     @RequestMapping(value = "/popup/modifyPopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyPopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoController 修改二次确认弹窗，id：{}", popUpInfoDto.getId());
+        logger.info("PopUpInfoController modifyPopUpInfo 修改二次确认弹窗");
 
         try {
             return popUpInfoService.modifyPopUpInfo(popUpInfoDto);
@@ -88,7 +88,7 @@ public class PopUpInfoController {
     @RequestMapping(value = "/popup/removePopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String removePopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoController 删除二次确认弹窗，id：{}", popUpInfoDto.getId());
+        logger.info("PopUpInfoController removePopUpInfo 删除二次确认弹窗");
 
         try {
             return popUpInfoService.removePopUpInfo(popUpInfoDto);
@@ -113,7 +113,7 @@ public class PopUpInfoController {
     @RequestMapping(value = "/popup/modifyPopUpInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyPopUpInfoStatus(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoController 修改二次确认弹窗激活状态，id：{}", popUpInfoDto.getId());
+        logger.info("PopUpInfoController modifyPopUpInfoStatus 修改二次确认弹窗激活状态");
 
         try {
             return popUpInfoService.modifyPopUpInfoStatus(popUpInfoDto);
@@ -138,7 +138,7 @@ public class PopUpInfoController {
     @RequestMapping(value = "/popup/addPopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String addPopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoController 新增二次确认弹窗，通道ID：{}", popUpInfoDto.getPassagewayId());
+        logger.info("PopUpInfoController addPopUpInfo 新增二次确认弹窗");
 
         try {
             return popUpInfoService.addPopUpInfo(popUpInfoDto);

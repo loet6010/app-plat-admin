@@ -38,7 +38,7 @@ public class NoteInfoController {
     @RequestMapping(value = "/note/getNoteInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getNoteInfoList(HttpServletRequest request, NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoController 获取短信明细列表，通道ID：{}", noteInfoDto.getPassagewayId());
+        logger.info("NoteInfoController getNoteInfoList 获取短信明细列表");
 
         try {
             return noteInfoService.getNoteInfoList(noteInfoDto);
@@ -63,7 +63,7 @@ public class NoteInfoController {
     @RequestMapping(value = "/note/modifyNoteInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyNoteInfoStatus(HttpServletRequest request, NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoController 修改短信明细激活状态，主键ID：{}", noteInfoDto.getId());
+        logger.info("NoteInfoController modifyNoteInfoStatus 修改短信明细激活状态");
 
         try {
             return noteInfoService.modifyNoteInfoStatus(noteInfoDto);

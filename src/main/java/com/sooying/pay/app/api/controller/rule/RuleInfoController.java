@@ -38,7 +38,7 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/getRuleInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getRuleInfoList(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 获取通道过滤规则列表，通道ID：{}", ruleInfoDto.getPassagewayId());
+        logger.info("RuleInfoController getRuleInfoList 获取通道过滤规则列表");
 
         try {
             return ruleInfoService.getRuleInfoList(ruleInfoDto);
@@ -63,7 +63,7 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/modifyRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 修改通道过滤规则，id：{}", ruleInfoDto.getId());
+        logger.info("RuleInfoController modifyRuleInfo 修改通道过滤规则");
 
         try {
             return ruleInfoService.modifyRuleInfo(ruleInfoDto);
@@ -88,7 +88,7 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/removeRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String removeRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 删除通道过滤规则，id：{}", ruleInfoDto.getId());
+        logger.info("RuleInfoController removeRuleInfo 删除通道过滤规则");
 
         try {
             return ruleInfoService.removeRuleInfo(ruleInfoDto);
@@ -113,7 +113,7 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/modifyRuleInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyRuleInfoStatus(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 修改通道过滤规则激活状态，id：{}", ruleInfoDto.getId());
+        logger.info("RuleInfoController modifyRuleInfoStatus 修改通道过滤规则激活状态");
 
         try {
             return ruleInfoService.modifyRuleInfoStatus(ruleInfoDto);
@@ -138,7 +138,7 @@ public class RuleInfoController {
     @RequestMapping(value = "/rule/addRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String addRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoController 新增通道过滤规则，通道ID：{}", ruleInfoDto.getPassagewayId());
+        logger.info("RuleInfoController addRuleInfo 新增通道过滤规则");
 
         try {
             return ruleInfoService.addRuleInfo(ruleInfoDto);

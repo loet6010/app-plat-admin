@@ -39,7 +39,7 @@ public class PassagewayGradeInfoController {
     @ResponseBody
     public String getPassagewayGradeInfoList(HttpServletRequest request,
             PassagewayGradeInfoDto passagewayGradeInfoDto) {
-        logger.info("PassagewayGradeInfoController 获取通道分级系数数据列表，通道ID：{}", passagewayGradeInfoDto.getPassagewayId());
+        logger.info("PassagewayGradeInfoController getPassagewayGradeInfoList 获取通道分级系数数据列表");
 
         try {
             return passagewayGradeInfoService.getPassagewayGradeInfoList(passagewayGradeInfoDto);

@@ -38,7 +38,7 @@ public class PassagewayCoefInfoController {
     @RequestMapping(value = "/grade/getPassagewayCoefInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
     public String getPassagewayCoefInfoList(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoController 获取通道系数配置列表，通道ID：{}", passagewayCoefInfoDto.getPassagewayId());
+        logger.info("PassagewayCoefInfoController getPassagewayCoefInfoList 获取通道系数配置列表");
 
         try {
             return passagewayCoefInfoService.getPassagewayCoefInfoList(passagewayCoefInfoDto);
@@ -63,7 +63,7 @@ public class PassagewayCoefInfoController {
     @RequestMapping(value = "/grade/modifyPassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String modifyPassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoController 修改通道系数配置，id：{}", passagewayCoefInfoDto.getId());
+        logger.info("PassagewayCoefInfoController modifyPassagewayCoefInfo 修改通道系数配置");
 
         try {
             return passagewayCoefInfoService.modifyPassagewayCoefInfo(passagewayCoefInfoDto);
@@ -88,7 +88,7 @@ public class PassagewayCoefInfoController {
     @RequestMapping(value = "/grade/removePassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String removePassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoController 删除通道系数配置，id：{}", passagewayCoefInfoDto.getId());
+        logger.info("PassagewayCoefInfoController removePassagewayCoefInfo 删除通道系数配置");
 
         try {
             return passagewayCoefInfoService.removePassagewayCoefInfo(passagewayCoefInfoDto);
@@ -113,7 +113,7 @@ public class PassagewayCoefInfoController {
     @RequestMapping(value = "/grade/addPassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
     public String addPassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoController 新增通道系数配置，通道ID：{}", passagewayCoefInfoDto.getPassagewayId());
+        logger.info("PassagewayCoefInfoController addPassagewayCoefInfo 新增通道系数配置，通道ID");
 
         try {
             return passagewayCoefInfoService.addPassagewayCoefInfo(passagewayCoefInfoDto);
