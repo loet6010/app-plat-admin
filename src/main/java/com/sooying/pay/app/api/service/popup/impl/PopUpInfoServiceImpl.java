@@ -105,9 +105,9 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
         // 设置通道ID存在状态
         if (StringUtils.isNotBlank(popUpInfoDto.getPassagewayId())) {
-            popUpInfo.setPluginStatus(Constants.STATUS_VALID);
+            popUpInfo.setPluginStatus(Constants.STRING_ONE);
         } else {
-            popUpInfo.setPluginStatus(Constants.STATUS_INVALID);
+            popUpInfo.setPluginStatus(Constants.STRING_ZERO);
         }
 
         popUpInfoDao.updatePopUpInfo(popUpInfo);
@@ -152,8 +152,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
         // 参数验证
         CheckUtil.idCheck(popUpInfoDto.getId());
-        Assert.isTrue(Constants.STATUS_VALID.equals(popUpInfoDto.getStatus())
-                || Constants.STATUS_INVALID.equals(popUpInfoDto.getStatus()), "激活状态必须是0或1！");
+        CheckUtil.statusCheck(popUpInfoDto.getStatus());
 
         PopUpInfo popUpInfo = new PopUpInfo();
         popUpInfo.setId(Long.parseLong(popUpInfoDto.getId()));
@@ -190,9 +189,9 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
         // 设置通道ID存在状态
         if (StringUtils.isNotBlank(popUpInfoDto.getPassagewayId())) {
-            popUpInfo.setPluginStatus(Constants.STATUS_VALID);
+            popUpInfo.setPluginStatus(Constants.STRING_ONE);
         } else {
-            popUpInfo.setPluginStatus(Constants.STATUS_INVALID);
+            popUpInfo.setPluginStatus(Constants.STRING_ZERO);
         }
 
         popUpInfoDao.insertPopUpInfo(popUpInfo);

@@ -18,7 +18,6 @@ import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.constant.CodeTypeEnum;
-import com.sooying.pay.app.api.constant.Constants;
 import com.sooying.pay.app.api.constant.RuleTypeEnum;
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
 import com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao;
@@ -147,8 +146,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
         // 参数验证
         CheckUtil.idCheck(ruleInfoDto.getId());
-        Assert.isTrue(Constants.STATUS_VALID.equals(ruleInfoDto.getStatus())
-                || Constants.STATUS_INVALID.equals(ruleInfoDto.getStatus()), "激活状态必须是0或1！");
+        CheckUtil.statusCheck(ruleInfoDto.getStatus());
 
         RuleInfo ruleInfo = new RuleInfo();
         ruleInfo.setId(Long.parseLong(ruleInfoDto.getId()));

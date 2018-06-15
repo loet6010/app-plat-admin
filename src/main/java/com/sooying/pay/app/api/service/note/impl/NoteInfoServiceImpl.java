@@ -10,11 +10,9 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
-import com.sooying.pay.app.api.constant.Constants;
 import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
 import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;
@@ -87,8 +85,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
 
         // 参数验证
         CheckUtil.idCheck(noteInfoDto.getId());
-        Assert.isTrue(Constants.STATUS_VALID.equals(noteInfoDto.getStatus())
-                || Constants.STATUS_INVALID.equals(noteInfoDto.getStatus()), "激活状态必须是0或1！");
+        CheckUtil.statusCheck(noteInfoDto.getStatus());
 
         NoteInfo noteInfo = new NoteInfo();
         noteInfo.setId(Long.parseLong(noteInfoDto.getId()));
