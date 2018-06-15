@@ -22,6 +22,7 @@ import com.sooying.pay.app.api.dao.platform.grade.PassagewayCoefInfoDao;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
 import com.sooying.pay.app.api.service.grade.PassagewayCoefInfoService;
 import com.sooying.pay.app.api.util.BeanDateCopyUtil;
+import com.sooying.pay.app.api.util.CheckUtil;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
@@ -93,8 +94,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
                 passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getId());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(passagewayCoefInfoDto.getId())
-                && Long.parseLong(passagewayCoefInfoDto.getId()) > 0, "id必须是数字且大于0！");
+        CheckUtil.idCheck(passagewayCoefInfoDto.getId());
         validatePassagewayCoefInfo(passagewayCoefInfoDto);
 
         // 对象拷贝
@@ -120,8 +120,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
                 passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getId());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(passagewayCoefInfoDto.getId())
-                && Long.parseLong(passagewayCoefInfoDto.getId()) > 0, "id必须是数字且大于0！");
+        CheckUtil.idCheck(passagewayCoefInfoDto.getId());
 
         long id = Long.parseLong(passagewayCoefInfoDto.getId());
         passagewayCoefInfoDao.deletePassagewayCoefInfo(id);

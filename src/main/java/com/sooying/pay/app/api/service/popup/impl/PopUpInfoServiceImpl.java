@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.bench.common.lang.NumberUtils;
 import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
@@ -23,6 +22,7 @@ import com.sooying.pay.app.api.dao.platform.popup.PopUpInfoDao;
 import com.sooying.pay.app.api.model.platform.popup.PopUpInfo;
 import com.sooying.pay.app.api.service.popup.PopUpInfoService;
 import com.sooying.pay.app.api.util.BeanDateCopyUtil;
+import com.sooying.pay.app.api.util.CheckUtil;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
@@ -92,8 +92,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
                 popUpInfoDto.getLoginName(), popUpInfoDto.getId(), popUpInfoDto.getPriority());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(popUpInfoDto.getId()) && Long.parseLong(popUpInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(popUpInfoDto.getId());
         Assert.isTrue(StringUtils.isNotBlank(popUpInfoDto.getPriority()), "优先级不能为空！");
 
         // Bean拷贝
@@ -130,8 +129,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
                 popUpInfoDto.getId());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(popUpInfoDto.getId()) && Long.parseLong(popUpInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(popUpInfoDto.getId());
 
         long id = Long.parseLong(popUpInfoDto.getId());
         popUpInfoDao.deletePopUpInfo(id);
@@ -153,8 +151,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
                 popUpInfoDto.getLoginName(), popUpInfoDto.getId(), popUpInfoDto.getStatus());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(popUpInfoDto.getId()) && Long.parseLong(popUpInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(popUpInfoDto.getId());
         Assert.isTrue(Constants.STATUS_VALID.equals(popUpInfoDto.getStatus())
                 || Constants.STATUS_INVALID.equals(popUpInfoDto.getStatus()), "激活状态必须是0或1！");
 

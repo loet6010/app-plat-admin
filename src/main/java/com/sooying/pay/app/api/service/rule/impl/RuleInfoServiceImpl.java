@@ -25,6 +25,7 @@ import com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao;
 import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
 import com.sooying.pay.app.api.service.rule.RuleInfoService;
 import com.sooying.pay.app.api.util.BeanDateCopyUtil;
+import com.sooying.pay.app.api.util.CheckUtil;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
@@ -96,10 +97,10 @@ public class RuleInfoServiceImpl implements RuleInfoService {
                 ruleInfoDto.getLoginName(), ruleInfoDto.getId(), ruleInfoDto.getRuleValue());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(ruleInfoDto.getId()) && Long.parseLong(ruleInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(ruleInfoDto.getId());
         Assert.isTrue(StringUtils.isNotBlank(ruleInfoDto.getStartTime()), "生效时间不能为空！");
 
+        // 对象拷贝
         RuleInfo ruleInfo = new RuleInfo();
         BeanDateCopyUtil.copyProperties(ruleInfo, ruleInfoDto);
 
@@ -145,8 +146,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
                 ruleInfoDto.getLoginName(), ruleInfoDto.getId(), ruleInfoDto.getStatus());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(ruleInfoDto.getId()) && Long.parseLong(ruleInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(ruleInfoDto.getId());
         Assert.isTrue(Constants.STATUS_VALID.equals(ruleInfoDto.getStatus())
                 || Constants.STATUS_INVALID.equals(ruleInfoDto.getStatus()), "激活状态必须是0或1！");
 
@@ -190,6 +190,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
         }
         Assert.isTrue(type != null, "通道ID不存在！");
 
+        // 对象拷贝
         RuleInfo ruleInfo = new RuleInfo();
         BeanDateCopyUtil.copyProperties(ruleInfo, ruleInfoDto);
         ruleInfo.setCodeType(type);

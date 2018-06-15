@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.bench.common.lang.NumberUtils;
 import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.constant.Constants;
@@ -20,6 +19,7 @@ import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
 import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 import com.sooying.pay.app.api.service.note.NoteInfoService;
+import com.sooying.pay.app.api.util.CheckUtil;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
@@ -86,8 +86,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
                 noteInfoDto.getLoginName(), noteInfoDto.getId(), noteInfoDto.getStatus());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(noteInfoDto.getId()) && Long.parseLong(noteInfoDto.getId()) > 0,
-                "id必须是数字且大于0！");
+        CheckUtil.idCheck(noteInfoDto.getId());
         Assert.isTrue(Constants.STATUS_VALID.equals(noteInfoDto.getStatus())
                 || Constants.STATUS_INVALID.equals(noteInfoDto.getStatus()), "激活状态必须是0或1！");
 
