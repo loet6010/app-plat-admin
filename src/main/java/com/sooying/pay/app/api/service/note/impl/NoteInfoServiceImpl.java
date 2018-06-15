@@ -42,8 +42,8 @@ public class NoteInfoServiceImpl implements NoteInfoService {
      */
     @Override
     public String getNoteInfoList(NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoServiceImpl getNoteInfoList user is {}, passagewayId is {}", noteInfoDto.getLoginName(),
-                noteInfoDto.getPassagewayId());
+        logger.info("NoteInfoServiceImpl getNoteInfoList user is {}, page is {}, rows is {}, {}",
+                noteInfoDto.getLoginName(), noteInfoDto.getPage(), noteInfoDto.getRows(), noteInfoDto.toString());
 
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("passagewayId", noteInfoDto.getPassagewayId());
@@ -80,7 +80,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
      */
     @Override
     public String modifyNoteInfoStatus(NoteInfoDto noteInfoDto) {
-        logger.info("NoteInfoServiceImpl modifyNoteInfoStatus user is {}, id is {},status is {}",
+        logger.info("NoteInfoServiceImpl modifyNoteInfoStatus user is {}, id is {}, status is {}",
                 noteInfoDto.getLoginName(), noteInfoDto.getId(), noteInfoDto.getStatus());
 
         // 参数验证

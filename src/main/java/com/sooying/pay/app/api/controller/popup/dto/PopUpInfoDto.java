@@ -181,4 +181,16 @@ public class PopUpInfoDto extends BasePageDto {
         this.status = status;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        super.toString();
+        return "PopUpInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", netType=" + netType + ", channelNo="
+                + channelNo + ", province=" + province + ", popUpRule=" + popUpRule + ", pluginStatus=" + pluginStatus
+                + ", appId=" + appId + ", priority=" + priority + ", status=" + status + "]";
+    }
+
 }

@@ -45,8 +45,9 @@ public class PassagewayGradeInfoServiceImpl implements PassagewayGradeInfoServic
      */
     @Override
     public String getPassagewayGradeInfoList(PassagewayGradeInfoDto passagewayGradeInfoDto) {
-        logger.info("PassagewayGradeInfoServiceImpl getPassagewayGradeInfoList user is {}, passagewayId is {}",
-                passagewayGradeInfoDto.getLoginName(), passagewayGradeInfoDto.getPassagewayId());
+        logger.info("PassagewayGradeInfoServiceImpl getPassagewayGradeInfoList user is {}, page is {}, rows is {}, {}",
+                passagewayGradeInfoDto.getLoginName(), passagewayGradeInfoDto.getPage(),
+                passagewayGradeInfoDto.getRows(), passagewayGradeInfoDto.toString());
 
         String province = null;
         if (StringUtils.isNotBlank(passagewayGradeInfoDto.getProvince())) {

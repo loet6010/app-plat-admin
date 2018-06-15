@@ -47,8 +47,8 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
      */
     @Override
     public String getPopUpInfoList(PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoServiceImpl getPopUpInfoList user is {}, passagewayId is {}", popUpInfoDto.getLoginName(),
-                popUpInfoDto.getPassagewayId());
+        logger.info("PopUpInfoServiceImpl getPopUpInfoList user is {}, page is {}, rows is {}, {}",
+                popUpInfoDto.getLoginName(), popUpInfoDto.getPage(), popUpInfoDto.getRows(), popUpInfoDto.toString());
 
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("passagewayId", popUpInfoDto.getPassagewayId());
@@ -88,8 +88,8 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
      */
     @Override
     public String modifyPopUpInfo(PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoServiceImpl modifyPopUpInfo user is {}, id is {}, priority is {}",
-                popUpInfoDto.getLoginName(), popUpInfoDto.getId(), popUpInfoDto.getPriority());
+        logger.info("PopUpInfoServiceImpl modifyPopUpInfo user is {}, {}", popUpInfoDto.getLoginName(),
+                popUpInfoDto.toString());
 
         // 参数验证
         CheckUtil.idCheck(popUpInfoDto.getId());
@@ -162,8 +162,8 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
      */
     @Override
     public String addPopUpInfo(PopUpInfoDto popUpInfoDto) {
-        logger.info("PopUpInfoServiceImpl addPopUpInfo user is {}, priority is {}", popUpInfoDto.getLoginName(),
-                popUpInfoDto.getPriority());
+        logger.info("PopUpInfoServiceImpl addPopUpInfo user is {}, {}", popUpInfoDto.getLoginName(),
+                popUpInfoDto.toString());
 
         // 参数验证
         Assert.isTrue(StringUtils.isNotBlank(popUpInfoDto.getPriority()), "优先级不能为空！");

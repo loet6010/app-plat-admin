@@ -61,4 +61,15 @@ public class NoteInfoDto extends BasePageDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        super.toString();
+        return "NoteInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", status=" + status + "]";
+    }
+
 }

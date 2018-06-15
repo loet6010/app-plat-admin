@@ -47,8 +47,9 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
      */
     @Override
     public String getPassagewayCoefInfoList(PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoServiceImpl getPassagewayCoefInfoList user is {}, passagewayId is {}",
-                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getPassagewayId());
+        logger.info("PassagewayCoefInfoServiceImpl getPassagewayCoefInfoList user is {}, page is {}, rows is {}, {}",
+                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getPage(), passagewayCoefInfoDto.getRows(),
+                passagewayCoefInfoDto.toString());
 
         // 查询条件
         Map<String, Object> paramsMap = new HashMap<String, Object>();
@@ -90,8 +91,8 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
      */
     @Override
     public String modifyPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoServiceImpl modifyPassagewayCoefInfo user is {}, id is {}",
-                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getId());
+        logger.info("PassagewayCoefInfoServiceImpl modifyPassagewayCoefInfo user is {}, {}",
+                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.toString());
 
         // 参数验证
         CheckUtil.idCheck(passagewayCoefInfoDto.getId());
@@ -138,8 +139,8 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
      */
     @Override
     public String addPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoServiceImpl addPassagewayCoefInfo user is {}, passagewayId is {}",
-                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getPassagewayId());
+        logger.info("PassagewayCoefInfoServiceImpl addPassagewayCoefInfo user is {}, {}",
+                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.toString());
 
         // 参数验证
         validatePassagewayCoefInfo(passagewayCoefInfoDto);

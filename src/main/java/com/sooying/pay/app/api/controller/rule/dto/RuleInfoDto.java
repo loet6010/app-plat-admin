@@ -215,4 +215,17 @@ public class RuleInfoDto extends BasePageDto {
         this.provinceMonthLimited = provinceMonthLimited;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        super.toString();
+        return "RuleInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", type=" + type + ", ruleValue="
+                + ruleValue + ", startTime=" + startTime + ", status=" + status + ", dayLimited=" + dayLimited
+                + ", monthLimited=" + monthLimited + ", shieldDate=" + shieldDate + ", shieldArea=" + shieldArea
+                + ", provinceDayLimited=" + provinceDayLimited + ", provinceMonthLimited=" + provinceMonthLimited + "]";
+    }
+
 }

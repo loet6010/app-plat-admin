@@ -78,4 +78,15 @@ public class PassagewayGradeInfoDto extends BasePageDto {
     public void setNetOperator(String netOperator) {
         this.netOperator = netOperator;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        super.toString();
+        return "PassagewayGradeInfoDto [passagewayId=" + passagewayId + ", province=" + province + ", price=" + price
+                + ", netOperator=" + netOperator + "]";
+    }
 }

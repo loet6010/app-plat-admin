@@ -49,7 +49,8 @@ public class RuleInfoServiceImpl implements RuleInfoService {
      */
     @Override
     public String getRuleInfoList(RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoServiceImpl getRuleInfoList user is {}, passagewayId is {}", ruleInfoDto.getLoginName(),
+        logger.info("RuleInfoServiceImpl getRuleInfoList user is {}, page is {}, rows is {}, passagewayId is {}",
+                ruleInfoDto.getLoginName(), ruleInfoDto.getPage(), ruleInfoDto.getRows(),
                 ruleInfoDto.getPassagewayId());
 
         // 参数验证
@@ -92,8 +93,9 @@ public class RuleInfoServiceImpl implements RuleInfoService {
      */
     @Override
     public String modifyRuleInfo(RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoServiceImpl modifyRuleInfo user is {}, id is {}, ruleValue is {}",
-                ruleInfoDto.getLoginName(), ruleInfoDto.getId(), ruleInfoDto.getRuleValue());
+        logger.info("RuleInfoServiceImpl modifyRuleInfo user is {}, id is {}, ruleValue is {}, startTime is {}",
+                ruleInfoDto.getLoginName(), ruleInfoDto.getId(), ruleInfoDto.getRuleValue(),
+                ruleInfoDto.getStartTime());
 
         // 参数验证
         CheckUtil.idCheck(ruleInfoDto.getId());
@@ -167,8 +169,8 @@ public class RuleInfoServiceImpl implements RuleInfoService {
      */
     @Override
     public String addRuleInfo(RuleInfoDto ruleInfoDto) {
-        logger.info("RuleInfoServiceImpl addRuleInfo user is {}, passagewayId is {}", ruleInfoDto.getLoginName(),
-                ruleInfoDto.getPassagewayId());
+        logger.info("RuleInfoServiceImpl addRuleInfo user is {}, {}", ruleInfoDto.getLoginName(),
+                ruleInfoDto.toString());
 
         // 参数验证
         Assert.isTrue(NumberUtils.isNumber(ruleInfoDto.getPassagewayId())

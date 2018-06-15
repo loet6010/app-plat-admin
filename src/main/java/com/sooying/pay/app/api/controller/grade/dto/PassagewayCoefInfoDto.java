@@ -147,4 +147,15 @@ public class PassagewayCoefInfoDto extends BasePageDto {
         this.changeStatus = changeStatus;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "PassagewayCoefInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", netOperator=" + netOperator
+                + ", successRate=" + successRate + ", synchroRate=" + synchroRate + ", countRate=" + countRate
+                + ", price=" + price + ", changeStatus=" + changeStatus + "]";
+    }
+
 }
