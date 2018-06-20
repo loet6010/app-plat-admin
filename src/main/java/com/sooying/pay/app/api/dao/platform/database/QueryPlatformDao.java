@@ -1,6 +1,10 @@
 package com.sooying.pay.app.api.dao.platform.database;
 
+import java.util.List;
+import java.util.Map;
+
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
+import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
 
 /**
  * Platform数据库查询
@@ -18,4 +22,20 @@ public interface QueryPlatformDao {
      * @return
      */
     OverallDataInfo selectOverallDataInfo(int appId);
+
+    /**
+     * 查询代码成功率数量
+     *
+     * @param paramsMap
+     * @return
+     */
+    int selectSuccessRateInfoCount(Map<String, Object> paramsMap);
+
+    /**
+     * 查询代码成功率列表
+     *
+     * @param paramsMap
+     * @return
+     */
+    List<SuccessRateInfo> selectSuccessRateInfoList(Map<String, Object> paramsMap);
 }

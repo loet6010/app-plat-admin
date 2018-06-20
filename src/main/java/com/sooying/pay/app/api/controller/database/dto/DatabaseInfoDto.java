@@ -12,6 +12,8 @@ import com.sooying.pay.app.api.base.BasePageDto;
 public class DatabaseInfoDto extends BasePageDto {
     // 应用ID
     private String appId;
+    // 通道ID
+    private String passagewayId;
 
     /**
      * @return the appId
@@ -26,5 +28,20 @@ public class DatabaseInfoDto extends BasePageDto {
      */
     public void setAppId(String appId) {
         this.appId = appId;
+    }
+
+    /**
+     * @return the passagewayId
+     */
+    public String getPassagewayId() {
+        return passagewayId;
+    }
+
+    /**
+     * @param passagewayId
+     *            the passagewayId to set
+     */
+    public void setPassagewayId(String passagewayId) {
+        this.passagewayId = passagewayId;
     }
 }

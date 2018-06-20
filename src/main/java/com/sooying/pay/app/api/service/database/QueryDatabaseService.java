@@ -18,4 +18,12 @@ public interface QueryDatabaseService {
      * @return
      */
     String getOverallDataInfo(DatabaseInfoDto databaseInfoDto);
+
+    /**
+     * 获取代码成功率
+     *
+     * @param databaseInfoDto
+     * @return
+     */
+    String getSuccessRateInfoList(DatabaseInfoDto databaseInfoDto);
 }

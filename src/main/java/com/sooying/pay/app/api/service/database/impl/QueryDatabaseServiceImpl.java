@@ -1,7 +1,9 @@
 package com.sooying.pay.app.api.service.database.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.bench.common.lang.NumberUtils;
+import com.sooying.pay.app.api.base.BasePagination;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.database.dto.DatabaseInfoDto;
 import com.sooying.pay.app.api.dao.collect.database.QueryCollectDao;
 import com.sooying.pay.app.api.dao.platform.database.QueryPlatformDao;
 import com.sooying.pay.app.api.model.collect.database.StartDataInfo;
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
+import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
 import com.sooying.pay.app.api.service.database.QueryDatabaseService;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
@@ -76,6 +80,43 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
         String msg = "获取大盘数据成功";
         logger.info("QueryDatabaseServiceImpl getOverallDataInfo {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
+    }
+
+    /**
+     * 获取代码成功率
+     * 
+     * @param databaseInfoDto
+     * @return
+     */
+    @Override
+    public String getSuccessRateInfoList(DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseServiceImpl getSuccessRateInfoList user is {}, passagewayId is {}",
+                databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
+
+        Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
+
+        // 查询总数
+        int totalCount = queryPlatformDao.selectSuccessRateInfoCount(paramsMap);
+
+        // 初始化分页信息
+        BasePagination pagination = new BasePagination(totalCount);
+        pagination.setCurrentPage(databaseInfoDto.getPage());
+        pagination.setRowsPerPage(databaseInfoDto.getRows());
+        pagination.initPage();
+
+        paramsMap.put("start", pagination.getStart());
+        paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
+
+        List<SuccessRateInfo> successRateInfoList = queryPlatformDao.selectSuccessRateInfoList(paramsMap);
+
+        // list装入返回类型
+        List<Object> dataList = new ArrayList<Object>();
+        dataList.addAll(successRateInfoList);
+
+        String msg = "获取代码成功率成功";
+        logger.info("QueryDatabaseServiceImpl getSuccessRateInfoList {}", msg);
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 

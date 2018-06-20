@@ -12,10 +12,10 @@
                a.successCount,
                a.noPassagewayCount,
                a.noCardCount,
-               ROUND(a.successCount::numeric/confirmCount::numeric,4) as successRate,
-               ROUND(a.realAmount::numeric/a.requestCount::numeric,4) as successArpu,
-               ROUND(a.riskCount::numeric/a.requestCount::numeric,4) as riskRate,
-               round(a.noPassagewayCount::numeric/a.requestCount::numeric,4) as noPassagewayRate
+               CASE WHEN a.confirmCount > 0 THEN ROUND(a.successCount::numeric/a.confirmCount::numeric,4) ELSE 0 END as successRate,
+               CASE WHEN a.requestCount > 0 THEN ROUND(a.realAmount::numeric/a.requestCount::numeric,4) ELSE 0 END as successArpu,
+               CASE WHEN a.requestCount > 0 THEN ROUND(a.riskCount::numeric/a.requestCount::numeric,4) ELSE 0 END as riskRate,
+               CASE WHEN a.requestCount > 0 THEN ROUND(a.noPassagewayCount::numeric/a.requestCount::numeric,4) ELSE 0 END as noPassagewayRate
         FROM
            (
             SELECT app_id as appId,
@@ -33,5 +33,64 @@
             group by appId having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
            ) a
 	</select>
+	
+    <select id="selectSuccessRateInfoCount" parameterType="java.util.HashMap"
+        resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM
+           (
+            SELECT passageway_id as passagewayId
+            FROM dp_open_pay_order_result
+            where pay_time >= current_date
+              <if test="passagewayId != null and passagewayId != ''">
+              and passageway_id = #{passagewayId}
+              </if>
+            group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+           ) a
+    </select>
+	
+    <select id="selectSuccessRateInfoList" parameterType="java.util.HashMap"
+        resultType="SuccessRateInfo">
+        SELECT a.passagewayId,
+               c.passageway_name as passagewayName,
+               a.requestCount,
+               a.confirmCount,
+               a.successCount,
+               a.riskCount,
+               COALESCE(b.mrCount,0) as mrCount,
+               CASE WHEN a.confirmCount > 0 THEN ROUND(a.successCount::numeric/a.confirmCount::numeric,4) ELSE 0 END as successRate,
+               CASE WHEN a.successCount > 0 THEN ROUND(COALESCE(b.mrCount,0)::numeric/a.successCount::numeric,4) ELSE 0 END as syncRate
+        FROM
+           (
+            SELECT passageway_id as passagewayId,
+                   count(distinct(CASE WHEN status in('0','1','2','3','4') THEN imei END)) AS requestCount,
+                   count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
+                   count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
+                   count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
+            FROM dp_open_pay_order_result
+            where pay_time >= current_date
+              <if test="passagewayId != null and passagewayId != ''">
+              and passageway_id = #{passagewayId}
+              </if>
+            group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+           ) a
+        LEFT JOIN
+           (
+            SELECT sp_code,
+                   count(*) as mrCount
+            from dp_third_note_pay_result
+            where create_time >= current_date
+              and status_desc = '1'
+              <if test="passagewayId != null and passagewayId != ''">
+                  and sp_code = #{passagewayId}
+              </if>
+            group by sp_code
+           ) b 
+               ON a.passagewayId = b.sp_code
+        LEFT JOIN dp_note_info c
+               ON a.passagewayId = c.passageway_id
+        order by successRate desc
+        limit #{rowsPerPage} offset #{start}
+    </select>
 
 </mapper>
