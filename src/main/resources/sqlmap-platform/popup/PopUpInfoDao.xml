@@ -22,16 +22,16 @@
 		select count(*)
 		from dp_pop_up_info
 		where 1 = 1
-		<if test="passagewayId !=null and passagewayId != ''">
+		<if test="passagewayId != null and passagewayId != ''">
             and plugin_id = #{passagewayId}
         </if>
-        <if test="netType !=null and netType != ''">
+        <if test="netType != null and netType != ''">
             and net_type = #{netType}
         </if>
-        <if test="channelNo !=null and channelNo != ''">
+        <if test="channelNo != null and channelNo != ''">
             and channel_no = #{channelNo}
         </if>
-        <if test="province !=null and province != ''">
+        <if test="province != null and province != ''">
             and province = #{province}
         </if>
 	</select>
@@ -41,16 +41,16 @@
 		select *
 		from dp_pop_up_info
         where 1 = 1
-        <if test="passagewayId !=null and passagewayId != ''">
+        <if test="passagewayId != null and passagewayId != ''">
             and plugin_id = #{passagewayId}
         </if>
-        <if test="netType !=null and netType != ''">
+        <if test="netType != null and netType != ''">
             and net_type = #{netType}
         </if>
-        <if test="channelNo !=null and channelNo != ''">
+        <if test="channelNo != null and channelNo != ''">
             and channel_no = #{channelNo}
         </if>
-        <if test="province !=null and province != ''">
+        <if test="province != null and province != ''">
             and province = #{province}
         </if>
 		order by create_time desc

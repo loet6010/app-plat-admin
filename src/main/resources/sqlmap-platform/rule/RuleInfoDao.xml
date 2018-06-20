@@ -19,7 +19,7 @@
 		select count(*)
 		from dp_rule_info
 		where open_rule = '0'
-		<if test="passagewayId !=null and passagewayId != ''">
+		<if test="passagewayId != null and passagewayId != ''">
             and passageway_id = #{passagewayId}
         </if>
 	</select>
@@ -29,7 +29,7 @@
 		select *
 		from dp_rule_info
 		where open_rule = '0'
-		<if test="passagewayId !=null and passagewayId != ''">
+		<if test="passagewayId != null and passagewayId != ''">
 			and passageway_id = #{passagewayId}
 		</if>
 		order by create_time desc
