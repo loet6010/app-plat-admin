@@ -7,10 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.util.CacheUtil;
 

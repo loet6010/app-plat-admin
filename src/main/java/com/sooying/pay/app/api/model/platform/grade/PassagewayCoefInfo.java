@@ -23,7 +23,7 @@ public class PassagewayCoefInfo {
     // 结算率
     private BigDecimal countRate;
     // 资费
-    private int price;
+    private String price;
     // 固定标志
     private String changeStatus;
 
@@ -120,7 +120,7 @@ public class PassagewayCoefInfo {
     /**
      * @return the price
      */
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -128,7 +128,7 @@ public class PassagewayCoefInfo {
      * @param price
      *            the price to set
      */
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
