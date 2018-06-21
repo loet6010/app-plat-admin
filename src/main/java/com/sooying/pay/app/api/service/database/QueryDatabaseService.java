@@ -34,4 +34,12 @@ public interface QueryDatabaseService {
      * @return
      */
     String getProvinceSuccessRateInfoList(DatabaseInfoDto databaseInfoDto);
+    
+    /**
+     * 获取大盘同步信息费
+     *
+     * @param databaseInfoDto
+     * @return
+     */
+    String getOverallFeeInfoList(DatabaseInfoDto databaseInfoDto);
 }

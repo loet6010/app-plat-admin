@@ -102,4 +102,29 @@ public class QueryDatabaseController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
+
+    /**
+     * 获取大盘同步信息费
+     *
+     * @param request
+     * @param databaseInfoDto
+     * @return
+     */
+    @RequestMapping(value = "/database/getOverallFeeInfoList.json", method = { RequestMethod.GET })
+    @ResponseBody
+    public String getOverallFeeInfoList(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseController getOverallFeeInfoList 获取大盘同步信息费");
+
+        try {
+            return queryDatabaseService.getOverallFeeInfoList(databaseInfoDto);
+        } catch (IllegalArgumentException e) {
+            logger.info("QueryDatabaseController 获取大盘同步信息费，参数验证错误：{}", e.getMessage());
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("QueryDatabaseController 获取大盘同步信息费异常：{}", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        }
+    }
 }

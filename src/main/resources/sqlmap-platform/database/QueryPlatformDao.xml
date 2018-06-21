@@ -144,4 +144,47 @@
         order by successRate desc
         limit #{rowsPerPage} offset #{start}
     </select>
+    
+    <select id="selectOverallFeeInfoCount" parameterType="java.util.HashMap"
+        resultType="java.lang.Integer">
+        select count(*)
+        from
+           (
+            select sp_code as passagewayId
+            from dp_third_note_pay_result
+            where create_time >= current_date - 1
+              and create_time &lt; current_date
+              and status_desc = '1'
+              <if test="passagewayId != null and passagewayId != ''">
+                  and sp_code = #{passagewayId}
+              </if>
+            group by passagewayId
+           ) a
+    </select>
+    
+    <select id="selectOverallFeeInfoList" parameterType="java.util.HashMap"
+        resultType="OverallFeeInfo">
+        select a.statisDate,
+               a.passagewayId,
+               b.passageway_name as passagewayName,
+               a.fee
+        from
+           (
+            select current_date - 1 as statisDate,
+                   sp_code as passagewayId,
+                   sum(pay_money/100) as fee
+            from dp_third_note_pay_result
+            where create_time >= current_date - 1
+              and create_time &lt; current_date
+              and status_desc = '1'
+              <if test="passagewayId != null and passagewayId != ''">
+                  and sp_code = #{passagewayId}
+              </if>
+            group by statisDate,passagewayId
+            order by fee desc
+           ) a
+        LEFT JOIN dp_note_info b
+               ON a.passagewayId = b.passageway_id
+        limit #{rowsPerPage} offset #{start}
+    </select>
 </mapper>

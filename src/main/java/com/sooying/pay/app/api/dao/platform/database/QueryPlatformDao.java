@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
+import com.sooying.pay.app.api.model.platform.database.OverallFeeInfo;
 import com.sooying.pay.app.api.model.platform.database.ProvinceSuccessRateInfo;
 import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
 
@@ -55,4 +56,20 @@ public interface QueryPlatformDao {
      * @return
      */
     List<ProvinceSuccessRateInfo> selectProvinceSuccessRateInfoList(Map<String, Object> paramsMap);
+
+    /**
+     * 查询大盘同步信息费数量
+     *
+     * @param paramsMap
+     * @return
+     */
+    int selectOverallFeeInfoCount(Map<String, Object> paramsMap);
+
+    /**
+     * 查询大盘同步信息费列表
+     *
+     * @param paramsMap
+     * @return
+     */
+    List<OverallFeeInfo> selectOverallFeeInfoList(Map<String, Object> paramsMap);
 }

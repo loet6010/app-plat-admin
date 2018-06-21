@@ -21,6 +21,7 @@ import com.sooying.pay.app.api.dao.collect.database.QueryCollectDao;
 import com.sooying.pay.app.api.dao.platform.database.QueryPlatformDao;
 import com.sooying.pay.app.api.model.collect.database.StartDataInfo;
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
+import com.sooying.pay.app.api.model.platform.database.OverallFeeInfo;
 import com.sooying.pay.app.api.model.platform.database.ProvinceSuccessRateInfo;
 import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
 import com.sooying.pay.app.api.service.database.QueryDatabaseService;
@@ -163,4 +164,40 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
+    /**
+     * 获取大盘同步信息费
+     * 
+     * @param databaseInfoDto
+     * @return
+     */
+    @Override
+    public String getOverallFeeInfoList(DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseServiceImpl getOverallFeeInfoList user is {}, passagewayId is {}",
+                databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
+
+        Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
+
+        // 查询总数
+        int totalCount = queryPlatformDao.selectOverallFeeInfoCount(paramsMap);
+
+        // 初始化分页信息
+        BasePagination pagination = new BasePagination(totalCount);
+        pagination.setCurrentPage(databaseInfoDto.getPage());
+        pagination.setRowsPerPage(databaseInfoDto.getRows());
+        pagination.initPage();
+
+        paramsMap.put("start", pagination.getStart());
+        paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
+
+        List<OverallFeeInfo> successRateInfoList = queryPlatformDao.selectOverallFeeInfoList(paramsMap);
+
+        // list装入返回类型
+        List<Object> dataList = new ArrayList<Object>();
+        dataList.addAll(successRateInfoList);
+
+        String msg = "获取大盘同步信息费成功";
+        logger.info("QueryDatabaseServiceImpl getOverallFeeInfoList {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
+    }
 }
