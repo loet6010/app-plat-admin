@@ -47,7 +47,7 @@ public class RuleInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 获取通道过滤规则列表异常：{}", e);
+            logger.info("RuleInfoController 获取通道过滤规则列表异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class RuleInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 修改通道过滤规则异常：{}", e);
+            logger.info("RuleInfoController 修改通道过滤规则异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -97,7 +97,7 @@ public class RuleInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 删除通道过滤规则异常：{}", e);
+            logger.info("RuleInfoController 删除通道过滤规则异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -122,7 +122,7 @@ public class RuleInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 修改通道过滤规则激活状态异常：{}", e);
+            logger.info("RuleInfoController 修改通道过滤规则激活状态异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -147,7 +147,7 @@ public class RuleInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("RuleInfoController 新增通道过滤规则异常：{}", e);
+            logger.info("RuleInfoController 新增通道过滤规则异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

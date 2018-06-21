@@ -47,7 +47,7 @@ public class NoteInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("NoteInfoController 获取短信明细列表异常：{}", e);
+            logger.info("NoteInfoController 获取短信明细列表异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class NoteInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("NoteInfoController 修改短信明细激活状态异常：{}", e);
+            logger.info("NoteInfoController 修改短信明细激活状态异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

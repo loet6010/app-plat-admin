@@ -48,7 +48,7 @@ public class PassagewayGradeInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PassagewayGradeInfoController 获取通道分级系数数据列表异常：{}", e);
+            logger.info("PassagewayGradeInfoController 获取通道分级系数数据列表异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

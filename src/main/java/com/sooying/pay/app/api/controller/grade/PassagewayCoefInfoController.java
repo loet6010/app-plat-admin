@@ -47,7 +47,7 @@ public class PassagewayCoefInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PassagewayCoefInfoController 获取通道系数配置列表异常：{}", e);
+            logger.info("PassagewayCoefInfoController 获取通道系数配置列表异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class PassagewayCoefInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PassagewayCoefInfoController 修改通道系数配置异常：{}", e);
+            logger.info("PassagewayCoefInfoController 修改通道系数配置异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -97,7 +97,7 @@ public class PassagewayCoefInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PassagewayCoefInfoController 删除通道系数配置异常：{}", e);
+            logger.info("PassagewayCoefInfoController 删除通道系数配置异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -122,7 +122,7 @@ public class PassagewayCoefInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PassagewayCoefInfoController 新增通道系数配置异常：{}", e);
+            logger.info("PassagewayCoefInfoController 新增通道系数配置异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

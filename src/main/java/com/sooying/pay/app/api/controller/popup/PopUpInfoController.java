@@ -47,7 +47,7 @@ public class PopUpInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PopUpInfoController 获取二次确认弹窗列表异常：{}", e);
+            logger.info("PopUpInfoController 获取二次确认弹窗列表异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class PopUpInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PopUpInfoController 修改二次确认弹窗异常：{}", e);
+            logger.info("PopUpInfoController 修改二次确认弹窗异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -97,7 +97,7 @@ public class PopUpInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PopUpInfoController 删除二次确认弹窗异常：{}", e);
+            logger.info("PopUpInfoController 删除二次确认弹窗异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -122,7 +122,7 @@ public class PopUpInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PopUpInfoController 修改二次确认弹窗激活状态异常：{}", e);
+            logger.info("PopUpInfoController 修改二次确认弹窗激活状态异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -147,7 +147,7 @@ public class PopUpInfoController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("PopUpInfoController 新增二次确认弹窗异常：{}", e);
+            logger.info("PopUpInfoController 新增二次确认弹窗异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

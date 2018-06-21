@@ -47,7 +47,7 @@ public class QueryDatabaseController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("QueryDatabaseController 获取大盘数据异常：{}", e);
+            logger.info("QueryDatabaseController 获取大盘数据异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class QueryDatabaseController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("QueryDatabaseController 获取代码成功率异常：{}", e);
+            logger.info("QueryDatabaseController 获取代码成功率异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -97,7 +97,7 @@ public class QueryDatabaseController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("QueryDatabaseController 获取代码分省份成功率异常：{}", e);
+            logger.info("QueryDatabaseController 获取代码分省份成功率异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
@@ -122,7 +122,7 @@ public class QueryDatabaseController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("QueryDatabaseController 获取大盘同步信息费异常：{}", e);
+            logger.info("QueryDatabaseController 获取大盘同步信息费异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

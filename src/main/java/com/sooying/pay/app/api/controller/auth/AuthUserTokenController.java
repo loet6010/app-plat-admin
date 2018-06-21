@@ -47,7 +47,7 @@ public class AuthUserTokenController {
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
-            logger.info("AuthUserTokenController 获取用户token异常：{}", e);
+            logger.info("AuthUserTokenController 获取用户token异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
