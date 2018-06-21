@@ -26,4 +26,12 @@ public interface QueryDatabaseService {
      * @return
      */
     String getSuccessRateInfoList(DatabaseInfoDto databaseInfoDto);
+
+    /**
+     * 获取代码分省份成功率
+     *
+     * @param databaseInfoDto
+     * @return
+     */
+    String getProvinceSuccessRateInfoList(DatabaseInfoDto databaseInfoDto);
 }

@@ -77,4 +77,29 @@ public class QueryDatabaseController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
+
+    /**
+     * 获取代码分省份成功率
+     *
+     * @param request
+     * @param databaseInfoDto
+     * @return
+     */
+    @RequestMapping(value = "/database/getProvinceSuccessRateInfoList.json", method = { RequestMethod.GET })
+    @ResponseBody
+    public String getProvinceSuccessRateInfoList(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseController getProvinceSuccessRateInfoList 获取代码成功率");
+
+        try {
+            return queryDatabaseService.getProvinceSuccessRateInfoList(databaseInfoDto);
+        } catch (IllegalArgumentException e) {
+            logger.info("QueryDatabaseController 获取代码分省份成功率，参数验证错误：{}", e.getMessage());
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("QueryDatabaseController 获取代码分省份成功率异常：{}", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        }
+    }
 }

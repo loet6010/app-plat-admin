@@ -43,7 +43,7 @@
             FROM dp_open_pay_order_result
             where pay_time >= current_date
               <if test="passagewayId != null and passagewayId != ''">
-              and passageway_id = #{passagewayId}
+                  and passageway_id = #{passagewayId}
               </if>
             group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
            ) a
@@ -70,7 +70,7 @@
             FROM dp_open_pay_order_result
             where pay_time >= current_date
               <if test="passagewayId != null and passagewayId != ''">
-              and passageway_id = #{passagewayId}
+                  and passageway_id = #{passagewayId}
               </if>
             group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
            ) a
@@ -93,4 +93,55 @@
         limit #{rowsPerPage} offset #{start}
     </select>
 
+    <select id="selectProvinceSuccessRateInfoCount" parameterType="java.util.HashMap"
+        resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM
+           (
+            SELECT net_type,
+                   province
+            FROM dp_open_pay_order_result
+            where pay_time >= current_date-1
+              and pay_time &lt; current_date
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
+            group by net_type,province having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+           ) a
+    </select>
+    
+    <select id="selectProvinceSuccessRateInfoList" parameterType="java.util.HashMap"
+        resultType="ProvinceSuccessRateInfo">
+        SELECT a.province,
+               a.netType,
+               a.requestCount,
+               a.confirmCount,
+               a.successCount,
+               a.riskCount,
+               CASE WHEN a.confirmCount > 0 THEN ROUND(a.successCount::numeric/confirmCount::numeric,4) ELSE 0 END as successRate
+        FROM
+           (
+            SELECT net_type as netType,
+                   province,
+                   count(distinct(CASE WHEN status in('0','1','2','3','4') THEN imei END)) AS requestCount,
+                   count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
+                   count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
+                   count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
+            FROM dp_open_pay_order_result
+            where pay_time >= current_date-1
+              and pay_time &lt; current_date
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
+            group by net_type,province having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+           ) a
+        order by successRate desc
+        limit #{rowsPerPage} offset #{start}
+    </select>
 </mapper>
