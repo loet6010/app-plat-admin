@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooying.pay.app.api.dao.platform.database.QueryPlatformDao">
 
-	<select id="selectOverallDataInfo" parameterType="java.lang.Integer"
+	<select id="selectOverallDataInfo" parameterType="java.util.HashMap"
 		resultType="OverallDataInfo">
         SELECT a.appId,
                a.requestCount,
@@ -27,8 +27,8 @@
                    SUM(CASE WHEN status ='1' THEN real_amount ELSE 0 END)/100 as realAmount,
                    count(distinct(CASE WHEN status in('0','1','2','3','4') and (imsi = '0' or imsi is null or imsi = '') THEN imei END)) AS noCardCount
             FROM dp_open_pay_order_result
-            where pay_time >= current_date-1
-              and pay_time &lt; current_date
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
               and app_id = #{appId}
             group by appId having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
            ) a
@@ -41,7 +41,8 @@
            (
             SELECT passageway_id as passagewayId
             FROM dp_open_pay_order_result
-            where pay_time >= current_date
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
               <if test="passagewayId != null and passagewayId != ''">
                   and passageway_id = #{passagewayId}
               </if>
@@ -68,7 +69,8 @@
                    count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
                    count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
             FROM dp_open_pay_order_result
-            where pay_time >= current_date
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
               <if test="passagewayId != null and passagewayId != ''">
                   and passageway_id = #{passagewayId}
               </if>
@@ -79,7 +81,8 @@
             SELECT sp_code,
                    count(*) as mrCount
             from dp_third_note_pay_result
-            where create_time >= current_date
+            where create_time >= #{beginTime}
+              and create_time &lt;= #{endTime}
               and status_desc = '1'
               <if test="passagewayId != null and passagewayId != ''">
                   and sp_code = #{passagewayId}
@@ -101,8 +104,8 @@
             SELECT net_type,
                    province
             FROM dp_open_pay_order_result
-            where pay_time >= current_date-1
-              and pay_time &lt; current_date
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
               <if test="netType != null and netType != ''">
                   and net_type = #{netType}
               </if>
@@ -131,8 +134,8 @@
                    count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
                    count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
             FROM dp_open_pay_order_result
-            where pay_time >= current_date-1
-              and pay_time &lt; current_date
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
               <if test="netType != null and netType != ''">
                   and net_type = #{netType}
               </if>
@@ -152,8 +155,8 @@
            (
             select sp_code as passagewayId
             from dp_third_note_pay_result
-            where create_time >= current_date - 1
-              and create_time &lt; current_date
+            where create_time >= #{beginTime}
+              and create_time &lt;= #{endTime}
               and status_desc = '1'
               <if test="passagewayId != null and passagewayId != ''">
                   and sp_code = #{passagewayId}
@@ -170,12 +173,12 @@
                a.fee
         from
            (
-            select current_date - 1 as statisDate,
+            select to_char(create_time, 'yyyy-MM-dd') as statisDate,
                    sp_code as passagewayId,
                    sum(pay_money/100) as fee
             from dp_third_note_pay_result
-            where create_time >= current_date - 1
-              and create_time &lt; current_date
+            where create_time >= #{beginTime}
+              and create_time &lt;= #{endTime}
               and status_desc = '1'
               <if test="passagewayId != null and passagewayId != ''">
                   and sp_code = #{passagewayId}

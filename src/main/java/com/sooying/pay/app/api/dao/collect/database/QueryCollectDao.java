@@ -1,5 +1,7 @@
 package com.sooying.pay.app.api.dao.collect.database;
 
+import java.util.Map;
+
 import com.sooying.pay.app.api.model.collect.database.StartDataInfo;
 
 /**
@@ -14,8 +16,8 @@ public interface QueryCollectDao {
     /**
      * 查询启动表数据
      *
-     * @param appId
+     * @param paramsMap
      * @return
      */
-    StartDataInfo selectStartDataInfo(int appId);
+    StartDataInfo selectStartDataInfo(Map<String, Object> paramsMap);
 }

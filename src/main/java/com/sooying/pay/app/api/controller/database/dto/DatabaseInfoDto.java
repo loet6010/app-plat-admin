@@ -18,6 +18,10 @@ public class DatabaseInfoDto extends BasePageDto {
     private String netType;
     // 省份
     private String province;
+    // 查询开始时间
+    private String beginTime;
+    // 查询结束时间
+    private String endTime;
 
     /**
      * @return the appId
@@ -80,12 +84,42 @@ public class DatabaseInfoDto extends BasePageDto {
     }
 
     /**
+     * @return the beginTime
+     */
+    public String getBeginTime() {
+        return beginTime;
+    }
+
+    /**
+     * @param beginTime
+     *            the beginTime to set
+     */
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    /**
+     * @return the endTime
+     */
+    public String getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * @param endTime
+     *            the endTime to set
+     */
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
      *
      * @return
      */
     @Override
     public String toString() {
         return "DatabaseInfoDto [appId=" + appId + ", passagewayId=" + passagewayId + ", netType=" + netType
-                + ", province=" + province + "]";
+                + ", province=" + province + ", beginTime=" + beginTime + ", endTime=" + endTime + "]";
     }
 }

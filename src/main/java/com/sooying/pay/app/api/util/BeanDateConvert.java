@@ -1,6 +1,7 @@
 package com.sooying.pay.app.api.util;
 
 import com.google.common.base.Strings;
+import com.sooying.pay.app.api.constant.Constants;
 
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
@@ -49,14 +50,12 @@ public class BeanDateConvert implements Converter {
             String dateStr = (String) value;
             Date endTime = null;
             try {
-                String regexp2 = "([0-9]{4})-([0-1][0-9])-([0-3][0-9])[\\s\\S]([0-2][0-9]):([0-6][0-9]):([0-6][0-9])";
-                String regexp3 = "([0-9]{4})-([0-1][0-9])-([0-3][0-9])";
-                if (dateStr.matches(regexp2)) {
-                    DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if (dateStr.matches(Constants.DATE_TIME_REGEXP)) {
+                    DateFormat sdf = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
                     endTime = sdf.parse(dateStr);
                     return endTime;
-                } else if (dateStr.matches(regexp3)) {
-                    DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                } else if (dateStr.matches(Constants.DATE_REGEXP)) {
+                    DateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
                     endTime = sdf.parse(dateStr);
                     return endTime;
                 } else {

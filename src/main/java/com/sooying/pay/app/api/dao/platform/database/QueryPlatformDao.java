@@ -20,10 +20,10 @@ public interface QueryPlatformDao {
     /**
      * 查询支付结果表大盘数据
      *
-     * @param appId
+     * @param paramsMap
      * @return
      */
-    OverallDataInfo selectOverallDataInfo(int appId);
+    OverallDataInfo selectOverallDataInfo(Map<String, Object> paramsMap);
 
     /**
      * 查询代码成功率数量

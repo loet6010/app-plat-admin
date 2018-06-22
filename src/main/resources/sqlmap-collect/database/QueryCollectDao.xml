@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooying.pay.app.api.dao.collect.database.QueryCollectDao">
 
-	<select id="selectStartDataInfo" parameterType="java.lang.Integer"
+	<select id="selectStartDataInfo" parameterType="java.util.HashMap"
 		resultType="StartDataInfo">
         select a.app_id as appId,
                SUM(CASE WHEN statis_type = '1' THEN a.user_count ELSE 0 END) as startActiveCount,
@@ -13,8 +13,8 @@
            (
             select app_id,statis_type,count(DISTINCT(imei)) as user_count
             from dp_app_start_user_data  
-            where create_time >= current_date-1
-              and create_time &lt; current_date
+            where create_time >= #{beginTime}
+              and create_time &lt;= #{endTime}
               and app_id = #{appId}
               and sdk_plugin_version > '2.1.9'
               and statis_type in('1','9')
