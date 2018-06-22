@@ -1,5 +1,7 @@
 package com.sooying.pay.app.api.model.platform.rule;
 
+import java.util.Date;
+
 /**
  * 通道过滤规则
  * 
@@ -19,7 +21,7 @@ public class RuleInfo {
     // 规则内容
     private String ruleValue;
     // 规则生效时间
-    private String startTime;
+    private Date startTime;
     // 激活状态
     private String status;
 
@@ -101,7 +103,7 @@ public class RuleInfo {
     /**
      * @return the startTime
      */
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
@@ -109,7 +111,7 @@ public class RuleInfo {
      * @param startTime
      *            the startTime to set
      */
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
