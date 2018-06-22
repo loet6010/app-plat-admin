@@ -44,7 +44,7 @@
 
     <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="/"/>
-        <property name="configLocation" value="/WEB-INF/velocity.properties"/>
+        <property name="configLocation" value="classpath:spring/velocity.properties"/>
 		<property name="velocityProperties">    
          <props>    
              <prop  key="input.encoding">UTF-8</prop>    
@@ -82,7 +82,7 @@
                     <property name="dateToolAttribute" value="datetool"/>
                     <property name="contentType" value="text/html;charset=UTF-8"/>
                     <property name="exposeSessionAttributes" value="true"/>
-                    <property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml"/>
+                    <property name="toolboxConfigLocation" value="classpath:spring/toolbox.xml"/>
                     <property name="exposeSpringMacroHelpers" value="true"/>
                     <property name="exposeRequestAttributes" value="true"/>
                     <property name="allowSessionOverride" value="true"/>
