@@ -293,7 +293,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
         Date maxDate = calendar.getTime();
 
-        Assert.isTrue(endTime.compareTo(maxDate) <= 0, "日期间隔超过最多限制，当前查询日期最多间隔" + intervalDays + "天");
+        Assert.isTrue(endTime.compareTo(maxDate) <= 0, "日期间隔超过最大限制，当前查询日期最多间隔" + intervalDays + "天！");
     }
 
     /**
