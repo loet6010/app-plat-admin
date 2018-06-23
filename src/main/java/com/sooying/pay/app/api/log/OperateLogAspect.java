@@ -1,9 +1,5 @@
 package com.sooying.pay.app.api.log;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +16,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.sooying.pay.app.api.constant.OperateLogEnum;
 import com.sooying.pay.app.api.dao.platform.log.OperateLogInfoDao;
 import com.sooying.pay.app.api.model.platform.log.OperateLogInfo;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 操作日志
@@ -121,7 +120,7 @@ public class OperateLogAspect {
             operateLogInfo.setPlatformName(PLATFORM_NAME);
             operateLogInfo.setChannel("");
             operateLogInfo.setType(type);
-            operateLogInfo.setContent(convertArgsTOString(joinPoint.getArgs()));
+            operateLogInfo.setContent(convertArgsTOJsonString(joinPoint.getArgs()));
             operateLogInfo.setLoginIP(getVisitIP());
             operateLogInfo.setTriggerPoint(joinPoint.getSignature().toString());
             operateLogInfo.setRemark(remark);
@@ -129,7 +128,7 @@ public class OperateLogAspect {
             // 操作日志插入到日志表中
             operateLogInfoDao.addOperateLog(operateLogInfo);
         } catch (Exception e) {
-            logger.error("LoggingAspect.addDataLog:发生异常", e);
+            logger.info("OperateLogAspect addDataLog 发生异常：{}", e.getMessage());
         }
     }
 
@@ -139,8 +138,9 @@ public class OperateLogAspect {
      * @return
      */
     private HttpServletRequest getHttpServletRequest() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = null;
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
             request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         }
@@ -155,9 +155,7 @@ public class OperateLogAspect {
      */
     private String getLoginName() {
         HttpServletRequest request = getHttpServletRequest();
-        String loginName = request.getParameter("loginName");
-
-        return loginName;
+        return request.getParameter("loginName");
     }
 
     /**
@@ -166,174 +164,46 @@ public class OperateLogAspect {
      * @return
      */
     private String getVisitIP() {
-        String visitAddr = "";
-        
         HttpServletRequest request = getHttpServletRequest();
-        if (request == null) {
-            visitAddr = "";
-        } else if (((HttpServletRequest) request).getHeader("x-forwarded-for") == null) {
-            visitAddr = request.getRemoteAddr();
-        } else {
-            visitAddr = ((HttpServletRequest) request).getHeader("x-forwarded-for");
-        }
 
-        return visitAddr;
+        if (request == null) {
+            return "";
+        } else if (((HttpServletRequest) request).getHeader("x-forwarded-for") == null) {
+            return request.getRemoteAddr();
+        } else {
+            return ((HttpServletRequest) request).getHeader("x-forwarded-for");
+        }
     }
 
     /**
-     * 将目标方法的所有参数变成string类型返回
+     * 将目标方法的所有参数返回json字符串
      *
      * @param args
      * @return
      */
-    private String convertArgsTOString(Object[] args) {
-        if (args.length == 0) {
-            return "";
-        }
-        Class<? extends Object> clazz;
-        String clazzName;
+    private String convertArgsTOJsonString(Object[] args) {
+        JSONObject returnJson = new JSONObject();
 
-        StringBuffer stringBuffer = new StringBuffer("{");
         for (Object object : args) {
-            if (object != null) {
-                clazz = object.getClass();
-                clazzName = clazz.getName();
-
-                if ("java.util.ArrayList".equals(clazzName)) {
-                    stringBuffer.append(convertListTOString(object));
-                } else if ("java.util.HashMap".equals(clazzName)) {
-                    stringBuffer.append(convertMapTOString(object));
-                } else if (clazzName != null && clazzName.startsWith("com.sooying")) {
-                    stringBuffer.append(convertObjectTOString(object));
-                } else if ("java.lang.String".equals(clazzName)) {
-                    stringBuffer.append(convertStringTOString(object));
-                } else {
-                    stringBuffer.append(convertBasicsTOString(object));
-                }
+            if (object == null) {
+                continue;
+            }
+            Class<? extends Object> clazz = object.getClass();
+            String clazzName = clazz.getName();
+            String simpleName = clazz.getSimpleName();
+            if (clazzName.contains("com.sooying.pay.app.api")
+                    || (clazzName.startsWith("java.util") && clazzName.contains("Map"))) {
+                JSONObject json = JSONObject.fromObject(object);
+                returnJson.put(simpleName, json);
+            } else if (clazzName.startsWith("java.util") && clazzName.contains("List")) {
+                JSONArray jsonArray = JSONArray.fromObject(object);
+                returnJson.put(simpleName, jsonArray);
             } else {
-                stringBuffer.append("null");
-            }
-            stringBuffer.append(";");
-        }
-        if (args.length > 0) {
-            stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-        }
-        stringBuffer.append("}");
-
-        return stringBuffer.toString();
-    }
-
-    /**
-     * 将普通对象变成string类型
-     *
-     * @param object
-     * @return
-     */
-    private String convertObjectTOString(Object object) {
-        Class<? extends Object> clazz = object.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        Field field;
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(clazz.getSimpleName()).append("{");
-        for (int i = 0; i < fields.length; i++) {
-            field = fields[i];
-            field.setAccessible(true);
-            stringBuffer.append(field.getName()).append("=");
-            if ("java.lang.String".equals(field.getType().getName())) {
-                stringBuffer.append("\"");
-            }
-            try {
-                stringBuffer.append(field.get(object));
-            } catch (IllegalAccessException e) {
-                stringBuffer.append("解析异常");
-            }
-            if ("java.lang.String".equals(field.getType().getName())) {
-                stringBuffer.append("\"");
-            }
-            stringBuffer.append(", ");
-        }
-        if (fields.length > 0) {
-            stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        }
-        stringBuffer.append("}");
-
-        return stringBuffer.toString();
-    }
-
-    /**
-     * 将基础类型对象变成string类型
-     *
-     * @param object
-     * @return
-     */
-    private String convertBasicsTOString(Object object) {
-        Class<? extends Object> clazz = object.getClass();
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(clazz.getSimpleName()).append("{").append(object).append("}");
-
-        return stringBuffer.toString();
-    }
-
-    /**
-     * 将string变成string类型
-     *
-     * @param object
-     * @return
-     */
-    private String convertStringTOString(Object object) {
-        Class<? extends Object> clazz = object.getClass();
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(clazz.getSimpleName()).append("{").append("\"").append(object).append("\"").append("}");
-
-        return stringBuffer.toString();
-    }
-
-    /**
-     * 将map对象变成string类型
-     *
-     * @param object
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    private String convertMapTOString(Object object) {
-        Class<? extends Object> clazz = object.getClass();
-        Map<Object, Object> map = (Map<Object, Object>) object;
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(clazz.getSimpleName()).append("{");
-        for (Object key : map.keySet()) {
-            stringBuffer.append(key).append(":").append(map.get(key)).append(";");
-        }
-        if (map.size() > 0) {
-            stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-        }
-        stringBuffer.append("}");
-
-        return stringBuffer.toString();
-    }
-
-    /**
-     * 将list对象变成string类型
-     *
-     * @param object
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    private String convertListTOString(Object object) {
-        Class<? extends Object> clazz = object.getClass();
-        List<Object> list = (List<Object>) object;
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(clazz.getSimpleName()).append("{");
-        for (Object o : list) {
-            if (o != null) {
-                stringBuffer.append(convertObjectTOString(o)).append(";");
+                returnJson.put(simpleName, object.toString());
             }
         }
-        if (list.size() > 0) {
-            stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-        }
-        stringBuffer.append("}");
 
-        return stringBuffer.toString();
+        return returnJson.toString();
     }
 
 }
