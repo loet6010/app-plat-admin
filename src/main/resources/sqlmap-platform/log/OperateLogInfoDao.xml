@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.log.OperateLogInfoDao">
+	
+	<insert id="addOperateLog" parameterType="OperateLogInfo">
+        insert into dp_log(
+          operator,
+          project_name,
+          platform_name,
+          channel,
+          type,
+          content,
+          login_ip,
+          trigger_point,
+          remark,
+          create_time
+        )values(
+          #{operator},
+          #{projectName},
+          #{platformName},
+          #{channel},
+          #{type},
+          #{content},
+          #{loginIP},
+          #{triggerPoint},
+          #{remark},
+          now()
+        )
+	</insert>
+</mapper>
