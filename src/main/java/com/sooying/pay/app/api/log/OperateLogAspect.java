@@ -51,15 +51,15 @@ public class OperateLogAspect {
     }
 
     /**
-     * 对DAO层的更新操作进行记录
+     * 对DAO层的修改操作进行记录
      *
      * @param joinPoint
      */
     @Before("execution(* com.sooying.pay.app.api.dao.*.*.*Dao.update*(..))")
     public void updateRecord(JoinPoint joinPoint) {
-        logger.info("OperateLogAspect updateRecord 对{}进行更新记录", joinPoint.getSignature().toString());
+        logger.info("OperateLogAspect updateRecord 对{}进行修改记录", joinPoint.getSignature().toString());
 
-        addDataLog(joinPoint, OperateLogEnum.UPDATE.getCode(), "更新数据");
+        addDataLog(joinPoint, OperateLogEnum.UPDATE.getCode(), "修改数据");
     }
 
     /**
@@ -78,9 +78,9 @@ public class OperateLogAspect {
 
         // 过滤插入日志的操作
         if (!isInsertLog) {
-            logger.info("OperateLogAspect insertRecord 对{}进行更新记录", joinPoint.getSignature().toString());
+            logger.info("OperateLogAspect insertRecord 对{}进行新增记录", joinPoint.getSignature().toString());
 
-            addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "插入数据");
+            addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "新增数据");
         }
     }
 
