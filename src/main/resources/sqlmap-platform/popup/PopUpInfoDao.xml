@@ -32,7 +32,7 @@
             and channel_no = #{channelNo}
         </if>
         <if test="province != null and province != ''">
-            and province = #{province}
+            and province like #{province}
         </if>
 	</select>
 
@@ -51,7 +51,7 @@
             and channel_no = #{channelNo}
         </if>
         <if test="province != null and province != ''">
-            and province = #{province}
+            and province like #{province}
         </if>
 		order by create_time desc
 		limit #{rowsPerPage} offset #{start}

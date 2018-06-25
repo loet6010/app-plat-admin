@@ -24,6 +24,7 @@ import com.sooying.pay.app.api.service.popup.PopUpInfoService;
 import com.sooying.pay.app.api.util.BeanDateCopyUtil;
 import com.sooying.pay.app.api.util.CheckUtil;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
+import com.sooying.pay.app.api.util.StringUtil;
 
 /**
  * 二次确认弹窗
@@ -54,7 +55,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         paramsMap.put("passagewayId", popUpInfoDto.getPassagewayId());
         paramsMap.put("netType", popUpInfoDto.getNetType());
         paramsMap.put("channelNo", popUpInfoDto.getChannelNo());
-        paramsMap.put("province", popUpInfoDto.getProvince());
+        paramsMap.put("province", StringUtil.matchFuzzyString(popUpInfoDto.getProvince()));
 
         // 查询总数
         int totalCount = popUpInfoDao.selectPopUpInfoCount(paramsMap);

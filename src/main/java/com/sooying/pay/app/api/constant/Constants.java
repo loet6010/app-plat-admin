@@ -34,6 +34,8 @@ public class Constants {
     public static final String TIME_BEGIN = "00:00:00";
     // 结束时间
     public static final String TIME_END = "23:59:59";
+    // 百分比号
+    public static final String PERCENT = "%";
 
     static {
         BaseProperties propertiesTool = new BaseProperties("classpath:conf/params.properties");
