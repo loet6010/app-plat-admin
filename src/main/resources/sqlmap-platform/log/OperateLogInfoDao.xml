@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooying.pay.app.api.dao.platform.log.OperateLogInfoDao">
 	
-	<insert id="addOperateLog" parameterType="OperateLogInfo">
+	<insert id="insertOperateLog" parameterType="OperateLogInfo">
         insert into dp_log(
           operator,
           project_name,

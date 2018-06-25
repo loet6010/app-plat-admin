@@ -16,5 +16,5 @@ public interface OperateLogInfoDao {
      *
      * @param operateLogInfo
      */
-    void addOperateLog(OperateLogInfo operateLogInfo);
+    void insertOperateLog(OperateLogInfo operateLogInfo);
 }

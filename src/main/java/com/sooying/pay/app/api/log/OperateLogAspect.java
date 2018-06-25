@@ -92,13 +92,9 @@ public class OperateLogAspect {
      */
     private boolean validateIsInsertLog(JoinPoint joinPoint) {
         boolean isInsertLog = false;
-        if (joinPoint != null && joinPoint.getArgs().length > 1 && joinPoint.getArgs()[0] != null) {
-            String clazzName = (joinPoint.getArgs()[0]).getClass().getName();
-            if ("java.lang.String".equals(clazzName)) {
-                String insertName = (String) joinPoint.getArgs()[0];
-                if ("insertOperateLog".equals(insertName)) {
-                    isInsertLog = true;
-                }
+        if (joinPoint != null) {
+            if (OperateLogInfoDao.class.getName().equals(joinPoint.getSignature().getDeclaringTypeName())) {
+                isInsertLog = true;
             }
         }
 
@@ -126,7 +122,7 @@ public class OperateLogAspect {
             operateLogInfo.setRemark(remark);
 
             // 操作日志插入到日志表中
-            operateLogInfoDao.addOperateLog(operateLogInfo);
+            operateLogInfoDao.insertOperateLog(operateLogInfo);
         } catch (Exception e) {
             logger.info("OperateLogAspect addDataLog 发生异常：{}", e.getMessage());
         }
