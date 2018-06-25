@@ -69,18 +69,14 @@ public class OperateLogAspect {
      */
     @Before("execution(* com.sooying.pay.app.api.dao.*.*.*Dao.insert*(..))")
     public void insertRecord(JoinPoint joinPoint) {
-        boolean isInsertLog = true;
         try {
-            isInsertLog = validateIsInsertLog(joinPoint);
+            if (validateIsNotInsertLog(joinPoint)) {
+                logger.info("OperateLogAspect insertRecord 对{}进行新增记录", joinPoint.getSignature().toString());
+
+                addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "新增数据");
+            }
         } catch (Exception e) {
             logger.info("OperateLogAspect insertRecord 发生异常：{}", e.getMessage());
-        }
-
-        // 过滤插入日志的操作
-        if (!isInsertLog) {
-            logger.info("OperateLogAspect insertRecord 对{}进行新增记录", joinPoint.getSignature().toString());
-
-            addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "新增数据");
         }
     }
 
@@ -90,15 +86,14 @@ public class OperateLogAspect {
      * @param joinPoint
      * @return
      */
-    private boolean validateIsInsertLog(JoinPoint joinPoint) {
-        boolean isInsertLog = false;
+    private boolean validateIsNotInsertLog(JoinPoint joinPoint) {
         if (joinPoint != null) {
             if (OperateLogInfoDao.class.getName().equals(joinPoint.getSignature().getDeclaringTypeName())) {
-                isInsertLog = true;
+                return false;
             }
         }
 
-        return isInsertLog;
+        return true;
     }
 
     /**
