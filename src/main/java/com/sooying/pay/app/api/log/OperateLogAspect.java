@@ -109,7 +109,7 @@ public class OperateLogAspect {
             operateLogInfo.setOperator(getLoginName());
             operateLogInfo.setProjectName(PROJECT_NAME);
             operateLogInfo.setPlatformName(PLATFORM_NAME);
-            operateLogInfo.setChannel("");
+            operateLogInfo.setChannel(joinPoint.getSignature().toShortString());
             operateLogInfo.setType(type);
             operateLogInfo.setContent(convertArgsTOJsonString(joinPoint.getArgs()));
             operateLogInfo.setLoginIP(getVisitIP());
