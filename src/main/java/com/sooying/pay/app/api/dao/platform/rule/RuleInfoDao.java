@@ -44,7 +44,7 @@ public interface RuleInfoDao {
      *
      * @param id
      */
-    void deleteRuleInfo(Long id);
+    void deleteRuleInfo(@Param("id") Long id);
 
     /**
      * 修改通道过滤规则激活状态

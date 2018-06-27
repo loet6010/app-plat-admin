@@ -3,6 +3,8 @@ package com.sooying.pay.app.api.dao.platform.grade;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
 
 /**
@@ -42,7 +44,7 @@ public interface PassagewayCoefInfoDao {
      *
      * @param id
      */
-    void deletePassagewayCoefInfo(Long id);
+    void deletePassagewayCoefInfo(@Param("id") Long id);
 
     /**
      * 新增通道系数配置
@@ -50,12 +52,20 @@ public interface PassagewayCoefInfoDao {
      * @param passagewayCoefInfo
      */
     void insertPassagewayCoefInfo(PassagewayCoefInfo passagewayCoefInfo);
-    
+
     /**
      * 根据通道ID查询运营商
      *
      * @param passagewayId
      * @return
      */
-    String selectNetOperatorByPassagewayId(int passagewayId);
+    String selectNetOperatorByPassagewayId(@Param("passagewayId") int passagewayId);
+
+    /**
+     * 查询通道ID存在数量
+     *
+     * @param passagewayId
+     * @return
+     */
+    int selectExistPassagewayIdCount(@Param("passagewayId") String passagewayId);
 }

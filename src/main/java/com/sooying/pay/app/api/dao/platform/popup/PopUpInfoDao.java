@@ -3,6 +3,8 @@ package com.sooying.pay.app.api.dao.platform.popup;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sooying.pay.app.api.model.platform.popup.PopUpInfo;
 
 /**
@@ -42,7 +44,7 @@ public interface PopUpInfoDao {
      *
      * @param id
      */
-    void deletePopUpInfo(Long id);
+    void deletePopUpInfo(@Param("id") Long id);
 
     /**
      * 修改二次确认弹窗激活状态

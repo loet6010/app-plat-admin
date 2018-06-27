@@ -91,4 +91,10 @@
 	    from dp_pay_plugin
 	    where plugin_id = #{passagewayId}
 	</select>
+	
+	<select id="selectExistPassagewayIdCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*)
+        from dp_passageway_coef_info
+        where passageway_id = #{passagewayId}
+    </select>
 </mapper>

@@ -146,9 +146,13 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         // 参数验证
         validatePassagewayCoefInfo(passagewayCoefInfoDto);
         Assert.isTrue(NumberUtils.isDigits(passagewayCoefInfoDto.getPassagewayId()), "通道ID必须是整数！");
+
         String netOperator = passagewayCoefInfoDao
                 .selectNetOperatorByPassagewayId(Integer.parseInt(passagewayCoefInfoDto.getPassagewayId()));
         Assert.isTrue(netOperator != null, "通道ID不存在！");
+
+        int existCount = passagewayCoefInfoDao.selectExistPassagewayIdCount(passagewayCoefInfoDto.getPassagewayId());
+        Assert.isTrue(existCount <= 0, "已存在该通道的系数信息！");
 
         // 对象拷贝
         PassagewayCoefInfo passagewayCoefInfo = new PassagewayCoefInfo();
