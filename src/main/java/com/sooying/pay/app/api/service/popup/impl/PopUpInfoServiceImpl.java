@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.base.BasePagination;
-import com.sooying.pay.app.api.constant.ApiStatusEnum;
-import com.sooying.pay.app.api.constant.Constants;
-import com.sooying.pay.app.api.constant.ProvinceEnum;
+import com.sooying.pay.app.api.common.base.BasePagination;
+import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
+import com.sooying.pay.app.api.common.constant.Constants;
+import com.sooying.pay.app.api.common.constant.ProvinceEnum;
 import com.sooying.pay.app.api.controller.popup.dto.PopUpInfoDto;
 import com.sooying.pay.app.api.dao.platform.popup.PopUpInfoDao;
 import com.sooying.pay.app.api.model.platform.popup.PopUpInfo;

@@ -1,6 +1,6 @@
-package com.sooying.pay.app.api.constant;
+package com.sooying.pay.app.api.common.constant;
 
-import com.sooying.pay.app.api.base.BaseProperties;
+import com.sooying.pay.app.api.common.base.BaseProperties;
 
 /**
  * 平台常量参数

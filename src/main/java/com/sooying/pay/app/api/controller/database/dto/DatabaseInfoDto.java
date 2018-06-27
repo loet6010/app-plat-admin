@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.controller.database.dto;
 
-import com.sooying.pay.app.api.base.BasePageDto;
+import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
  * 数据库查询

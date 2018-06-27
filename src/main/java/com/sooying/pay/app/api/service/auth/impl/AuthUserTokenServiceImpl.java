@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.constant.ApiStatusEnum;
+import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.auth.dto.UserInfoDto;
 import com.sooying.pay.app.api.dao.platform.auth.AuthUserTokenDao;
 import com.sooying.pay.app.api.model.platform.auth.UserInfo;

@@ -2,7 +2,7 @@ package com.sooying.pay.app.api.util;
 
 import java.security.MessageDigest;
 
-import com.sooying.pay.app.api.constant.Constants;
+import com.sooying.pay.app.api.common.constant.Constants;
 
 /**
  * MD5工具类

@@ -15,10 +15,10 @@ import org.springframework.util.Assert;
 
 import com.bench.common.lang.NumberUtils;
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.base.BasePagination;
-import com.sooying.pay.app.api.constant.ApiStatusEnum;
-import com.sooying.pay.app.api.constant.CodeTypeEnum;
-import com.sooying.pay.app.api.constant.RuleTypeEnum;
+import com.sooying.pay.app.api.common.base.BasePagination;
+import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
+import com.sooying.pay.app.api.common.constant.CodeTypeEnum;
+import com.sooying.pay.app.api.common.constant.RuleTypeEnum;
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
 import com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao;
 import com.sooying.pay.app.api.model.platform.rule.RuleInfo;

@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.controller.note.dto;
 
-import com.sooying.pay.app.api.base.BasePageDto;
+import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
  * 短信明细dto

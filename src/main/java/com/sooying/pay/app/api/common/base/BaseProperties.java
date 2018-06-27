@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.base;
+package com.sooying.pay.app.api.common.base;
 
 import java.io.IOException;
 import java.io.InputStream;

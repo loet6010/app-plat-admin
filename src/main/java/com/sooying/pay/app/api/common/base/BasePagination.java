@@ -2,7 +2,7 @@
  * sooying.com Inc.
  * Copyright (c) 2004-2015 All Rights Reserved.
  */
-package com.sooying.pay.app.api.base;
+package com.sooying.pay.app.api.common.base;
 
 import java.io.Serializable;
 import java.util.ArrayList;

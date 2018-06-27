@@ -14,9 +14,9 @@ import org.springframework.util.Assert;
 
 import com.bench.common.lang.NumberUtils;
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.base.BasePagination;
-import com.sooying.pay.app.api.constant.ApiStatusEnum;
-import com.sooying.pay.app.api.constant.ProvinceEnum;
+import com.sooying.pay.app.api.common.base.BasePagination;
+import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
+import com.sooying.pay.app.api.common.constant.ProvinceEnum;
 import com.sooying.pay.app.api.controller.grade.dto.PassagewayGradeInfoDto;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayGradeInfoDao;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayGradeInfo;

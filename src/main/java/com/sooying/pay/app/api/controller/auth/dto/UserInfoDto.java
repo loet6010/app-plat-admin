@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.controller.auth.dto;
 
-import com.sooying.pay.app.api.base.BasePageDto;
+import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
  * 用户登录dto

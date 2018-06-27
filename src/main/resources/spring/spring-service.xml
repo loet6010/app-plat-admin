@@ -20,7 +20,7 @@
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**/*.json" />
-            <bean class="com.sooying.pay.app.api.interceptor.AuthInterceptor" />
+            <bean class="com.sooying.pay.app.api.common.interceptor.AuthInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

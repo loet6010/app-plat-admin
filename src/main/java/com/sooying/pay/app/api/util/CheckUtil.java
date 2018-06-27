@@ -3,7 +3,7 @@ package com.sooying.pay.app.api.util;
 import org.springframework.util.Assert;
 
 import com.bench.common.lang.NumberUtils;
-import com.sooying.pay.app.api.constant.Constants;
+import com.sooying.pay.app.api.common.constant.Constants;
 
 /**
  * 检查工具类

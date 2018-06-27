@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.constant;
+package com.sooying.pay.app.api.common.constant;
 
 /**
  * 接口返回枚举类

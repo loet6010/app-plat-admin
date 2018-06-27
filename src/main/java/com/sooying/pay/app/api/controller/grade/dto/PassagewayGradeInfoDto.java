@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.controller.grade.dto;
 
-import com.sooying.pay.app.api.base.BasePageDto;
+import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
  * 通道分级系数数据

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.sooying.pay.app.api.constant.Constants;
+import com.sooying.pay.app.api.common.constant.Constants;
 
 /**
  * 缓存工具类

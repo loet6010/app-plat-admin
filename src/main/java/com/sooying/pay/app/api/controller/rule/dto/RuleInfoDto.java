@@ -1,6 +1,6 @@
 package com.sooying.pay.app.api.controller.rule.dto;
 
-import com.sooying.pay.app.api.base.BasePageDto;
+import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
  * 通道过滤规则dto

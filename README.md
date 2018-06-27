@@ -1,4 +1,4 @@
-# app-plat-admin
+# app-plat-admin APP平台移植工程
 
 拦截器：AuthInterceptor.java
     拦截所有的.json访问，验证token有效性

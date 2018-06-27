@@ -1,7 +1,7 @@
 package com.sooying.pay.app.api.util;
 
 import com.google.common.base.Strings;
-import com.sooying.pay.app.api.constant.Constants;
+import com.sooying.pay.app.api.common.constant.Constants;
 
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;

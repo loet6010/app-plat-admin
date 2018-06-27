@@ -1,7 +1,7 @@
 package com.sooying.pay.app.api.util;
 
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.constant.Constants;
+import com.sooying.pay.app.api.common.constant.Constants;
 
 /**
  * 字符串工具类

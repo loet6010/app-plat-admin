@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.constant;
+package com.sooying.pay.app.api.common.constant;
 
 import org.apache.commons.lang.StringUtils;
 

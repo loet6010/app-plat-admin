@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.log;
+package com.sooying.pay.app.api.common.log;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.sooying.pay.app.api.constant.OperateLogEnum;
+import com.sooying.pay.app.api.common.constant.OperateLogEnum;
 import com.sooying.pay.app.api.dao.platform.log.OperateLogInfoDao;
 import com.sooying.pay.app.api.model.platform.log.OperateLogInfo;
 
