@@ -4,10 +4,10 @@
 	<groupId>com.sooying.pay.data.app</groupId>
 	<artifactId>app-plat-admin</artifactId>
 	<packaging>jar</packaging>
-	<version>1.001</version>
+	<version>1.002</version>
 	<name>app-plat-admin Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<description>手机APP接口</description>
+	<description>平台移植APP</description>
 	<properties>
 		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>

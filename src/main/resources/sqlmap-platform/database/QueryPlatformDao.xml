@@ -29,8 +29,10 @@
             FROM dp_open_pay_order_result
             where pay_time >= #{beginTime}
               and pay_time &lt;= #{endTime}
+              and status in('0','1','2','3','4')
+              and (imei is not null or imei != '')
               and app_id = #{appId}
-            group by appId having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+            group by appId
            ) a
 	</select>
 	
@@ -43,10 +45,21 @@
             FROM dp_open_pay_order_result
             where pay_time >= #{beginTime}
               and pay_time &lt;= #{endTime}
+              and status in('0','1','4')
+              and (imei is not null or imei != '')
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="appId != null">
+                  and app_id = #{appId}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
               <if test="passagewayId != null and passagewayId != ''">
                   and passageway_id = #{passagewayId}
               </if>
-            group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+            group by passageway_id
            ) a
     </select>
 	
@@ -64,30 +77,45 @@
         FROM
            (
             SELECT passageway_id as passagewayId,
-                   count(distinct(CASE WHEN status in('0','1','2','3','4') THEN imei END)) AS requestCount,
+                   count(distinct(CASE WHEN status in('0','1','4') THEN imei END)) AS requestCount,
                    count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
                    count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
                    count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
             FROM dp_open_pay_order_result
             where pay_time >= #{beginTime}
               and pay_time &lt;= #{endTime}
+              and status in('0','1','4')
+              and (imei is not null or imei != '')
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="appId != null">
+                  and app_id = #{appId}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
               <if test="passagewayId != null and passagewayId != ''">
                   and passageway_id = #{passagewayId}
               </if>
-            group by passageway_id having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+            group by passageway_id
            ) a
         LEFT JOIN
            (
-            SELECT sp_code,
+            SELECT bx.sp_code,
                    count(*) as mrCount
-            from dp_third_note_pay_result
-            where create_time >= #{beginTime}
-              and create_time &lt;= #{endTime}
-              and status_desc = '1'
-              <if test="passagewayId != null and passagewayId != ''">
-                  and sp_code = #{passagewayId}
-              </if>
-            group by sp_code
+            from
+               (
+                select DISTINCT linkid,sp_code,pay_money,status,mobile,long_num
+                from dp_third_note_pay_result
+                where create_time >= #{beginTime}
+                  and create_time &lt;= #{endTime}
+                  and status_desc = '1'
+                <if test="passagewayId != null and passagewayId != ''">
+                    and sp_code = #{passagewayId}
+                </if>
+               ) bx
+            group by bx.sp_code
            ) b 
                ON a.passagewayId = b.sp_code
         LEFT JOIN dp_note_info c
@@ -106,13 +134,15 @@
             FROM dp_open_pay_order_result
             where pay_time >= #{beginTime}
               and pay_time &lt;= #{endTime}
+              and status in('0','1','2','3','4')
+              and (imei is not null or imei != '')
               <if test="netType != null and netType != ''">
                   and net_type = #{netType}
               </if>
               <if test="province != null and province != ''">
                   and province = #{province}
               </if>
-            group by net_type,province having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+            group by net_type,province
            ) a
     </select>
     
@@ -136,13 +166,15 @@
             FROM dp_open_pay_order_result
             where pay_time >= #{beginTime}
               and pay_time &lt;= #{endTime}
+              and status in('0','1','2','3','4')
+              and (imei is not null or imei != '')
               <if test="netType != null and netType != ''">
                   and net_type = #{netType}
               </if>
               <if test="province != null and province != ''">
                   and province = #{province}
               </if>
-            group by net_type,province having count(distinct(CASE WHEN status in('0','1') THEN imei END)) > 0
+            group by net_type,province
            ) a
         order by successRate desc
         limit #{rowsPerPage} offset #{start}

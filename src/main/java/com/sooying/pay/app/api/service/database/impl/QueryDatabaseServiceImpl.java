@@ -110,8 +110,19 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         logger.info("QueryDatabaseServiceImpl getSuccessRateInfoList user is {}, passagewayId is {}",
                 databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
 
+        Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getNetType()), "运营商不能为空！");
+
         Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("netType", databaseInfoDto.getNetType());
+        paramsMap.put("province", databaseInfoDto.getProvince());
         paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
+        Integer appId = null;
+        if (StringUtils.isNotBlank(databaseInfoDto.getAppId())) {
+            Assert.isTrue(NumberUtils.isDigits(databaseInfoDto.getAppId()), "应用ID必须是整数！");
+            
+            appId = Integer.parseInt(databaseInfoDto.getAppId());
+        }
+        paramsMap.put("appId", appId);
 
         // 获取代码成功率查询时间，间隔最多1天
         SearchTimeInfo searchTimeInfo = getValidateSearchTime(databaseInfoDto.getBeginTime(),
