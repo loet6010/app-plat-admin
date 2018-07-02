@@ -26,4 +26,12 @@ public interface NoteInfoService {
      * @return
      */
     String modifyNoteInfoStatus(NoteInfoDto noteInfoDto);
+
+    /**
+     * 修改短信明细SDK激活状态
+     *
+     * @param noteInfoDto
+     * @return
+     */
+    String modifyNoteInfoSdkStatus(NoteInfoDto noteInfoDto);
 }

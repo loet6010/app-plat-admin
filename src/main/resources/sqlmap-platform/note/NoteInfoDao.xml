@@ -10,6 +10,7 @@
 		<id column="passageway_name" property="passagewayName" />
 		<id column="code_type" property="codeType" />
 		<id column="status" property="status" />
+		<id column="sdk_status" property="sdkStatus" />
 	</resultMap>
 
 	<select id="selectNoteInfoCount" parameterType="java.util.HashMap"
@@ -40,4 +41,11 @@
 		    modify_time = now()
 		where id = #{id}
 	</update>
+	
+	<update id="updateNoteInfoSdkStatus" parameterType="NoteInfo">
+        update dp_note_info
+        set sdk_status = #{sdkStatus},
+            modify_time = now()
+        where id = #{id}
+    </update>
 </mapper>

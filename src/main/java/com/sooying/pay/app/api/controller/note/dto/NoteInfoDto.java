@@ -16,6 +16,8 @@ public class NoteInfoDto extends BasePageDto {
     private String passagewayId;
     // 激活状态
     private String status;
+    // SDK激活状态
+    private String sdkStatus;
 
     /**
      * @return the id
@@ -63,13 +65,28 @@ public class NoteInfoDto extends BasePageDto {
     }
 
     /**
+     * @return the sdkStatus
+     */
+    public String getSdkStatus() {
+        return sdkStatus;
+    }
+
+    /**
+     * @param sdkStatus
+     *            the sdkStatus to set
+     */
+    public void setSdkStatus(String sdkStatus) {
+        this.sdkStatus = sdkStatus;
+    }
+
+    /**
      *
      * @return
      */
     @Override
     public String toString() {
-        super.toString();
-        return "NoteInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", status=" + status + "]";
+        return "NoteInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", status=" + status + ", sdkStatus="
+                + sdkStatus + "]";
     }
 
 }

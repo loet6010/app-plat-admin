@@ -47,7 +47,7 @@ public class OperateLogAspect {
     public void deleteRecord(JoinPoint joinPoint) {
         logger.info("OperateLogAspect deleteRecord 对{}进行删除记录", joinPoint.getSignature().toString());
 
-        addDataLog(joinPoint, OperateLogEnum.DELETE.getCode(), "删除数据");
+        addDataLog(joinPoint, OperateLogEnum.DELETE.getCode(), "删除");
     }
 
     /**
@@ -59,7 +59,7 @@ public class OperateLogAspect {
     public void updateRecord(JoinPoint joinPoint) {
         logger.info("OperateLogAspect updateRecord 对{}进行修改记录", joinPoint.getSignature().toString());
 
-        addDataLog(joinPoint, OperateLogEnum.UPDATE.getCode(), "修改数据");
+        addDataLog(joinPoint, OperateLogEnum.UPDATE.getCode(), "修改");
     }
 
     /**
@@ -73,7 +73,7 @@ public class OperateLogAspect {
             if (validateIsNotInsertLog(joinPoint)) {
                 logger.info("OperateLogAspect insertRecord 对{}进行新增记录", joinPoint.getSignature().toString());
 
-                addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "新增数据");
+                addDataLog(joinPoint, OperateLogEnum.INSERT.getCode(), "新增");
             }
         } catch (Exception e) {
             logger.info("OperateLogAspect insertRecord 发生异常：{}", e.getMessage());

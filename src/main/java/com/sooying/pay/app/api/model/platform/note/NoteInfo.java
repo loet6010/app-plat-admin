@@ -18,6 +18,8 @@ public class NoteInfo {
     private String codeType;
     // 激活状态
     private String status;
+    // SDK激活状态
+    private String sdkStatus;
 
     /**
      * @return the id
@@ -95,13 +97,27 @@ public class NoteInfo {
     }
 
     /**
-     * toString
-     * 
+     * @return the sdkStatus
+     */
+    public String getSdkStatus() {
+        return sdkStatus;
+    }
+
+    /**
+     * @param sdkStatus
+     *            the sdkStatus to set
+     */
+    public void setSdkStatus(String sdkStatus) {
+        this.sdkStatus = sdkStatus;
+    }
+
+    /**
+     *
      * @return
      */
     @Override
     public String toString() {
         return "NoteInfo [id=" + id + ", passagewayId=" + passagewayId + ", passagewayName=" + passagewayName
-                + ", codeType=" + codeType + ", status=" + status + "]";
+                + ", codeType=" + codeType + ", status=" + status + ", sdkStatus=" + sdkStatus + "]";
     }
 }

@@ -77,4 +77,29 @@ public class NoteInfoController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
+    
+    /**
+     * 修改短信明细SDK激活状态
+     *
+     * @param request
+     * @param noteInfoDto
+     * @return
+     */
+    @RequestMapping(value = "/note/modifyNoteInfoSdkStatus.json", method = { RequestMethod.POST })
+    @ResponseBody
+    public String modifyNoteInfoSdkStatus(HttpServletRequest request, NoteInfoDto noteInfoDto) {
+        logger.info("NoteInfoController modifyNoteInfoSdkStatus 修改短信明细SDK激活状态");
+
+        try {
+            return noteInfoService.modifyNoteInfoSdkStatus(noteInfoDto);
+        } catch (IllegalArgumentException e) {
+            logger.info("NoteInfoController 修改短信明细SDK激活状态，参数验证错误：{}", e.getMessage());
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("NoteInfoController 修改短信明细SDK激活状态异常：", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        }
+    }
 }

@@ -98,4 +98,30 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         return ResultReturnUtil.getSuccessString(msg);
     }
 
+    /**
+     * 修改短信明细SDK激活状态
+     *
+     * @param noteInfoDto
+     * @return
+     */
+    @Override
+    public String modifyNoteInfoSdkStatus(NoteInfoDto noteInfoDto) {
+        logger.info("NoteInfoServiceImpl modifyNoteInfoSdkStatus user is {}, id is {}, sdkStatus is {}",
+                noteInfoDto.getLoginName(), noteInfoDto.getId(), noteInfoDto.getSdkStatus());
+
+        // 参数验证
+        CheckUtil.idCheck(noteInfoDto.getId());
+        CheckUtil.statusCheck(noteInfoDto.getSdkStatus());
+
+        NoteInfo noteInfo = new NoteInfo();
+        noteInfo.setId(Long.parseLong(noteInfoDto.getId()));
+        noteInfo.setSdkStatus(noteInfoDto.getSdkStatus());
+
+        noteInfoDao.updateNoteInfoSdkStatus(noteInfo);
+
+        String msg = "修改短信明细SDK激活状态成功";
+        logger.info("NoteInfoServiceImpl modifyNoteInfoSdkStatus {}", msg);
+        return ResultReturnUtil.getSuccessString(msg);
+    }
+
 }

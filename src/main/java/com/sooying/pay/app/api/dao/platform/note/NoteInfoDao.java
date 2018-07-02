@@ -36,4 +36,11 @@ public interface NoteInfoDao {
      * @param noteInfo
      */
     void updateNoteInfoStatus(NoteInfo noteInfo);
+
+    /**
+     * 修改短信明细SDK激活状态
+     *
+     * @param noteInfo
+     */
+    void updateNoteInfoSdkStatus(NoteInfo noteInfo);
 }
