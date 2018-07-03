@@ -176,6 +176,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         Assert.isTrue(NumberUtils.isNumber(passagewayCoefInfoDto.getSynchroRate()), "同步率必须是数字！");
         Assert.isTrue(NumberUtils.isNumber(passagewayCoefInfoDto.getCountRate()), "结算率必须是数字！");
         Assert.isTrue(StringUtils.isNotBlank(passagewayCoefInfoDto.getPrice()), "资费不能为空！");
+        Assert.isTrue(NumberUtils.isDigits(passagewayCoefInfoDto.getPrice()), "资费必须为整数！");
         Assert.isTrue(Constants.STRING_ONE.equals(passagewayCoefInfoDto.getChangeStatus())
                 || Constants.STRING_ZERO.equals(passagewayCoefInfoDto.getChangeStatus()), "固定标志必须是0或1！");
     }
