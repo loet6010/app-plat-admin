@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sooying.pay.app.api.controller.grade.dto.PassagewayCoefInfoDto;
+import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
 import com.sooying.pay.app.api.service.grade.PassagewayCoefInfoService;
+import com.sooying.pay.app.api.service.immediately.PassagewayImmediatelyService;
+import com.sooying.pay.app.api.service.immediately.enums.RedisCashTypeEnum;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
@@ -27,6 +30,8 @@ public class PassagewayCoefInfoController {
 
     @Resource
     PassagewayCoefInfoService passagewayCoefInfoService;
+    @Resource
+    PassagewayImmediatelyService passagewayImmediatelyService;
 
     /**
      * 获取通道系数配置列表
@@ -66,7 +71,21 @@ public class PassagewayCoefInfoController {
         logger.info("PassagewayCoefInfoController modifyPassagewayCoefInfo 修改通道系数配置");
 
         try {
-            return passagewayCoefInfoService.modifyPassagewayCoefInfo(passagewayCoefInfoDto);
+            String message;
+            PassagewayCoefInfo passagewayCoefInfo = passagewayCoefInfoService
+                    .getPassagewayCoefInfoById(passagewayCoefInfoDto);
+
+            if (passagewayCoefInfo != null) {
+                message = passagewayCoefInfoService.modifyPassagewayCoefInfo(passagewayCoefInfoDto);
+
+                // 刷新通道分级系数数据
+                passagewayImmediatelyService.setRedisCash(passagewayCoefInfo.getPassagewayId(),
+                        RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM1.getStatus());
+            } else {
+                message = ResultReturnUtil.getExceptionString("通道系数配置不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("PassagewayCoefInfoController 修改通道系数配置，参数验证错误：{}", e.getMessage());
 
@@ -91,7 +110,21 @@ public class PassagewayCoefInfoController {
         logger.info("PassagewayCoefInfoController removePassagewayCoefInfo 删除通道系数配置");
 
         try {
-            return passagewayCoefInfoService.removePassagewayCoefInfo(passagewayCoefInfoDto);
+            String message;
+            PassagewayCoefInfo passagewayCoefInfo = passagewayCoefInfoService
+                    .getPassagewayCoefInfoById(passagewayCoefInfoDto);
+
+            if (passagewayCoefInfo != null) {
+                message = passagewayCoefInfoService.removePassagewayCoefInfo(passagewayCoefInfoDto);
+
+                // 刷新通道分级系数数据
+                passagewayImmediatelyService.setRedisCash(passagewayCoefInfo.getPassagewayId(),
+                        RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM1.getStatus());
+            } else {
+                message = ResultReturnUtil.getExceptionString("通道系数配置不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("PassagewayCoefInfoController 删除通道系数配置，参数验证错误：{}", e.getMessage());
 

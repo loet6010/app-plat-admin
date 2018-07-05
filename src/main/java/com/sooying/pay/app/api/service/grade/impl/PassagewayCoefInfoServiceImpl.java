@@ -180,4 +180,20 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         Assert.isTrue(Constants.STRING_ONE.equals(passagewayCoefInfoDto.getChangeStatus())
                 || Constants.STRING_ZERO.equals(passagewayCoefInfoDto.getChangeStatus()), "固定标志必须是0或1！");
     }
+
+    /**
+     * 根据ID获取通道系数配置
+     * 
+     * @param passagewayCoefInfoDto
+     * @return
+     */
+    @Override
+    public PassagewayCoefInfo getPassagewayCoefInfoById(PassagewayCoefInfoDto passagewayCoefInfoDto) {
+        logger.info("PassagewayCoefInfoServiceImpl getPassagewayCoefInfo id is {}", passagewayCoefInfoDto.getId());
+
+        // 参数验证
+        CheckUtil.idCheck(passagewayCoefInfoDto.getId());
+
+        return passagewayCoefInfoDao.selectPassagewayCoefInfoById(Long.parseLong(passagewayCoefInfoDto.getId()));
+    }
 }

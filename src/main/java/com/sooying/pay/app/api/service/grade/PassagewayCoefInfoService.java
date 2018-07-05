@@ -1,6 +1,7 @@
 package com.sooying.pay.app.api.service.grade;
 
 import com.sooying.pay.app.api.controller.grade.dto.PassagewayCoefInfoDto;
+import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
 
 /**
  * 通道系数配置
@@ -42,4 +43,12 @@ public interface PassagewayCoefInfoService {
      * @return
      */
     String addPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto);
+    
+    /**
+     * 根据ID获取通道系数配置
+     *
+     * @param passagewayCoefInfoDto
+     * @return
+     */
+    PassagewayCoefInfo getPassagewayCoefInfoById(PassagewayCoefInfoDto passagewayCoefInfoDto);
 }

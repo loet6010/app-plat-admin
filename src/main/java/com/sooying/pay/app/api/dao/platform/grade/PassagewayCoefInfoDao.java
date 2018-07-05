@@ -76,4 +76,12 @@ public interface PassagewayCoefInfoDao {
      * @return
      */
     PassagewayCoefInfo selectPassagewayCoefInfoByPassagewayId(@Param("passagewayId") String passagewayId);
+
+    /**
+     * 根据ID查询通道系数配置
+     *
+     * @param id
+     * @return
+     */
+    PassagewayCoefInfo selectPassagewayCoefInfoById(@Param("id") Long id);
 }
