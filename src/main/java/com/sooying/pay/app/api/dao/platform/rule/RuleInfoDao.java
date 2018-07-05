@@ -91,4 +91,12 @@ public interface RuleInfoDao {
      * @return
      */
     RuleInfo selectImmediatelyRuleInfoByPassagewayId(@Param("passagewayId") String passagewayId);
+    
+    /**
+     * 根据ID获取通道过滤规则
+     *
+     * @param id
+     * @return
+     */
+    RuleInfo selectRuleInfoById(@Param("id") Long id);
 }

@@ -16,9 +16,9 @@ import org.springframework.util.Assert;
 import com.bench.common.lang.NumberUtils;
 import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.common.base.BasePagination;
-import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
-import com.sooying.pay.app.api.common.constant.CodeTypeEnum;
-import com.sooying.pay.app.api.common.constant.RuleTypeEnum;
+import com.sooying.pay.app.api.common.enums.ApiStatusEnum;
+import com.sooying.pay.app.api.common.enums.CodeTypeEnum;
+import com.sooying.pay.app.api.common.enums.RuleTypeEnum;
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
 import com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao;
 import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
@@ -305,6 +305,22 @@ public class RuleInfoServiceImpl implements RuleInfoService {
             int existCount = ruleInfoDao.selectRuleValueExistCount(ruleInfo);
             Assert.isTrue(existCount <= 0, "该通道已存在,大于规则生效时间的省份月限量！");
         }
+    }
+
+    /**
+     * 根据ID获取通道过滤规则
+     * 
+     * @param ruleInfoDto
+     * @return
+     */
+    @Override
+    public RuleInfo getRuleInfoById(RuleInfoDto ruleInfoDto) {
+        logger.info("RuleInfoServiceImpl getRuleInfoById id is {}", ruleInfoDto.getId());
+
+        // 参数验证
+        CheckUtil.idCheck(ruleInfoDto.getId());
+
+        return ruleInfoDao.selectRuleInfoById(Long.parseLong(ruleInfoDto.getId()));
     }
 
 }

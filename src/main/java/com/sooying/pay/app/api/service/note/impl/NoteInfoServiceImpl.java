@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sooying.pay.app.api.common.base.BasePagination;
-import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
+import com.sooying.pay.app.api.common.enums.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
 import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;

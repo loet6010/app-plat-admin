@@ -6,8 +6,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sooying.pay.app.api.common.constant.ApiStatusEnum;
 import com.sooying.pay.app.api.common.constant.Constants;
+import com.sooying.pay.app.api.common.enums.ApiStatusEnum;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

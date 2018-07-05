@@ -1,6 +1,7 @@
 package com.sooying.pay.app.api.service.rule;
 
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
+import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
 
 /**
  * 通道过滤规则
@@ -50,4 +51,12 @@ public interface RuleInfoService {
      * @return
      */
     String addRuleInfo(RuleInfoDto ruleInfoDto);
+
+    /**
+     * 根据ID获取通道过滤规则
+     *
+     * @param ruleInfoDto
+     * @return
+     */
+    RuleInfo getRuleInfoById(RuleInfoDto ruleInfoDto);
 }

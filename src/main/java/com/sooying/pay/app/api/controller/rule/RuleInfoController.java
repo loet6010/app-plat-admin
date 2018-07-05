@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bench.common.lang.StringUtils;
+import com.sooying.pay.app.api.common.enums.RuleTypeEnum;
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
+import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
+import com.sooying.pay.app.api.service.immediately.PassagewayImmediatelyService;
+import com.sooying.pay.app.api.service.immediately.enums.RedisCashTypeEnum;
 import com.sooying.pay.app.api.service.rule.RuleInfoService;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
@@ -27,6 +32,8 @@ public class RuleInfoController {
 
     @Resource
     RuleInfoService ruleInfoService;
+    @Resource
+    PassagewayImmediatelyService passagewayImmediatelyService;
 
     /**
      * 获取通道过滤规则列表
@@ -66,7 +73,22 @@ public class RuleInfoController {
         logger.info("RuleInfoController modifyRuleInfo 修改通道过滤规则");
 
         try {
-            return ruleInfoService.modifyRuleInfo(ruleInfoDto);
+            String message;
+            RuleInfo ruleInfo = ruleInfoService.getRuleInfoById(ruleInfoDto);
+
+            if (ruleInfo != null) {
+                message = ruleInfoService.modifyRuleInfo(ruleInfoDto);
+
+                // 修改开放地区，刷新通道分级系数数据
+                if (RuleTypeEnum.SHIELD_AREA.getType().equals(ruleInfo.getRuleType())) {
+                    passagewayImmediatelyService.setRedisCash(ruleInfo.getPassagewayId(),
+                            RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+                }
+            } else {
+                message = ResultReturnUtil.getExceptionString("当前通道过滤规则不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("RuleInfoController 修改通道过滤规则，参数验证错误：{}", e.getMessage());
 
@@ -91,7 +113,22 @@ public class RuleInfoController {
         logger.info("RuleInfoController removeRuleInfo 删除通道过滤规则");
 
         try {
-            return ruleInfoService.removeRuleInfo(ruleInfoDto);
+            String message;
+            RuleInfo ruleInfo = ruleInfoService.getRuleInfoById(ruleInfoDto);
+
+            if (ruleInfo != null) {
+                message = ruleInfoService.removeRuleInfo(ruleInfoDto);
+
+                // 删除开放地区，刷新通道分级系数数据
+                if (RuleTypeEnum.SHIELD_AREA.getType().equals(ruleInfo.getRuleType())) {
+                    passagewayImmediatelyService.setRedisCash(ruleInfo.getPassagewayId(),
+                            RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+                }
+            } else {
+                message = ResultReturnUtil.getExceptionString("当前通道过滤规则不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("RuleInfoController 删除通道过滤规则，参数验证错误：{}", e.getMessage());
 
@@ -116,7 +153,22 @@ public class RuleInfoController {
         logger.info("RuleInfoController modifyRuleInfoStatus 修改通道过滤规则激活状态");
 
         try {
-            return ruleInfoService.modifyRuleInfoStatus(ruleInfoDto);
+            String message;
+            RuleInfo ruleInfo = ruleInfoService.getRuleInfoById(ruleInfoDto);
+
+            if (ruleInfo != null) {
+                message = ruleInfoService.modifyRuleInfoStatus(ruleInfoDto);
+
+                // 修改开放地区激活状态，刷新通道分级系数数据
+                if (RuleTypeEnum.SHIELD_AREA.getType().equals(ruleInfo.getRuleType())) {
+                    passagewayImmediatelyService.setRedisCash(ruleInfo.getPassagewayId(),
+                            RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+                }
+            } else {
+                message = ResultReturnUtil.getExceptionString("当前通道过滤规则不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("RuleInfoController 修改通道过滤规则激活状态，参数验证错误：{}", e.getMessage());
 
@@ -141,7 +193,15 @@ public class RuleInfoController {
         logger.info("RuleInfoController addRuleInfo 新增通道过滤规则");
 
         try {
-            return ruleInfoService.addRuleInfo(ruleInfoDto);
+            String message = ruleInfoService.addRuleInfo(ruleInfoDto);
+
+            // 新增开放地区，刷新通道分级系数数据
+            if (StringUtils.isNotBlank(ruleInfoDto.getShieldArea())) {
+                passagewayImmediatelyService.setRedisCash(ruleInfoDto.getPassagewayId(),
+                        RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("RuleInfoController 新增通道过滤规则，参数验证错误：{}", e.getMessage());
 

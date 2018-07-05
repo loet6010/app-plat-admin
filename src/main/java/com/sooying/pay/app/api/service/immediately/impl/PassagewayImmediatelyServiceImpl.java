@@ -18,7 +18,7 @@ import org.springframework.util.CollectionUtils;
 import com.bench.common.lang.DateUtils;
 import com.bench.common.lang.ObjectUtils;
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.common.constant.ProvinceEnum;
+import com.sooying.pay.app.api.common.enums.ProvinceEnum;
 import com.sooying.pay.app.api.dao.platform.grade.ConfigureInfoDao;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayCoefInfoDao;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayGradeInfoDao;

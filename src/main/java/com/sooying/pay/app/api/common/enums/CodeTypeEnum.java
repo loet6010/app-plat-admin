@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.common.constant;
+package com.sooying.pay.app.api.common.enums;
 
 /**
  * 代码类型枚举

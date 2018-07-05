@@ -113,4 +113,11 @@
 		order by create_time desc
 		limit 1
 	</select>
+	
+	<select id="selectRuleInfoById" parameterType="java.lang.Long"
+        resultMap="BaseResultMap">
+        select *
+        from dp_rule_info
+        where id = #{id}
+    </select>
 </mapper>
