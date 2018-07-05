@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 通道同步MO数据
+ * 通道MO同步信息费
  * 
- * @Description SynMoPassageData
+ * @Description PassagewayMOFeeInfo
  * @author liurh
  * @date 2018年7月4日
  */
-public class SynMoPassageDataInfo {
+public class PassagewayMOFeeInfo {
     // 主键ID
     private long id;
     // 省份

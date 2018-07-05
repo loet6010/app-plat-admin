@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
-import com.sooying.pay.app.api.model.platform.immediately.SynMoPassageDataInfo;
+import com.sooying.pay.app.api.model.platform.immediately.PassagewayMOFeeInfo;
 
 /**
  * 通道系数优先级工具类
@@ -54,14 +54,14 @@ public class PriorityUtil {
         return setRate;
     }
 
-    public static BigDecimal getPriorityNumberData(SynMoPassageDataInfo synMoPassageData, int userLimit,
+    public static BigDecimal getPriorityNumberData(PassagewayMOFeeInfo synMoPassagewayInfo, int userLimit,
             String thirdPartyChannel, PassagewayCoefInfo configPassageWayCoefInfo) {
-        int postageFen = synMoPassageData.getPostage();
+        int postageFen = synMoPassagewayInfo.getPostage();
         int postageYuan = postageFen / 100;
         BigDecimal postageBigDecimal = new BigDecimal(postageYuan);
 
-        BigDecimal sucRate = getSucRate(synMoPassageData);
-        BigDecimal synRate = getSynRate(synMoPassageData, userLimit, thirdPartyChannel);
+        BigDecimal sucRate = getSucRate(synMoPassagewayInfo);
+        BigDecimal synRate = getSynRate(synMoPassagewayInfo, userLimit, thirdPartyChannel);
         if (synRate.compareTo(BigDecimal.ZERO) <= 0) {
             synRate = configPassageWayCoefInfo.getSynchroRate().divide(new BigDecimal("100"));
         }
@@ -70,10 +70,10 @@ public class PriorityUtil {
                 BigDecimal.ROUND_HALF_UP);
     }
 
-    private static BigDecimal getSucRate(SynMoPassageDataInfo synMoPassageData) {
+    private static BigDecimal getSucRate(PassagewayMOFeeInfo synMoPassagewayInfo) {
 
-        int totalUserNum = synMoPassageData.getTotalUserNum();
-        int sucUserNum = synMoPassageData.getSucUserNum();
+        int totalUserNum = synMoPassagewayInfo.getTotalUserNum();
+        int sucUserNum = synMoPassagewayInfo.getSucUserNum();
 
         BigDecimal bigDecimalTotalUserNum = new BigDecimal(totalUserNum);
         BigDecimal sucUserNumBigDecimal = new BigDecimal(sucUserNum);
@@ -84,27 +84,28 @@ public class PriorityUtil {
         return sucUserNumBigDecimal.divide(bigDecimalTotalUserNum, 3, BigDecimal.ROUND_HALF_UP);
     }
 
-    private static BigDecimal getSynRate(SynMoPassageDataInfo synMoPassageData, int userLimit, String thirdPartyChannel) {
+    private static BigDecimal getSynRate(PassagewayMOFeeInfo synMoPassagewayInfo, int userLimit,
+            String thirdPartyChannel) {
 
         // 如果是第三方,则同步率直接为1
-        if (StringUtils.contains(thirdPartyChannel, synMoPassageData.getPassagewayId())) {
+        if (StringUtils.contains(thirdPartyChannel, synMoPassagewayInfo.getPassagewayId())) {
             return new BigDecimal(1);
         }
         // 分省信息费
-        int spProvinceInformationfee = synMoPassageData.getSpProvinceInformationfee();
+        int spProvinceInformationfee = synMoPassagewayInfo.getSpProvinceInformationfee();
         // 不分省份信息费
-        int spInformationFee = synMoPassageData.getSpInformationFee();
+        int spInformationFee = synMoPassagewayInfo.getSpInformationFee();
         // 昨天的信息费
-        int spYesterInformationfee = synMoPassageData.getSpYesterInformationfee();
+        int spYesterInformationfee = synMoPassagewayInfo.getSpYesterInformationfee();
 
         // 分省份成功mo
-        int provinceSucMo = synMoPassageData.getSucMo();
+        int provinceSucMo = synMoPassagewayInfo.getSucMo();
         // 昨天的mo
-        int yesterMo = synMoPassageData.getYesterMo();
+        int yesterMo = synMoPassagewayInfo.getYesterMo();
         // 不分省份的实时mo
-        int passagewaySucMo = synMoPassageData.getPassagewaySucMo();
+        int passagewaySucMo = synMoPassagewayInfo.getPassagewaySucMo();
         // 确认用户数与配置的基数
-        int realTimeConfirmUser = synMoPassageData.getTotalUserNum();
+        int realTimeConfirmUser = synMoPassagewayInfo.getTotalUserNum();
         if (userLimit > 0) {
             // 如果配置的确认用户数比实时计算的确认用户数要大,则优先获取昨天的同步率,然后分省份和不分省份的同步率
             if (realTimeConfirmUser < userLimit) {

@@ -22,13 +22,13 @@ import com.sooying.pay.app.api.common.constant.ProvinceEnum;
 import com.sooying.pay.app.api.dao.platform.grade.ConfigureInfoDao;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayCoefInfoDao;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayGradeInfoDao;
-import com.sooying.pay.app.api.dao.platform.immediately.MoPassagewayInfoDao;
+import com.sooying.pay.app.api.dao.platform.immediately.PassagewayMOFeeInfoDao;
 import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.dao.platform.rule.RuleInfoDao;
 import com.sooying.pay.app.api.model.platform.grade.ConfigureInfo;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayGradeInfo;
-import com.sooying.pay.app.api.model.platform.immediately.SynMoPassageDataInfo;
+import com.sooying.pay.app.api.model.platform.immediately.PassagewayMOFeeInfo;
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
 import com.sooying.pay.app.api.service.immediately.PassagewayImmediatelyService;
@@ -64,7 +64,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
     @Resource
     ConfigureInfoDao configureInfoDao;
     @Resource
-    MoPassagewayInfoDao moPassagewayInfoDao;
+    PassagewayMOFeeInfoDao passagewayMOFeeInfoDao;
 
     /**
      * 刷新通道分级系数数据
@@ -148,18 +148,18 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
             removePassagewayCoefInfoRedis(noteInfo.getPassagewayId());
         }
     }
-    
+
     /**
      * 删除通道分级系数数据
      *
      * @param passagewayId
      */
-    private void removePassagewayCoefInfoRedis(String passagewayId){
+    private void removePassagewayCoefInfoRedis(String passagewayId) {
         logger.info("PassagewayImmediatelyServiceImpl removePassagewayCoefInfoRedis 开始执行：passagewayId is {}",
                 passagewayId);
-        
+
         passagewayGradeInfoDao.batchDeletePassageWayGradeInfo(passagewayId);
-        
+
         logger.info("PassagewayImmediatelyServiceImpl removePassagewayCoefInfoRedis 结束执行");
     }
 
@@ -226,12 +226,11 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
 
         // 分级系数数据列表不为空时，批量插入数据库
         if (!CollectionUtils.isEmpty(insertList)) {
-            logger.info("Immediately_redis batchInsertPassageWayGradeInfo insertList is {}",
-                    ObjectUtils.toString(insertList));
-
             // 删除通道分级系数数据
             removePassagewayCoefInfoRedis(noteInfo.getPassagewayId());
 
+            logger.info("Immediately_redis batchInsertPassageWayGradeInfo insertList is {}",
+                    ObjectUtils.toString(insertList));
             // 批量插入通道分级系数数据
             passagewayGradeInfoDao.batchInsertPassageWayGradeInfo(insertList);
         }
@@ -296,17 +295,17 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
         // 默认省份取固定值
         if (DEFAULT_PROVINCE_NAME.equals(provinceEnumName)) {
             Date start = DateUtils.addMinutes(end, -depth * intervalMinutes);
-            SynMoPassageDataInfo defaultPassageData = moPassagewayInfoDao.selectDefaultInsertMoInfo(start, end,
+            PassagewayMOFeeInfo defaultPassageData = passagewayMOFeeInfoDao.selectDefaultProvinceMOData(start, end,
                     passagewayCoefInfo.getPassagewayId());
             // 默认取通道深度最长的信息信息费
             if (defaultPassageData != null) {
                 defaultPassageData.setPostage(Integer.parseInt(passagewayCoefInfo.getPrice()));
-                SynMoPassageDataInfo defaultMo = moPassagewayInfoDao.selectUpdatePassagewayMo(start, end,
+                PassagewayMOFeeInfo defaultMo = passagewayMOFeeInfoDao.selectPassagewaySuccessMO(start, end,
                         passagewayCoefInfo.getPassagewayId());
                 // 只有不为空才有意义 假如通道mo（passageway_suc_mo）和通道信息费(sp_information_fee)大于0
                 if (defaultMo != null && defaultMo.getPassagewaySucMo() > 0) {
                     defaultPassageData.setPassagewaySucMo(defaultMo.getPassagewaySucMo());
-                    SynMoPassageDataInfo defaultMr = moPassagewayInfoDao.selectUpdateInformationP1(start, end,
+                    PassagewayMOFeeInfo defaultMr = passagewayMOFeeInfoDao.selectPassagewaySynFee(start, end,
                             passagewayCoefInfo.getPassagewayId());
                     if (defaultMr != null) {
                         defaultPassageData.setSpInformationFee(defaultMr.getSpInformationFee());
@@ -329,7 +328,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
         // 根据paytask通道分级系数算法计算
         int step = 1;
         Date start = DateUtils.addMinutes(end, -step * intervalMinutes);
-        SynMoPassageDataInfo tructMoPassageData = moPassagewayInfoDao.selectInsertMoInfo(start, end,
+        PassagewayMOFeeInfo tructMoPassageData = passagewayMOFeeInfoDao.selectDesignateProvinceMOData(start, end,
                 passagewayCoefInfo.getPassagewayId(), province);
         boolean checkYesterday = true;
         Date successStart;
@@ -341,7 +340,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
             }
             step++;
             successStart = DateUtils.addMinutes(end, -step * intervalMinutes);
-            tructMoPassageData = moPassagewayInfoDao.selectInsertMoInfo(successStart, end,
+            tructMoPassageData = passagewayMOFeeInfoDao.selectDesignateProvinceMOData(successStart, end,
                     passagewayCoefInfo.getPassagewayId(), province);
         }
 
@@ -352,7 +351,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
         // 其他逻辑
         if (checkYesterday) {
             successStart = DateUtils.addDays(end, -1);
-            SynMoPassageDataInfo todaySynMo = moPassagewayInfoDao.selectInsertMoInfo(successStart, end,
+            PassagewayMOFeeInfo todaySynMo = passagewayMOFeeInfoDao.selectDesignateProvinceMOData(successStart, end,
                     passagewayCoefInfo.getPassagewayId(), province);
             if (todaySynMo != null) {
                 tructMoPassageData = todaySynMo;
@@ -361,32 +360,32 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
 
         if (tructMoPassageData != null) {
             start = DateUtils.addMinutes(end, -depth * intervalMinutes);
-            SynMoPassageDataInfo passagewayMo = moPassagewayInfoDao.selectUpdatePassagewayMo(start, end,
+            PassagewayMOFeeInfo passagewayMo = passagewayMOFeeInfoDao.selectPassagewaySuccessMO(start, end,
                     passagewayCoefInfo.getPassagewayId());
-            // 假如通道mo（passageway_suc_mo）和通道信息费(sp_information_fee)大于0
+            // 通道MO和通道信息费大于0
             if (passagewayMo != null && passagewayMo.getPassagewaySucMo() > 0) {
                 tructMoPassageData.setPassagewaySucMo(passagewayMo.getPassagewaySucMo());
-                SynMoPassageDataInfo passagewayMr = moPassagewayInfoDao.selectUpdateInformationP1(start, end,
+                PassagewayMOFeeInfo passagewayMr = passagewayMOFeeInfoDao.selectPassagewaySynFee(start, end,
                         passagewayCoefInfo.getPassagewayId());
                 if (passagewayMr != null)
                     tructMoPassageData.setSpInformationFee(passagewayMr.getSpInformationFee());
             } else {
                 Date yesterdayEnd = getCurrentDayStart();
                 Date yesterdayStart = DateUtils.addDays(yesterdayEnd, -1);
-                SynMoPassageDataInfo yearMo = moPassagewayInfoDao.selectUpdatePassagewayYesterdayMo(yesterdayStart,
+                PassagewayMOFeeInfo yearMo = passagewayMOFeeInfoDao.selectPassagewayYesterdayMO(yesterdayStart,
                         yesterdayEnd, passagewayCoefInfo.getPassagewayId());
                 // 假如昨天mo(yester_mo)和昨天信息费(sp_yester_informationfee)大于0
                 if (yearMo != null && yearMo.getYesterMo() > 0) {
                     tructMoPassageData.setYesterMo(yearMo.getYesterMo());
-                    SynMoPassageDataInfo yearMr = moPassagewayInfoDao
-                            .selectUpdateInformationYesterP1(passagewayCoefInfo.getPassagewayId());
+                    PassagewayMOFeeInfo yearMr = passagewayMOFeeInfoDao
+                            .selectPassagewayYesterdaySynFee(passagewayCoefInfo.getPassagewayId());
                     if (yearMr != null)
                         tructMoPassageData.setSpYesterInformationfee(yearMr.getSpYesterInformationfee());
                 }
             }
             // 假如分省信息费（sp_province_informationfee）和分省mo（suc_mo）大于0
             if (tructMoPassageData.getSucMo() > 0) {
-                SynMoPassageDataInfo provinceMr = moPassagewayInfoDao.selectUpdateInformation(start, end,
+                PassagewayMOFeeInfo provinceMr = passagewayMOFeeInfoDao.selectDesignateProvinceFeeData(start, end,
                         passagewayCoefInfo.getPassagewayId(), province);
                 if (provinceMr != null && StringUtils.isNotBlank(provinceMr.getProvince())
                         && provinceMr.getProvince().equals(province))
