@@ -1,4 +1,4 @@
-package com.sooying.pay.app.api.common.enums;
+package com.sooying.pay.app.api.service.rule.enums;
 
 /**
  * 代码类型枚举

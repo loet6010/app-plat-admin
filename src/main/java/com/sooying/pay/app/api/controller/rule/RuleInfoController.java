@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bench.common.lang.StringUtils;
-import com.sooying.pay.app.api.common.enums.RuleTypeEnum;
 import com.sooying.pay.app.api.controller.rule.dto.RuleInfoDto;
 import com.sooying.pay.app.api.model.platform.rule.RuleInfo;
 import com.sooying.pay.app.api.service.immediately.PassagewayImmediatelyService;
 import com.sooying.pay.app.api.service.immediately.enums.RedisCashTypeEnum;
 import com.sooying.pay.app.api.service.rule.RuleInfoService;
+import com.sooying.pay.app.api.service.rule.enums.RuleTypeEnum;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**

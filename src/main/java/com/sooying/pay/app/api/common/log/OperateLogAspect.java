@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.sooying.pay.app.api.common.enums.OperateLogEnum;
+import com.sooying.pay.app.api.common.log.enums.OperateLogEnum;
 import com.sooying.pay.app.api.dao.platform.log.OperateLogInfoDao;
 import com.sooying.pay.app.api.model.platform.log.OperateLogInfo;
 
