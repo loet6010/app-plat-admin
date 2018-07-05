@@ -48,4 +48,20 @@
             modify_time = now()
         where id = #{id}
     </update>
+    
+    <select id="selectNoteInfoByPassagewayId" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select *
+        from dp_note_info
+        where passageway_id = #{passagewayId}
+        order by create_time desc
+        limit 1
+    </select>
+    
+    <select id="selectNoteInfoById" parameterType="java.lang.Long"
+        resultMap="BaseResultMap">
+        select *
+        from dp_note_info
+        where id = #{id}
+    </select>
 </mapper>

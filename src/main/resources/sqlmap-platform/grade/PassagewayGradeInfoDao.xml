@@ -53,4 +53,35 @@
 		order by priority_number desc
 		limit #{rowsPerPage} offset #{start}
 	</select>
+
+	<insert id="batchInsertPassageWayGradeInfo">
+		insert into dp_passageway_grade_info
+		(
+		  app_id,
+		  province,
+		  passageway_id,
+		  net_operator,
+		  priority_number,
+		  change_status,
+		  price,
+		  modify_time
+		)values
+		<foreach collection="infoList" item="item" index="index"
+			separator=",">
+			(
+			  0,
+			  #{item.province},
+			  #{item.passagewayId},
+			  #{item.netOperator},
+			  #{item.priorityNumber},
+			  #{item.changeStatus},
+			  #{item.price},
+			  now()
+			)
+		</foreach>
+	</insert>
+
+	<delete id="batchDeletePassageWayGradeInfo" parameterType="java.lang.String">
+		delete from dp_passageway_grade_info where passageway_id = #{passagewayId}
+	</delete>
 </mapper>

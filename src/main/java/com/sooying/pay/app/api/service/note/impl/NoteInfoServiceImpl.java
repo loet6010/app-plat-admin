@@ -124,4 +124,20 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         return ResultReturnUtil.getSuccessString(msg);
     }
 
+    /**
+     * 获取短信明细
+     * 
+     * @param noteInfoDto
+     * @return
+     */
+    @Override
+    public NoteInfo getNoteInfoById(NoteInfoDto noteInfoDto) {
+        logger.info("NoteInfoServiceImpl getNoteInfoById id is {}", noteInfoDto.getId());
+
+        // 参数验证
+        CheckUtil.idCheck(noteInfoDto.getId());
+
+        return noteInfoDao.selectNoteInfoById(Long.parseLong(noteInfoDto.getId()));
+    }
+
 }

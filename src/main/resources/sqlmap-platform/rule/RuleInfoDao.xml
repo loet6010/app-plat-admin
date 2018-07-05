@@ -100,4 +100,17 @@
           and start_time >= #{startTime}
           and open_rule = '0'
 	</select>
+
+	<select id="selectImmediatelyRuleInfoByPassagewayId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select *
+		from dp_rule_info
+		where status = '1'
+		  and rule_type = 'SHIELD_AREA'
+		  and start_time is not null
+		  and start_time &lt;= now()
+		  and passageway_id = #{passagewayId}
+		order by create_time desc
+		limit 1
+	</select>
 </mapper>

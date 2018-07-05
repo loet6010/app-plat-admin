@@ -3,6 +3,8 @@ package com.sooying.pay.app.api.dao.platform.grade;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sooying.pay.app.api.model.platform.grade.PassagewayGradeInfo;
 
 /**
@@ -29,4 +31,18 @@ public interface PassagewayGradeInfoDao {
      * @return
      */
     List<PassagewayGradeInfo> selectPassagewayGradeInfoList(Map<String, Object> paramsMap);
+
+    /**
+     * 批量插入通道分级系数数据
+     *
+     * @param infoList
+     */
+    void batchInsertPassageWayGradeInfo(@Param("infoList") List<PassagewayGradeInfo> infoList);
+
+    /**
+     * 批量删除通道分级系数数据
+     *
+     * @param passagewayId
+     */
+    void batchDeletePassageWayGradeInfo(@Param("passagewayId") String passagewayId);
 }

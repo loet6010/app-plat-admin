@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
+import com.sooying.pay.app.api.model.platform.note.NoteInfo;
+import com.sooying.pay.app.api.service.immediately.PassagewayImmediatelyService;
+import com.sooying.pay.app.api.service.immediately.enums.RedisCashTypeEnum;
 import com.sooying.pay.app.api.service.note.NoteInfoService;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
@@ -27,6 +30,8 @@ public class NoteInfoController {
 
     @Resource
     NoteInfoService noteInfoService;
+    @Resource
+    PassagewayImmediatelyService passagewayImmediatelyService;
 
     /**
      * 获取短信明细列表
@@ -66,7 +71,20 @@ public class NoteInfoController {
         logger.info("NoteInfoController modifyNoteInfoStatus 修改短信明细激活状态");
 
         try {
-            return noteInfoService.modifyNoteInfoStatus(noteInfoDto);
+            String message;
+            NoteInfo noteInfo = noteInfoService.getNoteInfoById(noteInfoDto);
+
+            if (noteInfo != null) {
+                message = noteInfoService.modifyNoteInfoStatus(noteInfoDto);
+
+                // 刷新通道分级系数数据
+                passagewayImmediatelyService.setRedisCash(noteInfo.getPassagewayId(),
+                        RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+            } else {
+                message = ResultReturnUtil.getExceptionString("当前短信明细不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("NoteInfoController 修改短信明细激活状态，参数验证错误：{}", e.getMessage());
 
@@ -77,7 +95,7 @@ public class NoteInfoController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
-    
+
     /**
      * 修改短信明细SDK激活状态
      *
@@ -91,7 +109,20 @@ public class NoteInfoController {
         logger.info("NoteInfoController modifyNoteInfoSdkStatus 修改短信明细SDK激活状态");
 
         try {
-            return noteInfoService.modifyNoteInfoSdkStatus(noteInfoDto);
+            String message;
+            NoteInfo noteInfo = noteInfoService.getNoteInfoById(noteInfoDto);
+
+            if (noteInfo != null) {
+                message = noteInfoService.modifyNoteInfoSdkStatus(noteInfoDto);
+
+                // 刷新通道分级系数数据
+                passagewayImmediatelyService.setRedisCash(noteInfo.getPassagewayId(),
+                        RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM0.getStatus());
+            } else {
+                message = ResultReturnUtil.getExceptionString("当前短信明细不存在！");
+            }
+
+            return message;
         } catch (IllegalArgumentException e) {
             logger.info("NoteInfoController 修改短信明细SDK激活状态，参数验证错误：{}", e.getMessage());
 

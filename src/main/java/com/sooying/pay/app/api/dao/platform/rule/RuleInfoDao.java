@@ -83,4 +83,12 @@ public interface RuleInfoDao {
      * @return
      */
     int selectRuleValueExistCount(RuleInfo ruleInfo);
+
+    /**
+     * 获取通道即时生效过滤规则
+     *
+     * @param passagewayId
+     * @return
+     */
+    RuleInfo selectImmediatelyRuleInfoByPassagewayId(@Param("passagewayId") String passagewayId);
 }

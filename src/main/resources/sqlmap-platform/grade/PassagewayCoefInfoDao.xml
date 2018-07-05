@@ -97,4 +97,13 @@
         from dp_passageway_coef_info
         where passageway_id = #{passagewayId}
     </select>
+    
+    <select id="selectPassagewayCoefInfoByPassagewayId" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select *
+        from dp_passageway_coef_info
+        where passageway_id = #{passagewayId}
+        order by create_time desc
+        limit 1
+    </select>
 </mapper>

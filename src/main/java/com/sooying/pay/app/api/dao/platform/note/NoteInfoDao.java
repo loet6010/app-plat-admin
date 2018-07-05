@@ -3,6 +3,8 @@ package com.sooying.pay.app.api.dao.platform.note;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 
 /**
@@ -43,4 +45,20 @@ public interface NoteInfoDao {
      * @param noteInfo
      */
     void updateNoteInfoSdkStatus(NoteInfo noteInfo);
+
+    /**
+     * 根据通道ID获取短信明细
+     *
+     * @param passagewayId
+     * @return
+     */
+    NoteInfo selectNoteInfoByPassagewayId(@Param("passagewayId") String passagewayId);
+
+    /**
+     * 根据ID获取短信明细
+     *
+     * @param id
+     * @return
+     */
+    NoteInfo selectNoteInfoById(@Param("id") Long id);
 }

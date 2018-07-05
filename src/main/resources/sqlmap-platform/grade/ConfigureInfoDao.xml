@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.grade.ConfigureInfoDao">
+    <resultMap id="BaseResultMap"
+        type="com.sooying.pay.app.api.model.platform.grade.ConfigureInfo">
+        <id column="id" property="id" />
+        <id column="user_confirm_count" property="userConfirmCount" />
+        <id column="combine_second_weight" property="combineSecondWeight" />
+        <id column="interval_minutes" property="intervalMinute" />
+        <id column="depth" property="depth" />
+        <id column="create_time" property="createTime" />
+        <id column="modify_time" property="modifyTime" />
+    </resultMap>
+
+	<select id="selectConfigureInfo" resultMap="BaseResultMap">
+		select *
+		from dp_configure_info
+		order by modify_time desc
+		limit 1
+	</select>
+</mapper>

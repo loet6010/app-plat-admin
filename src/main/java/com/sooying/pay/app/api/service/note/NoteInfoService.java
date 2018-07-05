@@ -1,6 +1,7 @@
 package com.sooying.pay.app.api.service.note;
 
 import com.sooying.pay.app.api.controller.note.dto.NoteInfoDto;
+import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 
 /**
  * 短信明细
@@ -34,4 +35,12 @@ public interface NoteInfoService {
      * @return
      */
     String modifyNoteInfoSdkStatus(NoteInfoDto noteInfoDto);
+
+    /**
+     * 获取短信明细
+     *
+     * @param noteInfoDto
+     * @return
+     */
+    NoteInfo getNoteInfoById(NoteInfoDto noteInfoDto);
 }
