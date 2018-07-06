@@ -1,5 +1,8 @@
 package com.sooying.pay.app.api.controller.database.dto;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
 import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
@@ -119,7 +122,6 @@ public class DatabaseInfoDto extends BasePageDto {
      */
     @Override
     public String toString() {
-        return "DatabaseInfoDto [appId=" + appId + ", passagewayId=" + passagewayId + ", netType=" + netType
-                + ", province=" + province + ", beginTime=" + beginTime + ", endTime=" + endTime + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

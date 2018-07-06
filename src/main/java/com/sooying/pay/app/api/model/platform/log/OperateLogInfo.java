@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.log;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 操作日志
  * 
@@ -204,10 +208,7 @@ public class OperateLogInfo {
      */
     @Override
     public String toString() {
-        return "OperateLogInfo [id=" + id + ", operator=" + operator + ", createTime=" + createTime + ", projectName="
-                + projectName + ", platformName=" + platformName + ", channel=" + channel + ", type=" + type
-                + ", content=" + content + ", loginIP=" + loginIP + ", triggerPoint=" + triggerPoint + ", remark="
-                + remark + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

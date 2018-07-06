@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.grade;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 通道系数配置
  * 
@@ -153,9 +157,7 @@ public class PassagewayCoefInfo {
      */
     @Override
     public String toString() {
-        return "PassagewayCoefInfo [id=" + id + ", passagewayId=" + passagewayId + ", netOperator=" + netOperator
-                + ", successRate=" + successRate + ", synchroRate=" + synchroRate + ", countRate=" + countRate
-                + ", price=" + price + ", changeStatus=" + changeStatus + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

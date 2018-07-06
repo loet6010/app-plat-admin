@@ -1,5 +1,9 @@
 package com.sooying.pay.app.api.model.platform.auth;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 用户登录获取token
  * 
@@ -50,7 +54,7 @@ public class UserInfo {
      */
     @Override
     public String toString() {
-        return "UserInfo [loginName=" + loginName + ", token=" + token + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

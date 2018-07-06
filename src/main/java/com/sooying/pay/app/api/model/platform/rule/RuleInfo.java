@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.rule;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 通道过滤规则
  * 
@@ -136,8 +140,7 @@ public class RuleInfo {
      */
     @Override
     public String toString() {
-        return "RuleInfo [id=" + id + ", passagewayId=" + passagewayId + ", codeType=" + codeType + ", ruleType="
-                + ruleType + ", ruleValue=" + ruleValue + ", startTime=" + startTime + ", status=" + status + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

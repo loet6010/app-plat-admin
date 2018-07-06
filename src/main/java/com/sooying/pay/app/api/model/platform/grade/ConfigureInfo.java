@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.grade;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 通道常量配置
  * 
@@ -136,9 +140,7 @@ public class ConfigureInfo {
      */
     @Override
     public String toString() {
-        return "ConfigureInfo [id=" + id + ", userConfirmCount=" + userConfirmCount + ", combineSecondWeight="
-                + combineSecondWeight + ", intervalMinute=" + intervalMinute + ", depth=" + depth + ", createTime="
-                + createTime + ", modifyTime=" + modifyTime + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

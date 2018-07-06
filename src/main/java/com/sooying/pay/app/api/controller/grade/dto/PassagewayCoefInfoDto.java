@@ -1,5 +1,8 @@
 package com.sooying.pay.app.api.controller.grade.dto;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
 import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
@@ -153,9 +156,7 @@ public class PassagewayCoefInfoDto extends BasePageDto {
      */
     @Override
     public String toString() {
-        return "PassagewayCoefInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", netOperator=" + netOperator
-                + ", successRate=" + successRate + ", synchroRate=" + synchroRate + ", countRate=" + countRate
-                + ", price=" + price + ", changeStatus=" + changeStatus + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

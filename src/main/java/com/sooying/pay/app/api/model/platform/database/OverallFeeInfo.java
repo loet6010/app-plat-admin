@@ -1,5 +1,9 @@
 package com.sooying.pay.app.api.model.platform.database;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 大盘同步信息费
  * 
@@ -83,7 +87,6 @@ public class OverallFeeInfo {
      */
     @Override
     public String toString() {
-        return "OverallFeeInfo [statisDate=" + statisDate + ", passagewayId=" + passagewayId + ", passagewayName="
-                + passagewayName + ", fee=" + fee + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

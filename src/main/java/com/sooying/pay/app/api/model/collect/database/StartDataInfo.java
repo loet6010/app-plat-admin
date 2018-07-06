@@ -1,5 +1,9 @@
 package com.sooying.pay.app.api.model.collect.database;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 启动表数据
  * 
@@ -66,7 +70,6 @@ public class StartDataInfo {
      */
     @Override
     public String toString() {
-        return "StartDataInfo [appId=" + appId + ", startActiveCount=" + startActiveCount + ", startRequestCount="
-                + startRequestCount + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

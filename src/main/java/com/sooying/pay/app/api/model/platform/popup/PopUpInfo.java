@@ -1,5 +1,9 @@
 package com.sooying.pay.app.api.model.platform.popup;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 二次确认弹窗
  * 
@@ -185,9 +189,7 @@ public class PopUpInfo {
      */
     @Override
     public String toString() {
-        return "PopUpInfo [id=" + id + ", passagewayId=" + passagewayId + ", netType=" + netType + ", channelNo="
-                + channelNo + ", province=" + province + ", popUpRule=" + popUpRule + ", pluginStatus=" + pluginStatus
-                + ", appId=" + appId + ", priority=" + priority + ", status=" + status + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.sooying.pay.app.api.controller.rule.dto;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
 import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
@@ -221,11 +224,7 @@ public class RuleInfoDto extends BasePageDto {
      */
     @Override
     public String toString() {
-        super.toString();
-        return "RuleInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", type=" + type + ", ruleValue="
-                + ruleValue + ", startTime=" + startTime + ", status=" + status + ", dayLimited=" + dayLimited
-                + ", monthLimited=" + monthLimited + ", shieldDate=" + shieldDate + ", shieldArea=" + shieldArea
-                + ", provinceDayLimited=" + provinceDayLimited + ", provinceMonthLimited=" + provinceMonthLimited + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

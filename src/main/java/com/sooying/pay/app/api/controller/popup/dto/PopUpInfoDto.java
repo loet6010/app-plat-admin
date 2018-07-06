@@ -1,5 +1,8 @@
 package com.sooying.pay.app.api.controller.popup.dto;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
 import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
@@ -187,10 +190,7 @@ public class PopUpInfoDto extends BasePageDto {
      */
     @Override
     public String toString() {
-        super.toString();
-        return "PopUpInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", netType=" + netType + ", channelNo="
-                + channelNo + ", province=" + province + ", popUpRule=" + popUpRule + ", pluginStatus=" + pluginStatus
-                + ", appId=" + appId + ", priority=" + priority + ", status=" + status + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

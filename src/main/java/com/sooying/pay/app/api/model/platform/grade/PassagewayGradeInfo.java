@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.grade;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 通道分级系数数据
  * 
@@ -136,9 +140,7 @@ public class PassagewayGradeInfo {
      */
     @Override
     public String toString() {
-        return "PassagewayGradeInfo [id=" + id + ", passagewayId=" + passagewayId + ", province=" + province
-                + ", price=" + price + ", netOperator=" + netOperator + ", priorityNumber=" + priorityNumber
-                + ", changeStatus=" + changeStatus + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.sooying.pay.app.api.controller.note.dto;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
 import com.sooying.pay.app.api.common.base.BasePageDto;
 
 /**
@@ -85,8 +88,7 @@ public class NoteInfoDto extends BasePageDto {
      */
     @Override
     public String toString() {
-        return "NoteInfoDto [id=" + id + ", passagewayId=" + passagewayId + ", status=" + status + ", sdkStatus="
-                + sdkStatus + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

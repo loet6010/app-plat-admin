@@ -1,5 +1,9 @@
 package com.sooying.pay.app.api.model.platform.note;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 短信明细
  * 
@@ -117,7 +121,6 @@ public class NoteInfo {
      */
     @Override
     public String toString() {
-        return "NoteInfo [id=" + id + ", passagewayId=" + passagewayId + ", passagewayName=" + passagewayName
-                + ", codeType=" + codeType + ", status=" + status + ", sdkStatus=" + sdkStatus + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

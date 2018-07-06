@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.database;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 大盘数据
  * 
@@ -221,11 +225,7 @@ public class OverallDataInfo {
      */
     @Override
     public String toString() {
-        return "OverallDataInfo [appId=" + appId + ", startActiveCount=" + startActiveCount + ", startRequestCount="
-                + startRequestCount + ", requestCount=" + requestCount + ", confirmCount=" + confirmCount
-                + ", successCount=" + successCount + ", noPassagewayCount=" + noPassagewayCount + ", successRate="
-                + successRate + ", noCardCount=" + noCardCount + ", noPassagewayRate=" + noPassagewayRate
-                + ", riskRate=" + riskRate + ", successArpu=" + successArpu + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

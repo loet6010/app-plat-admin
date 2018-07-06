@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.database;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 代码成功率
  * 
@@ -170,10 +174,7 @@ public class SuccessRateInfo {
      */
     @Override
     public String toString() {
-        return "SuccessRateInfo [passagewayId=" + passagewayId + ", passagewayName=" + passagewayName + ", successRate="
-                + successRate + ", syncRate=" + syncRate + ", requestCount=" + requestCount + ", confirmCount="
-                + confirmCount + ", successCount=" + successCount + ", riskCount=" + riskCount + ", mrCount=" + mrCount
-                + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

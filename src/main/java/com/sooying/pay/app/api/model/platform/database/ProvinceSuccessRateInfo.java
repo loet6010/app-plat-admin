@@ -2,6 +2,10 @@ package com.sooying.pay.app.api.model.platform.database;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.bench.common.lang.ToStringBuilder;
+
 /**
  * 代码分省份成功率
  * 
@@ -136,9 +140,7 @@ public class ProvinceSuccessRateInfo {
      */
     @Override
     public String toString() {
-        return "ProvinceSuccessRateInfo [province=" + province + ", netType=" + netType + ", successRate=" + successRate
-                + ", requestCount=" + requestCount + ", confirmCount=" + confirmCount + ", successCount=" + successCount
-                + ", riskCount=" + riskCount + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }
