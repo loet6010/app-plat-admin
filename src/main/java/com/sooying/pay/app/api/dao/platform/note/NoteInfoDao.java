@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.sooying.pay.app.api.model.platform.note.NoteInfo;
+import com.sooying.pay.app.api.model.platform.note.NoteMultipleConfInfo;
+import com.sooying.pay.app.api.model.platform.note.NoteSecondConfInfo;
+import com.sooying.pay.app.api.model.platform.note.NoteSuccessInfo;
 
 /**
  * 短信明细
@@ -61,4 +64,28 @@ public interface NoteInfoDao {
      * @return
      */
     NoteInfo selectNoteInfoById(@Param("id") Long id);
+
+    /**
+     * 查询成功后相关信息列表
+     *
+     * @param passagewayId
+     * @return
+     */
+    List<NoteSuccessInfo> selectSeccessDataGridList(@Param("passagewayId") String passagewayId);
+
+    /**
+     * 普通二次确认下行信息列表
+     *
+     * @param passagewayId
+     * @return
+     */
+    List<NoteSecondConfInfo> selectSecondConfDataGridList(@Param("passagewayId") String passagewayId);
+
+    /**
+     * 普通二次确认下行信息列表
+     *
+     * @param passagewayId
+     * @return
+     */
+    List<NoteMultipleConfInfo> selectMultipleConfDataGridList(@Param("passagewayId") String passagewayId);
 }

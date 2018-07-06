@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.note.NoteInfoDao">
+	<resultMap id="NoteMultipeConfInfoMap"
+		type="com.sooying.pay.app.api.model.platform.note.NoteMultipleConfInfo">
+		<id column="id" property="id" />
+        <id column="passageway_id" property="passagewayId" />
+        <id column="province" property="province" />
+        <id column="reply_number" property="replyNumber" />
+        <id column="downlink_keyword" property="downlinkKeyword" />
+        <id column="verify_code_id" property="verifyCodeId" />
+        <id column="verify_code_type" property="verifyCodeType" />
+        <id column="verify_code_length" property="verifyCodeLength" />
+        <id column="verify_code_prefix" property="verifyCodePrefix" />
+        <id column="verify_code_postfix" property="verifyCodePostfix" />
+        <id column="verify_code_step" property="verifyCodeStep" />
+        <id column="create_time" property="createTime" />
+        <id column="modify_time" property="modifyTime" />
+	</resultMap>
+
+	<select id="selectMultipleConfDataGridList" parameterType="java.lang.String"
+		resultMap="NoteMultipeConfInfoMap">
+		select *
+		from dp_note_multiple_confirmation_info
+		where passageway_id = #{passagewayId}
+	</select>
+</mapper>

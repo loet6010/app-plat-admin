@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.openapi.OpenApiPassagewayConfigInfoDao">
+
+	<select id="selectOpenApiPassagewayConfigInfoCount" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_app_open_passageway_config
+		where passageway_id = #{passagewayId}
+	</select>
+
+	<select id="selectIntegralPassagewayConfigCount" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_note_the_amount_deducted
+		where open_status='1'
+		  and passageway_ids like #{passagewayId}
+	</select>
+</mapper>

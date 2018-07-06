@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.note.NoteInfoDao">
+    <resultMap id="NoteSuccessInfoMap"
+        type="com.sooying.pay.app.api.model.platform.note.NoteSuccessInfo">
+        <result column="id" property="id" />
+        <result column="passageway_id" property="passagewayId" />
+        <result column="province" property="province" />
+        <result column="downlink_number" property="downlinkNumber" />
+        <result column="downlink_keyword" property="downlinkKeyword" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <select id="selectSeccessDataGridList" parameterType="java.lang.String"
+        resultMap="NoteSuccessInfoMap">
+        select *
+        from dp_note_success_info
+        where passageway_id = #{passagewayId}
+    </select>
+</mapper>

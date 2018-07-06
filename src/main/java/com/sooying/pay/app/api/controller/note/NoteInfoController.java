@@ -75,6 +75,7 @@ public class NoteInfoController {
             NoteInfo noteInfo = noteInfoService.getNoteInfoById(noteInfoDto);
 
             if (noteInfo != null) {
+                noteInfoDto.setPassagewayId(noteInfo.getPassagewayId());
                 message = noteInfoService.modifyNoteInfoStatus(noteInfoDto);
 
                 // 刷新通道分级系数数据

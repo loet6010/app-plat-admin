@@ -142,6 +142,8 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
             // 通道系数存在，刷新通道分级系数数据
             if (passagewayCoefInfo != null) {
                 addPassagewayCoefInfoRedisAsync(noteInfo, ruleVal, passagewayCoefInfo, configureInfo);
+            } else {
+                logger.info("Immediately_redis passagewayCoefInfo is not exist");
             }
         } else {
             // 短信明细或SDK为失效状态，删除通道分级系数数据

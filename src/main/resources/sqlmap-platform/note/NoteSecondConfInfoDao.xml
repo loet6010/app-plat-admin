@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.note.NoteInfoDao">
+    <resultMap id="NoteSecondConfInfoMap"
+        type="com.sooying.pay.app.api.model.platform.note.NoteSecondConfInfo">
+        <id column="id" property="id" />
+        <id column="passageway_id" property="passagewayId" />
+        <id column="province" property="province" />
+        <id column="downlink_number" property="downlinkNumber" />
+        <id column="downlink_keyword" property="downlinkKeyword" />
+        <id column="reply" property="reply" />
+        <id column="create_time" property="createTime" />
+        <id column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <select id="selectSecondConfDataGridList" parameterType="java.lang.String"
+        resultMap="NoteSecondConfInfoMap">
+        select *
+        from dp_note_second_confirmation_info
+        where passageway_id = #{passagewayId}
+    </select>
+</mapper>

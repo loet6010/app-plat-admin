@@ -105,6 +105,21 @@ public enum ProvinceEnum {
         }
         return null;
     }
+    
+    /**
+     * 根据枚举名获取省份枚举
+     *
+     * @param provinceEnumName
+     * @return
+     */
+    public static ProvinceEnum getByProvinceEnum(String provinceEnumName) {
+        for (ProvinceEnum provinceEnum : ProvinceEnum.values()) {
+            if (provinceEnum.toString().contains(provinceEnumName)) {
+                return provinceEnum;
+            }
+        }
+        return null;
+    }
 
     /**
      * @return the name
