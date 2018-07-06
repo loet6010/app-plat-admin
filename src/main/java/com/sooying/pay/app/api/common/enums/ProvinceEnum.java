@@ -44,7 +44,8 @@ public enum ProvinceEnum {
     NEI_MENG_GU("内蒙古", 31),
     HONG_KONG("香港", 32),
     AO_MEN("澳门", 33),
-    TAI_WAN("台湾", 34);
+    TAI_WAN("台湾", 34),
+    DEFAULT("默认", 35);
 
     private String name;
     private int code;
