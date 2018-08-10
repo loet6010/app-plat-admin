@@ -61,7 +61,7 @@ public class ResultReturnUtil {
      * @return
      */
     public static String getResultString(String resultStatus, String message, List<Object> dataList) {
-        String returnString = null;
+        String returnString;
 
         JSONObject json = new JSONObject();
         json.put("resultStatus", resultStatus);

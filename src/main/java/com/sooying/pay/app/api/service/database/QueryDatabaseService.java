@@ -42,4 +42,12 @@ public interface QueryDatabaseService {
      * @return
      */
     String getOverallFeeInfoList(DatabaseInfoDto databaseInfoDto);
+    
+    /**
+     * 获取结果表错误码占比
+     *
+     * @param databaseInfoDto
+     * @return
+     */
+    String getResultErrorInfoList(DatabaseInfoDto databaseInfoDto);
 }

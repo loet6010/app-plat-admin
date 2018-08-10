@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sooying.pay.app.api.dao.platform.note.NoteInfoDao">
-	<resultMap id="NoteMultipeConfInfoMap"
+	<resultMap id="NoteMultipleConfInfoMap"
 		type="com.sooying.pay.app.api.model.platform.note.NoteMultipleConfInfo">
 		<id column="id" property="id" />
         <id column="passageway_id" property="passagewayId" />
@@ -21,7 +21,7 @@
 	</resultMap>
 
 	<select id="selectMultipleConfDataGridList" parameterType="java.lang.String"
-		resultMap="NoteMultipeConfInfoMap">
+		resultMap="NoteMultipleConfInfoMap">
 		select *
 		from dp_note_multiple_confirmation_info
 		where passageway_id = #{passagewayId}

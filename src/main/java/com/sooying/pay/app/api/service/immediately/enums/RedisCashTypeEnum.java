@@ -15,7 +15,7 @@ public enum RedisCashTypeEnum {
     private String status;
     private String desc;
 
-    private RedisCashTypeEnum(String status, String desc) {
+    RedisCashTypeEnum(String status, String desc) {
         this.status = status;
         this.desc = desc;
     }

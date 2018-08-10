@@ -18,7 +18,7 @@ public enum RuleTypeEnum {
     private String type;
     private String name;
 
-    private RuleTypeEnum(String type, String name) {
+    RuleTypeEnum(String type, String name) {
         this.type = type;
         this.name = name;
     }

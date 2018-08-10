@@ -18,7 +18,7 @@ public enum OperateLogEnum {
     private String code;
     private String type;
 
-    private OperateLogEnum(String code, String type) {
+    OperateLogEnum(String code, String type) {
         this.code = code;
         this.type = type;
     }

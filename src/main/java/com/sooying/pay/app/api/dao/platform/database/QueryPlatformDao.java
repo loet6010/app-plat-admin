@@ -6,6 +6,7 @@ import java.util.Map;
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
 import com.sooying.pay.app.api.model.platform.database.OverallFeeInfo;
 import com.sooying.pay.app.api.model.platform.database.ProvinceSuccessRateInfo;
+import com.sooying.pay.app.api.model.platform.database.ResultErrorInfo;
 import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
 
 /**
@@ -42,6 +43,22 @@ public interface QueryPlatformDao {
     List<SuccessRateInfo> selectSuccessRateInfoList(Map<String, Object> paramsMap);
 
     /**
+     * 查询分时段代码成功率数量
+     *
+     * @param paramsMap
+     * @return
+     */
+    int selectTimeFrameSuccessRateInfoCount(Map<String, Object> paramsMap);
+
+    /**
+     * 查询分时段代码成功率列表
+     *
+     * @param paramsMap
+     * @return
+     */
+    List<SuccessRateInfo> selectTimeFrameSuccessRateInfoList(Map<String, Object> paramsMap);
+
+    /**
      * 查询代码分省份成功率数量
      *
      * @param paramsMap
@@ -72,4 +89,20 @@ public interface QueryPlatformDao {
      * @return
      */
     List<OverallFeeInfo> selectOverallFeeInfoList(Map<String, Object> paramsMap);
+    
+    /**
+     * 查询错误码占比数量
+     *
+     * @param paramsMap
+     * @return
+     */
+    int selectResultErrorInfoCount(Map<String, Object> paramsMap);
+
+    /**
+     * 查询错误码占比列表
+     *
+     * @param paramsMap
+     * @return
+     */
+    List<ResultErrorInfo> selectResultErrorInfoList(Map<String, Object> paramsMap);
 }

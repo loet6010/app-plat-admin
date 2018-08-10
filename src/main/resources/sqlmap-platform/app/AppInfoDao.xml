@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sooying.pay.app.api.dao.platform.app.AppInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.sooying.pay.app.api.model.platform.app.AppInfo">
+		<id column="id" property="id" />
+		<id column="app_id" property="appId" />
+		<id column="app_name" property="appName" />
+	</resultMap>
+
+	<select id="selectAppInfoCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
+		select count(*)
+		from dp_app_info
+		where 1 = 1
+		<if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="appName != null and appName != ''">
+            and app_name like #{appName}
+        </if>
+	</select>
+
+	<select id="selectAppInfoList" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		select *
+		from dp_app_info
+        where 1 = 1
+        <if test="appId != null">
+            and app_id = #{appId}
+        </if>
+        <if test="appName != null and appName != ''">
+            and app_name like #{appName}
+        </if>
+		order by create_time desc
+		limit #{rowsPerPage} offset #{start}
+	</select>
+</mapper>

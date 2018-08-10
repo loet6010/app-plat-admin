@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.grade;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,14 +30,12 @@ public class PassagewayGradeInfoController {
     /**
      * 获取通道分级系数数据列表
      *
-     * @param request
      * @param passagewayGradeInfoDto
      * @return
      */
     @RequestMapping(value = "/grade/getPassagewayGradeInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getPassagewayGradeInfoList(HttpServletRequest request,
-            PassagewayGradeInfoDto passagewayGradeInfoDto) {
+    public String getPassagewayGradeInfoList(PassagewayGradeInfoDto passagewayGradeInfoDto) {
         logger.info("PassagewayGradeInfoController getPassagewayGradeInfoList 获取通道分级系数数据列表");
 
         try {

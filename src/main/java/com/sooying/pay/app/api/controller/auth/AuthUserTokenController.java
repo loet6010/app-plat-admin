@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.auth;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +30,12 @@ public class AuthUserTokenController {
     /**
      * 用户登录获取token
      *
-     * @param request
      * @param userInfoDto
      * @return
      */
     @RequestMapping(value = "/token/getUserAccountToken.do", method = { RequestMethod.GET })
     @ResponseBody
-    public String getUserAccountToken(HttpServletRequest request, UserInfoDto userInfoDto) {
+    public String getUserAccountToken(UserInfoDto userInfoDto) {
         logger.info("AuthUserTokenController getUserAccountToken 获取用户token");
 
         try {

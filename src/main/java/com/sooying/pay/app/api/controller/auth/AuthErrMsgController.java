@@ -17,7 +17,7 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
  */
 @Controller
 public class AuthErrMsgController {
-    Logger logger = LoggerFactory.getLogger(AuthErrMsgController.class);
+    private static Logger logger = LoggerFactory.getLogger(AuthErrMsgController.class);
 
     /**
      * 拦截器错误信息返回
@@ -25,11 +25,10 @@ public class AuthErrMsgController {
      * @param resultStatus
      * @param message
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/auth/showAuthMsg.do")
     @ResponseBody
-    public String showAuthMsg(String resultStatus, String message) throws Exception {
+    public String showAuthMsg(String resultStatus, String message) {
         logger.info(message);
         return ResultReturnUtil.getResultString(resultStatus, message);
     }

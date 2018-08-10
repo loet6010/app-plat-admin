@@ -107,6 +107,7 @@
 		from dp_rule_info
 		where status = '1'
 		  and rule_type = 'SHIELD_AREA'
+		  and open_rule = '0'
 		  and start_time is not null
 		  and start_time &lt;= now()
 		  and passageway_id = #{passagewayId}

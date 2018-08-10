@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 激活状态枚举
- * 
+ *
  * @Description NetInfoStatusEnum
  * @author liurh
  * @date 2018年7月3日
@@ -12,12 +12,13 @@ import org.apache.commons.lang.StringUtils;
 public enum NetInfoStatusEnum {
 	 NET_INFO_ENABLE("1", "状态激活"),
 	 NET_INFO_DISABLE("0", "状态失效");
-	 
+
     private String status;
     private String desc;
 
-    private NetInfoStatusEnum(String status, String desc) {
+    NetInfoStatusEnum(String status, String desc) {
         this.status = status;
+        this.desc = desc;
     }
 
     public static NetInfoStatusEnum getNetInfoStatusEnumByStatus(String status) {

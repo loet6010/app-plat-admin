@@ -21,6 +21,8 @@ public class DatabaseInfoDto extends BasePageDto {
     private String netType;
     // 省份
     private String province;
+    // 分时段显示状态
+    private String timeFrameStatus;
     // 查询开始时间
     private String beginTime;
     // 查询结束时间
@@ -84,6 +86,21 @@ public class DatabaseInfoDto extends BasePageDto {
      */
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    /**
+     * @return the timeFrameStatus
+     */
+    public String getTimeFrameStatus() {
+        return timeFrameStatus;
+    }
+
+    /**
+     * @param timeFrameStatus
+     *            the timeFrameStatus to set
+     */
+    public void setTimeFrameStatus(String timeFrameStatus) {
+        this.timeFrameStatus = timeFrameStatus;
     }
 
     /**

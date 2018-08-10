@@ -88,9 +88,7 @@ public class OperateLogAspect {
      */
     private boolean validateIsNotInsertLog(JoinPoint joinPoint) {
         if (joinPoint != null) {
-            if (OperateLogInfoDao.class.getName().equals(joinPoint.getSignature().getDeclaringTypeName())) {
-                return false;
-            }
+            return !OperateLogInfoDao.class.getName().equals(joinPoint.getSignature().getDeclaringTypeName());
         }
 
         return true;
@@ -159,10 +157,10 @@ public class OperateLogAspect {
 
         if (request == null) {
             return "";
-        } else if (((HttpServletRequest) request).getHeader("x-forwarded-for") == null) {
+        } else if (request.getHeader("x-forwarded-for") == null) {
             return request.getRemoteAddr();
         } else {
-            return ((HttpServletRequest) request).getHeader("x-forwarded-for");
+            return request.getHeader("x-forwarded-for");
         }
     }
 
@@ -179,7 +177,7 @@ public class OperateLogAspect {
             if (object == null) {
                 continue;
             }
-            Class<? extends Object> clazz = object.getClass();
+            Class<?> clazz = object.getClass();
             String clazzName = clazz.getName();
             String simpleName = clazz.getSimpleName();
             if (clazzName.contains("com.sooying.pay.app.api")

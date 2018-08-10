@@ -15,5 +15,5 @@ public interface PassagewayImmediatelyService {
      * @param passagewayId
      * @param type
      */
-    public void setRedisCash(String passagewayId, String type);
+    void setRedisCash(String passagewayId, String type);
 }

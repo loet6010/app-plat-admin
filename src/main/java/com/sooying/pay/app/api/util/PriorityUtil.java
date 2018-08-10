@@ -121,14 +121,16 @@ public class PriorityUtil {
                 }
             }
         }
-        if (spProvinceInformationfee > 0 && provinceSucMo > 0) {
+        if (spProvinceInformationfee <= 0 || provinceSucMo <= 0) {
+            if (passagewaySucMo > 0 && spInformationFee > 0) {
+                return new BigDecimal(spInformationFee).divide(new BigDecimal(passagewaySucMo), 3,
+                        BigDecimal.ROUND_HALF_UP);
+            } else if (yesterMo > 0 && spYesterInformationfee > 0) {
+                return new BigDecimal(spYesterInformationfee).divide(new BigDecimal(yesterMo), 3, BigDecimal.ROUND_HALF_UP);
+            }
+        } else {
             return new BigDecimal(spProvinceInformationfee).divide(new BigDecimal(provinceSucMo), 3,
                     BigDecimal.ROUND_HALF_UP);
-        } else if (passagewaySucMo > 0 && spInformationFee > 0) {
-            return new BigDecimal(spInformationFee).divide(new BigDecimal(passagewaySucMo), 3,
-                    BigDecimal.ROUND_HALF_UP);
-        } else if (yesterMo > 0 && spYesterInformationfee > 0) {
-            return new BigDecimal(spYesterInformationfee).divide(new BigDecimal(yesterMo), 3, BigDecimal.ROUND_HALF_UP);
         }
         return new BigDecimal(0);
     }

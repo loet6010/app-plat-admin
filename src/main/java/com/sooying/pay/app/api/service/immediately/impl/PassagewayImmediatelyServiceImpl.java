@@ -96,7 +96,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
             // 激活修改操作
             setNoteInfoForRedis(noteInfo, passagewayCoefInfo, configureInfo);
         } else if (RedisCashTypeEnum.REDIS_CASH_TYPE_ENUM1.getStatus().equals(type)) {
-            /** 修改通道系数操作 */
+            /* 修改通道系数操作 */
 
             // 获取通道即时生效过滤规则
             RuleInfo ruleInfo = ruleInfoDao.selectImmediatelyRuleInfoByPassagewayId(passagewayId);
@@ -205,7 +205,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
             ProvinceEnum provinceEnum = null;
             try {
                 provinceEnum = ProvinceEnum.valueOf(province);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
             // 省份不存在，且又不是默认省份时，不做处理
@@ -324,7 +324,7 @@ public class PassagewayImmediatelyServiceImpl implements PassagewayImmediatelySe
         try {
             ProvinceEnum provinceEnum = ProvinceEnum.valueOf(provinceEnumName);
             province = provinceEnum.getName();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // 根据paytask通道分级系数算法计算

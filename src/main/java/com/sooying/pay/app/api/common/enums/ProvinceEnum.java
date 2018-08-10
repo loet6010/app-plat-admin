@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 省份枚举信息
- * 
+ *
  * @Description ProvinceEnum
  * @author liurh
  * @date 2018年6月14日
@@ -50,7 +50,7 @@ public enum ProvinceEnum {
     private String name;
     private int code;
 
-    private ProvinceEnum(String name, int code) {
+    ProvinceEnum(String name, int code) {
         this.name = name;
         this.code = code;
     }
@@ -76,7 +76,7 @@ public enum ProvinceEnum {
 
         return provinceList;
     }
-    
+
     /**
      * 获取省份枚举名称
      *
@@ -91,7 +91,7 @@ public enum ProvinceEnum {
         }
         return null;
     }
-    
+
     /**
      * 获取省份名称
      *
@@ -106,7 +106,7 @@ public enum ProvinceEnum {
         }
         return null;
     }
-    
+
     /**
      * 根据枚举名获取省份枚举
      *

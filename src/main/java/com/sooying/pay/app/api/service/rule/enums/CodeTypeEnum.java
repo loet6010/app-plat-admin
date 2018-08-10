@@ -16,7 +16,7 @@ public enum CodeTypeEnum {
     private int code;
     private String type;
 
-    private CodeTypeEnum(int code, String type) {
+    CodeTypeEnum(int code, String type) {
         this.code = code;
         this.type = type;
     }

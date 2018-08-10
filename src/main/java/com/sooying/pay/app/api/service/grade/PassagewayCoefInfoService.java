@@ -43,7 +43,7 @@ public interface PassagewayCoefInfoService {
      * @return
      */
     String addPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto);
-    
+
     /**
      * 根据ID获取通道系数配置
      *
@@ -51,4 +51,12 @@ public interface PassagewayCoefInfoService {
      * @return
      */
     PassagewayCoefInfo getPassagewayCoefInfoById(PassagewayCoefInfoDto passagewayCoefInfoDto);
+
+    /**
+     * 获取代码资费
+     *
+     * @param passagewayCoefInfoDto
+     * @return
+     */
+    String getPassagewayIdPrice(PassagewayCoefInfoDto passagewayCoefInfoDto);
 }

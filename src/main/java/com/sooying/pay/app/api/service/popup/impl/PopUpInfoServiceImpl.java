@@ -73,8 +73,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         List<PopUpInfo> list = popUpInfoDao.selectPopUpInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(list);
+        List<Object> dataList = new ArrayList<Object>(list);
 
         String msg = "获取二次确认弹窗成功";
         logger.info("PopUpInfoServiceImpl getPopUpInfoList {}", msg);

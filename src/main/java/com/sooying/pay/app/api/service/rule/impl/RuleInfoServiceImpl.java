@@ -75,8 +75,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
         List<RuleInfo> list = ruleInfoDao.selectRuleInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(list);
+        List<Object> dataList = new ArrayList<Object>(list);
 
         String msg = "获取通道过滤规则成功";
         logger.info("RuleInfoServiceImpl getRuleInfoList {}", msg);

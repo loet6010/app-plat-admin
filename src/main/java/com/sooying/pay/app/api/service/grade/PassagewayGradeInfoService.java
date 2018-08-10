@@ -14,7 +14,7 @@ public interface PassagewayGradeInfoService {
     /**
      * 获取通道分级系数数据列表
      *
-     * @param ruleInfoDto
+     * @param passagewayGradeInfoDto
      * @return
      */
     String getPassagewayGradeInfoList(PassagewayGradeInfoDto passagewayGradeInfoDto);

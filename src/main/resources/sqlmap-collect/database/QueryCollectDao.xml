@@ -7,19 +7,19 @@
 	<select id="selectStartDataInfo" parameterType="java.util.HashMap"
 		resultType="StartDataInfo">
         select a.app_id as appId,
-               SUM(CASE WHEN statis_type = '1' THEN a.user_count ELSE 0 END) as startActiveCount,
-               SUM(CASE WHEN statis_type = '9' THEN a.user_count ELSE 0 END) as startRequestCount
+               count(CASE WHEN statis_type = '1' THEN imei END) as startActiveCount,
+               count(CASE WHEN statis_type = '9' THEN imei END) as startRequestCount
         FROM
            (
-            select app_id,statis_type,count(DISTINCT(imei)) as user_count
+            select DISTINCT app_id,statis_type,imei
             from dp_app_start_user_data  
             where create_time >= #{beginTime}
               and create_time &lt;= #{endTime}
               and app_id = #{appId}
               and sdk_plugin_version > '2.1.9'
               and statis_type in('1','9')
-            group by app_id,statis_type
-        ) a group by app_id
+            ) a
+        group by app_id
 	</select>
 
 </mapper>

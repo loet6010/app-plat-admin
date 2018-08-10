@@ -87,8 +87,7 @@ public class PassagewayGradeInfoServiceImpl implements PassagewayGradeInfoServic
         setProvinceName(list);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(list);
+        List<Object> dataList = new ArrayList<Object>(list);
 
         String msg = "获取通道分级系数数据成功";
         logger.info("PassagewayGradeInfoServiceImpl getPassagewayGradeInfoList {}", msg);

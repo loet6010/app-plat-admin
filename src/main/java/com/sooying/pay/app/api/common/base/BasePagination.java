@@ -1,7 +1,3 @@
-/**
- * sooying.com Inc.
- * Copyright (c) 2004-2015 All Rights Reserved.
- */
 package com.sooying.pay.app.api.common.base;
 
 import java.io.Serializable;
@@ -126,7 +122,7 @@ public class BasePagination implements Serializable {
      * 
      * @return
      */
-    public boolean previousEnable() {
+    private boolean previousEnable() {
         return currentPage > 1;// 只要不是第一页，就能到上一页
     }
 
@@ -135,7 +131,7 @@ public class BasePagination implements Serializable {
      * 
      * @return
      */
-    public boolean nextEnable() {
+    private boolean nextEnable() {
         return currentPage * rowsPerPage < this.totalCount;
     }
 
@@ -180,7 +176,7 @@ public class BasePagination implements Serializable {
     /**
      * 跳转到最后一页
      */
-    public void lastPage() {
+    private void lastPage() {
         if (this.totalCount % rowsPerPage == 0) {
             currentPage = this.totalCount / rowsPerPage;
         } else {
@@ -193,7 +189,7 @@ public class BasePagination implements Serializable {
      * 
      * @param pageNumber
      */
-    public void gotoPage(int pageNumber) {
+    private void gotoPage(int pageNumber) {
         // 超出总页数返回错误
         Assert.isTrue(pageNumber == 1 || ((pageNumber - 1) * rowsPerPage < this.totalCount), "当前已是最后一页！");
 
@@ -232,7 +228,7 @@ public class BasePagination implements Serializable {
      * 
      * @return
      */
-    public int getTotalCount() {
+    private int getTotalCount() {
         return totalCount;
     }
 
@@ -246,7 +242,7 @@ public class BasePagination implements Serializable {
     }
 
     // 得到总页数
-    public int getPages() {
+    private int getPages() {
         if (this.totalCount % rowsPerPage == 0)
             return this.totalCount / rowsPerPage;
         else

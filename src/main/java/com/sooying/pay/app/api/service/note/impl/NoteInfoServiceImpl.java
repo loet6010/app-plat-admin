@@ -65,6 +65,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
 
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("passagewayId", noteInfoDto.getPassagewayId());
+        paramsMap.put("passagewayName", StringUtil.matchFuzzyString(noteInfoDto.getPassagewayName()));
 
         // 查询总数
         int totalCount = noteInfoDao.selectNoteInfoCount(paramsMap);
@@ -82,8 +83,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         List<NoteInfo> list = noteInfoDao.selectNoteInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(list);
+        List<Object> dataList = new ArrayList<Object>(list);
 
         String msg = "获取短信明细成功";
         logger.info("NoteInfoServiceImpl getNoteInfoList {}", msg);
@@ -171,24 +171,22 @@ public class NoteInfoServiceImpl implements NoteInfoService {
      * @return
      */
     @Override
-    public List<NoteSuccessInfo> getSeccessDataGridList(String passagewayId) {
+    public List<NoteSuccessInfo> getSuccessDataGridList(String passagewayId) {
         List<NoteSuccessInfo> list = new ArrayList<NoteSuccessInfo>();
-        List<NoteSuccessInfo> newList = new ArrayList<NoteSuccessInfo>();
         if (Long.parseLong(passagewayId) <= 0) {
             return list;
         } else {
             try {
-                list = noteInfoDao.selectSeccessDataGridList(passagewayId);
+                list = noteInfoDao.selectSuccessDataGridList(passagewayId);
                 for (NoteSuccessInfo dto : list) {
                     if (StringUtils.isNotBlank(dto.getProvince())) {
                         String prov = String.valueOf(ProvinceEnum.getByProvinceEnum(dto.getProvince()).getName());
                         dto.setProvince(prov);
                     }
-                    newList.add(dto);
                 }
-                return newList;
+                return list;
             } catch (Exception e) {
-                return newList;
+                return list;
             }
         }
     }
@@ -202,7 +200,6 @@ public class NoteInfoServiceImpl implements NoteInfoService {
     @Override
     public List<NoteSecondConfInfo> getSecondConfDataGridList(String passagewayId) {
         List<NoteSecondConfInfo> list = new ArrayList<NoteSecondConfInfo>();
-        List<NoteSecondConfInfo> newList = new ArrayList<NoteSecondConfInfo>();
         if (Long.parseLong(passagewayId) <= 0) {
             return list;
         } else {
@@ -213,11 +210,10 @@ public class NoteInfoServiceImpl implements NoteInfoService {
                         String prov = String.valueOf(ProvinceEnum.getByProvinceEnum(dto.getProvince()).getName());
                         dto.setProvince(prov);
                     }
-                    newList.add(dto);
                 }
-                return newList;
+                return list;
             } catch (Exception e) {
-                return newList;
+                return list;
             }
         }
     }
@@ -231,7 +227,6 @@ public class NoteInfoServiceImpl implements NoteInfoService {
     @Override
     public List<NoteMultipleConfInfo> getMultipleConfDataGridList(String passagewayId) {
         List<NoteMultipleConfInfo> list = new ArrayList<NoteMultipleConfInfo>();
-        List<NoteMultipleConfInfo> newList = new ArrayList<NoteMultipleConfInfo>();
         if (Long.parseLong(passagewayId) <= 0) {
             return list;
         } else {
@@ -242,7 +237,6 @@ public class NoteInfoServiceImpl implements NoteInfoService {
                         String prov = String.valueOf(ProvinceEnum.getByProvinceEnum(dto.getProvince()).getName());
                         dto.setProvince(prov);
                     }
-                    newList.add(dto);
                 }
                 return list;
             } catch (Exception e) {
@@ -256,7 +250,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         String msg = "修改短信明细激活状态成功";
 
         // 激活信息校验:成功后相关信息、普通二次确认下行信息、动态二次和多次确认下行信息，都没有填写时，无法激活
-        List<NoteSuccessInfo> successInfoList = getSeccessDataGridList(passagewayId);
+        List<NoteSuccessInfo> successInfoList = getSuccessDataGridList(passagewayId);
         List<NoteSecondConfInfo> secondConfInfoList = getSecondConfDataGridList(passagewayId);
         List<NoteMultipleConfInfo> multipleConfInfoList = getMultipleConfDataGridList(passagewayId);
         Assert.isTrue(successInfoList.size() > 0 || secondConfInfoList.size() > 0 || multipleConfInfoList.size() > 0,

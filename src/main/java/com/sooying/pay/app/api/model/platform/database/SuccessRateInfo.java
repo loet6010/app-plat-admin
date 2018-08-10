@@ -18,6 +18,8 @@ public class SuccessRateInfo {
     private int passagewayId;
     // 通道名称
     private String passagewayName;
+    // 时段
+    private String timeFrame;
     // 成功率
     private BigDecimal successRate;
     // 同步率
@@ -61,6 +63,21 @@ public class SuccessRateInfo {
      */
     public void setPassagewayName(String passagewayName) {
         this.passagewayName = passagewayName;
+    }
+
+    /**
+     * @return the timeFrame
+     */
+    public String getTimeFrame() {
+        return timeFrame;
+    }
+
+    /**
+     * @param timeFrame
+     *            the timeFrame to set
+     */
+    public void setTimeFrame(String timeFrame) {
+        this.timeFrame = timeFrame;
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.rule;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +37,12 @@ public class RuleInfoController {
     /**
      * 获取通道过滤规则列表
      *
-     * @param request
      * @param ruleInfoDto
      * @return
      */
     @RequestMapping(value = "/rule/getRuleInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getRuleInfoList(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
+    public String getRuleInfoList(RuleInfoDto ruleInfoDto) {
         logger.info("RuleInfoController getRuleInfoList 获取通道过滤规则列表");
 
         try {
@@ -63,13 +61,12 @@ public class RuleInfoController {
     /**
      * 修改通道过滤规则
      *
-     * @param request
      * @param ruleInfoDto
      * @return
      */
     @RequestMapping(value = "/rule/modifyRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
+    public String modifyRuleInfo(RuleInfoDto ruleInfoDto) {
         logger.info("RuleInfoController modifyRuleInfo 修改通道过滤规则");
 
         try {
@@ -103,13 +100,12 @@ public class RuleInfoController {
     /**
      * 删除通道过滤规则
      *
-     * @param request
      * @param ruleInfoDto
      * @return
      */
     @RequestMapping(value = "/rule/removeRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String removeRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
+    public String removeRuleInfo(RuleInfoDto ruleInfoDto) {
         logger.info("RuleInfoController removeRuleInfo 删除通道过滤规则");
 
         try {
@@ -143,13 +139,12 @@ public class RuleInfoController {
     /**
      * 修改通道过滤规则激活状态
      *
-     * @param request
      * @param ruleInfoDto
      * @return
      */
     @RequestMapping(value = "/rule/modifyRuleInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyRuleInfoStatus(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
+    public String modifyRuleInfoStatus(RuleInfoDto ruleInfoDto) {
         logger.info("RuleInfoController modifyRuleInfoStatus 修改通道过滤规则激活状态");
 
         try {
@@ -183,13 +178,12 @@ public class RuleInfoController {
     /**
      * 新增通道过滤规则
      *
-     * @param request
      * @param ruleInfoDto
      * @return
      */
     @RequestMapping(value = "/rule/addRuleInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String addRuleInfo(HttpServletRequest request, RuleInfoDto ruleInfoDto) {
+    public String addRuleInfo(RuleInfoDto ruleInfoDto) {
         logger.info("RuleInfoController addRuleInfo 新增通道过滤规则");
 
         try {

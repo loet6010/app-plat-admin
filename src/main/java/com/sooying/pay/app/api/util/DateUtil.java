@@ -22,10 +22,8 @@ import org.apache.commons.lang.time.DateUtils;
 public class DateUtil {
 
     // 日期格式
-    public static String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    public static String DEFAULT_DATE_FORMAT_MONTH = "yyyy-MM";
+    private static String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
     public static String LONG_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static String NUMBER_DATE_FORMAT = "yyyyMMddHHmmss";
     public static String LONG_DATE_FORMAT_MINUTE = "yyyy-MM-dd HH:mm";
 
     /**
@@ -42,7 +40,7 @@ public class DateUtil {
      * 
      * @return Date 当前日期
      */
-    public static Date getCurrentDate() {
+    private static Date getCurrentDate() {
         return new Date(System.currentTimeMillis());
     }
 
@@ -76,7 +74,7 @@ public class DateUtil {
      * 
      * @return String 当前日期对应的字符串
      */
-    public static String getCurrentStringDate() {
+    private static String getCurrentStringDate() {
         return convertDate2String(getCurrentDate(), DEFAULT_DATE_FORMAT);
     }
 
@@ -103,7 +101,7 @@ public class DateUtil {
     public static String convertDate2String(Date date, String dateFormat) {
         if (date == null)
             return "";
-        SimpleDateFormat sdf = null;
+        SimpleDateFormat sdf;
         if (dateFormat != null && !dateFormat.equals("")) {
             try {
                 sdf = new SimpleDateFormat(dateFormat);
@@ -121,15 +119,12 @@ public class DateUtil {
      * 
      * @param date
      *            - 要转换的日期
-     * @param dateFormat
-     *            - 日期格式
      * @return String 日期对应的字符串
      */
-    public static String convertDate2String(Date date) {
+    private static String convertDate2String(Date date) {
         if (date == null)
             return null;
-        SimpleDateFormat sdf = null;
-        sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
         return sdf.format(date);
     }
 
@@ -140,7 +135,7 @@ public class DateUtil {
      *            - 要转换的字符串格式的日期
      * @return Date 字符串对应的日期
      */
-    public static Date convertString2Date(String stringDate) {
+    private static Date convertString2Date(String stringDate) {
         return convertString2Date(stringDate, DEFAULT_DATE_FORMAT);
     }
 
@@ -157,7 +152,7 @@ public class DateUtil {
         if (StringUtils.isEmpty(stringDate)) {
             return null;
         }
-        SimpleDateFormat sdf = null;
+        SimpleDateFormat sdf;
         if (dateFormat != null && !dateFormat.equals("")) {
             try {
                 sdf = new SimpleDateFormat(dateFormat);
@@ -179,7 +174,7 @@ public class DateUtil {
     /**
      * 将一种格式的日期字符串转换成默认格式的日期字符串
      * 
-     * @param oldDate
+     * @param oldStringDate
      *            - 要格式化的日期字符串
      * @param oldFormat
      *            - 要格式化的日期的格式
@@ -192,7 +187,7 @@ public class DateUtil {
     /**
      * 将一种格式的日期字符串转换成另一种格式的日期字符串
      * 
-     * @param oldDate
+     * @param oldStringDate
      *            - 要格式化的日期字符串
      * @param oldFormat
      *            - 要格式化的日期的格式
@@ -213,7 +208,7 @@ public class DateUtil {
      *            - 月份
      * @return int
      */
-    public static int days(int year, int month) {
+    private static int days(int year, int month) {
         int total = 30;
         switch (month) {
             case 1:
@@ -281,8 +276,7 @@ public class DateUtil {
         // 里面野可以直接插入date类型
         aCalendar.setTime(date);
         // 计算此日期是一周中的哪一天
-        int x = aCalendar.get(Calendar.DAY_OF_WEEK);
-        return x;
+        return aCalendar.get(Calendar.DAY_OF_WEEK);
     }
 
     /**
@@ -324,43 +318,23 @@ public class DateUtil {
         return str.substring(0, 7) + "-01";
     }
 
-    /**
-     * 获取对应类型的时间字符串
-     * 
-     * @param format
-     * @return
-     */
-    public static String getStringTime(String format) {
-        return convertDate2String(new Date(), format);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getStringTime("yyyy-MM"));
-    }
-
-    @SuppressWarnings("deprecation")
-    public static int getMonth(int i) {
-        return getCurrentDate().getMonth();
-    }
-
     public static int getWeek(Date d) {
-        java.util.Date lastweek = d;
         Calendar c = Calendar.getInstance();
-        c.setTime(lastweek);
+        c.setTime(d);
         return c.get(Calendar.WEEK_OF_YEAR);
     }
 
     /**
      * 获取给定日期的下一个月的日期，返回格式为yyyy-MM-dd
      * 
-     * @param dateStr
+     * @param stringDate
      *            - 给定日期
      * @param format
      *            - 给定日期的格式
      * @return String
      */
     @SuppressWarnings("deprecation")
-    public static String getNextMonth(String stringDate, String format) {
+    private static String getNextMonth(String stringDate, String format) {
         Date date = convertString2Date(stringDate, format);
         int year = date.getYear() + 1900;
         int month = date.getMonth() + 1;
@@ -376,7 +350,7 @@ public class DateUtil {
     /**
      * 获取给定日期的下一个月的日期，返回格式为yyyy-MM-dd
      * 
-     * @param dateStr
+     * @param stringDate
      *            - 给定日期
      * @return String
      */
@@ -394,7 +368,7 @@ public class DateUtil {
      * @return String
      */
     @SuppressWarnings("deprecation")
-    public static String getBeforDate(String stringDate, String format) {
+    private static String getBeforDate(String stringDate, String format) {
         Date date = convertString2Date(stringDate, format);
         int year = date.getYear() + 1900;
         int month = date.getMonth() + 1;
@@ -429,7 +403,7 @@ public class DateUtil {
      * @param day_i
      * @return
      */
-    public static final String getBefDateString(String currentDate, int day_i, String format) {
+    private static String getBefDateString(String currentDate, int day_i, String format) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             Date date = sdf.parse(currentDate);
@@ -443,7 +417,7 @@ public class DateUtil {
         }
     }
 
-    public static final String getBefDateString(String currentDate, int day_i) {
+    public static String getBefDateString(String currentDate, int day_i) {
         return getBefDateString(currentDate, day_i, DEFAULT_DATE_FORMAT);
     }
 
@@ -454,17 +428,6 @@ public class DateUtil {
             return "0" + w;
         }
         return String.valueOf(w);
-    }
-
-    /**
-     * 得到一个月的天数
-     */
-    public static int getMonthDays(String dt) {
-        Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(dt.substring(0, 4)), Integer.parseInt(dt.substring(5, 7)) - 1, 1);
-
-        int num = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-        return num;
     }
 
     /**
@@ -491,18 +454,18 @@ public class DateUtil {
     /**
      * 得到当前日期的星期
      * 
-     * @param date
+     * @param currentDate
      * @return
      */
     @SuppressWarnings("deprecation")
-    public static final String getDateWeek(String currentDate) {
+    public static String getDateWeek(String currentDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             Date date = sdf.parse(currentDate);
-            Integer i = date.getDay();
+            int i = date.getDay();
             if (i == 0)
                 i = 7;
-            return i.toString();
+            return Integer.toString(i);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -515,16 +478,13 @@ public class DateUtil {
      * 得到指定长度格式的字符串 ‘000000123456789’
      * 
      * @param string
-     * @param length
      * @return
      */
-    public static final String zeroPadString(String string, int length) {
-        if (string == null || string.length() > length) {
+    private static String zeroPadString(String string) {
+        if (string == null || string.length() > 15) {
             return string;
         }
-        StringBuilder buf = new StringBuilder(length);
-        buf.append(zeroArray, 0, length - string.length()).append(string);
-        return buf.toString();
+        return String.valueOf(zeroArray, 0, 15 - string.length()) + string;
     }
 
     /** 得到这个月的第一天 **/
@@ -545,10 +505,10 @@ public class DateUtil {
 
     /** 秒数转化为小时格式 HH:MM:SS **/
     public static String convertSecToHour(int sec) {
-        String time = "";
-        int hour = 0;
-        int minute = 0;
-        int second = 0;
+        String time;
+        int hour;
+        int minute;
+        int second;
         hour = sec / 3600 > 0 ? sec / 3600 : 0;
         minute = (sec - hour * 3600) / 60 > 0 ? (sec - hour * 3600) / 60 : 0;
         second = sec - hour * 3600 - minute * 60 > 0 ? sec - hour * 3600 - minute * 60 : 0;
@@ -563,40 +523,37 @@ public class DateUtil {
      * Formats a Date as a fifteen character long String made up of the Date's
      * padded millisecond value.
      */
-    public static final String dateToMillis(Date date) {
-        return zeroPadString(Long.toString(date.getTime()), 15);
+    public static String dateToMillis(Date date) {
+        return zeroPadString(Long.toString(date.getTime()));
     }
 
-    public static final Date millisToDate(String stime) {
+    public static Date millisToDate(String stime) {
         long time = Long.parseLong(stime);
         return new Date(time);
     }
 
-    SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    SimpleDateFormat sFullFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    public static final String DATE_SEPARATOR = "-/";
-
-    /** 作日期分析之用 */
-    static StringTokenizer sToken;
+    private static final String DATE_SEPARATOR = "-/";
 
     /** 将日期变为字符串格式 * */
     public String format(GregorianCalendar pCal) {
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return sDateFormat.format(pCal.getTime());
     }
 
     public String format(Date pDate) {
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return sDateFormat.format(pDate);
     }
 
     public String fullFormat(Date pDate) {
+        SimpleDateFormat sFullFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sFullFormat.format(pDate);
     }
 
     /** 将字符串格式的日期转换为Calender* */
-    public static GregorianCalendar parse2Cal(String pDateStr) {
-        sToken = new StringTokenizer(pDateStr, DATE_SEPARATOR);
+    private static GregorianCalendar parse2Cal(String pDateStr) {
+        /* 作日期分析之用 */
+        StringTokenizer sToken = new StringTokenizer(pDateStr, DATE_SEPARATOR);
         int vYear = Integer.parseInt(sToken.nextToken());
         // GregorianCalendar的月份是从0开始算起的，变态！！
         int vMonth = Integer.parseInt(sToken.nextToken()) - 1;
@@ -607,6 +564,7 @@ public class DateUtil {
     /** 将字符串类型的日期(yyyy-MM-dd)转换成Date* */
     public Date parse2Date(String pDate) {
         try {
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             return sDateFormat.parse(pDate);
         } catch (ParseException ex) {
             return null;
@@ -621,12 +579,13 @@ public class DateUtil {
     }
 
     @SuppressWarnings("static-access")
-    public static int monthsBetween(GregorianCalendar pFormer, GregorianCalendar pLatter) {
-        GregorianCalendar vFormer = pFormer, vLatter = pLatter;
-        boolean vPositive = true;
+    private static int monthsBetween(GregorianCalendar pFormer, GregorianCalendar pLatter) {
+        GregorianCalendar vFormer, vLatter;
+        boolean vPositive;
         if (pFormer.before(pLatter)) {
             vFormer = pFormer;
             vLatter = pLatter;
+            vPositive = true;
         } else {
             vFormer = pLatter;
             vLatter = pFormer;
@@ -714,9 +673,9 @@ public class DateUtil {
             }
             Date maxDate = darray[0];
 
-            for (int i = 0; i < darray.length; i++) {
-                if (darray[i] != null && maxDate != null && (darray[i].getTime() > maxDate.getTime()))
-                    maxDate = darray[i];
+            for (Date aDarray : darray) {
+                if (aDarray != null && maxDate != null && (aDarray.getTime() > maxDate.getTime()))
+                    maxDate = aDarray;
             }
 
             return maxDate;
@@ -765,14 +724,10 @@ public class DateUtil {
      */
     public static boolean isTimeFormat(String time, String format) {
         try {
-            SimpleDateFormat sdf = null;
+            SimpleDateFormat sdf;
             sdf = new SimpleDateFormat(format);
             Date date = sdf.parse(time);
-            if (DateUtil.convertDate2String(date, format).equals(time)) {
-                return true;
-            } else {
-                return false;
-            }
+            return DateUtil.convertDate2String(date, format).equals(time);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -782,7 +737,6 @@ public class DateUtil {
     /**
      * 获取当前星期的星期一
      * 
-     * @param time
      * @return
      */
     public static String getMonDayByDate() {
@@ -797,14 +751,12 @@ public class DateUtil {
         cal.setFirstDayOfWeek(Calendar.MONDAY);// 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
         int day = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
-        String imptimeBegin = sdf.format(cal.getTime());
-        return imptimeBegin;
+        return sdf.format(cal.getTime());
     }
 
     /**
      * 获取当前星期的周日
      * 
-     * @param time
      * @return
      */
     public static String getSunDayByDate() {
@@ -820,14 +772,13 @@ public class DateUtil {
         int day = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
         cal.add(Calendar.DATE, 6);
-        String imptimeEnd = sdf.format(cal.getTime());
-        return imptimeEnd;
+        return sdf.format(cal.getTime());
     }
 
     /**
      * 获取当前日期是行星期几
      * 
-     * @param dt
+     * @param date
      * @return
      */
     public static int getWeekOfDate(Date date) {

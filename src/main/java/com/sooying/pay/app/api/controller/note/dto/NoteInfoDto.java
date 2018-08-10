@@ -17,6 +17,8 @@ public class NoteInfoDto extends BasePageDto {
     private String id;
     // 通道ID
     private String passagewayId;
+    // 通道名称
+    private String passagewayName;
     // 激活状态
     private String status;
     // SDK激活状态
@@ -50,6 +52,21 @@ public class NoteInfoDto extends BasePageDto {
      */
     public void setPassagewayId(String passagewayId) {
         this.passagewayId = passagewayId;
+    }
+
+    /**
+     * @return the passagewayName
+     */
+    public String getPassagewayName() {
+        return passagewayName;
+    }
+
+    /**
+     * @param passagewayName
+     *            the passagewayName to set
+     */
+    public void setPassagewayName(String passagewayName) {
+        this.passagewayName = passagewayName;
     }
 
     /**

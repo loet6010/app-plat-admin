@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.note;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,13 +35,12 @@ public class NoteInfoController {
     /**
      * 获取短信明细列表
      *
-     * @param request
      * @param noteInfoDto
      * @return
      */
     @RequestMapping(value = "/note/getNoteInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getNoteInfoList(HttpServletRequest request, NoteInfoDto noteInfoDto) {
+    public String getNoteInfoList(NoteInfoDto noteInfoDto) {
         logger.info("NoteInfoController getNoteInfoList 获取短信明细列表");
 
         try {
@@ -61,13 +59,12 @@ public class NoteInfoController {
     /**
      * 修改短信明细激活状态
      *
-     * @param request
      * @param noteInfoDto
      * @return
      */
     @RequestMapping(value = "/note/modifyNoteInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyNoteInfoStatus(HttpServletRequest request, NoteInfoDto noteInfoDto) {
+    public String modifyNoteInfoStatus(NoteInfoDto noteInfoDto) {
         logger.info("NoteInfoController modifyNoteInfoStatus 修改短信明细激活状态");
 
         try {
@@ -100,13 +97,12 @@ public class NoteInfoController {
     /**
      * 修改短信明细SDK激活状态
      *
-     * @param request
      * @param noteInfoDto
      * @return
      */
     @RequestMapping(value = "/note/modifyNoteInfoSdkStatus.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyNoteInfoSdkStatus(HttpServletRequest request, NoteInfoDto noteInfoDto) {
+    public String modifyNoteInfoSdkStatus(NoteInfoDto noteInfoDto) {
         logger.info("NoteInfoController modifyNoteInfoSdkStatus 修改短信明细SDK激活状态");
 
         try {

@@ -71,7 +71,7 @@ public interface NoteInfoDao {
      * @param passagewayId
      * @return
      */
-    List<NoteSuccessInfo> selectSeccessDataGridList(@Param("passagewayId") String passagewayId);
+    List<NoteSuccessInfo> selectSuccessDataGridList(@Param("passagewayId") String passagewayId);
 
     /**
      * 普通二次确认下行信息列表

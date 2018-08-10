@@ -15,7 +15,7 @@ public enum ApiStatusEnum {
     private String status;
     private String message;
 
-    private ApiStatusEnum(String status, String message) {
+    ApiStatusEnum(String status, String message) {
         this.status = status;
         this.message = message;
     }

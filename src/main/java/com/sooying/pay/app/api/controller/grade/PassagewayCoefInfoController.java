@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.grade;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,13 +35,12 @@ public class PassagewayCoefInfoController {
     /**
      * 获取通道系数配置列表
      *
-     * @param request
      * @param passagewayCoefInfoDto
      * @return
      */
     @RequestMapping(value = "/grade/getPassagewayCoefInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getPassagewayCoefInfoList(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
+    public String getPassagewayCoefInfoList(PassagewayCoefInfoDto passagewayCoefInfoDto) {
         logger.info("PassagewayCoefInfoController getPassagewayCoefInfoList 获取通道系数配置列表");
 
         try {
@@ -61,13 +59,12 @@ public class PassagewayCoefInfoController {
     /**
      * 修改通道系数配置
      *
-     * @param request
      * @param passagewayCoefInfoDto
      * @return
      */
     @RequestMapping(value = "/grade/modifyPassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyPassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
+    public String modifyPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto) {
         logger.info("PassagewayCoefInfoController modifyPassagewayCoefInfo 修改通道系数配置");
 
         try {
@@ -100,13 +97,12 @@ public class PassagewayCoefInfoController {
     /**
      * 删除通道系数配置
      *
-     * @param request
      * @param passagewayCoefInfoDto
      * @return
      */
     @RequestMapping(value = "/grade/removePassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String removePassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
+    public String removePassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto) {
         logger.info("PassagewayCoefInfoController removePassagewayCoefInfo 删除通道系数配置");
 
         try {
@@ -139,14 +135,13 @@ public class PassagewayCoefInfoController {
     /**
      * 新增通道系数配置
      *
-     * @param request
      * @param passagewayCoefInfoDto
      * @return
      */
     @RequestMapping(value = "/grade/addPassagewayCoefInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String addPassagewayCoefInfo(HttpServletRequest request, PassagewayCoefInfoDto passagewayCoefInfoDto) {
-        logger.info("PassagewayCoefInfoController addPassagewayCoefInfo 新增通道系数配置，通道ID");
+    public String addPassagewayCoefInfo(PassagewayCoefInfoDto passagewayCoefInfoDto) {
+        logger.info("PassagewayCoefInfoController addPassagewayCoefInfo 新增通道系数配置");
 
         try {
             return passagewayCoefInfoService.addPassagewayCoefInfo(passagewayCoefInfoDto);
@@ -156,6 +151,30 @@ public class PassagewayCoefInfoController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         } catch (Exception e) {
             logger.info("PassagewayCoefInfoController 新增通道系数配置异常：", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        }
+    }
+    
+    /**
+     * 获取代码资费
+     *
+     * @param passagewayCoefInfoDto
+     * @return
+     */
+    @RequestMapping(value = "/grade/getPassagewayIdPrice.json", method = { RequestMethod.GET })
+    @ResponseBody
+    public String getPassagewayIdPrice(PassagewayCoefInfoDto passagewayCoefInfoDto) {
+        logger.info("PassagewayCoefInfoController getPassagewayIdPrice 获取代码资费");
+
+        try {
+            return passagewayCoefInfoService.getPassagewayIdPrice(passagewayCoefInfoDto);
+        } catch (IllegalArgumentException e) {
+            logger.info("PassagewayCoefInfoController 获取代码资费，参数验证错误：{}", e.getMessage());
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("PassagewayCoefInfoController 获取代码资费异常：", e);
 
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }

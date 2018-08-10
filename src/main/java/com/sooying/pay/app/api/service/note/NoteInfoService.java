@@ -55,7 +55,7 @@ public interface NoteInfoService {
      * @param passagewayId
      * @return
      */
-    List<NoteSuccessInfo> getSeccessDataGridList(String passagewayId);
+    List<NoteSuccessInfo> getSuccessDataGridList(String passagewayId);
 
     /**
      * 获取普通二次确认下行信息列表

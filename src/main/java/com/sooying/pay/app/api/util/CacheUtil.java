@@ -32,8 +32,8 @@ public class CacheUtil {
         throw new InstantiationException();
     }
 
-    /**
-     * 缓存形式存放token信息
+    /*
+      缓存形式存放token信息
      */
     static {
         logger.info("CacheUtil cacheTokenList init hour is {},maximumSize is {}", Constants.CACHE_HOUR,

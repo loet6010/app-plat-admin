@@ -9,6 +9,17 @@
 		<id column="passageway_id" property="passagewayId" />
 		<id column="passageway_name" property="passagewayName" />
 		<id column="code_type" property="codeType" />
+		<id column="net_operator" property="netOperator" />
+		<id column="price" property="price" />
+		<id column="limit_type" property="limitType" />
+		<id column="limit_times" property="limitTimes" />
+		<id column="limit_day_fee" property="limitDayFee" />
+		<id column="limit_month_fee" property="limitMonthFee" />
+		<id column="request_interval" property="requestInterval" />
+		<id column="base_id" property="baseId" />
+		<id column="base_name" property="baseName" />
+		<id column="fee_group_id" property="feeGroupId" />
+		<id column="group_name" property="feeGroupName" />
 		<id column="status" property="status" />
 		<id column="sdk_status" property="sdkStatus" />
 	</resultMap>
@@ -21,17 +32,25 @@
 		<if test="passagewayId != null and passagewayId != ''">
 			and passageway_id = #{passagewayId}
 		</if>
+		<if test="passagewayName != null and passagewayName != ''">
+            and passageway_name like #{passagewayName}
+        </if>
 	</select>
 
 	<select id="selectNoteInfoList" parameterType="java.util.HashMap"
 		resultMap="BaseResultMap">
-		select *
-		from dp_note_info
+		select a.*,b.group_name
+		from dp_note_info a
+		left join dp_fee_group b
+		       on a.fee_group_id = b.group_id
 		where 1 = 1
 		<if test="passagewayId != null and passagewayId != ''">
-			and passageway_id = #{passagewayId}
+			and a.passageway_id = #{passagewayId}
 		</if>
-		order by create_time desc
+		<if test="passagewayName != null and passagewayName != ''">
+            and a.passageway_name like #{passagewayName}
+        </if>
+		order by a.create_time desc
 		limit #{rowsPerPage} offset #{start}
 	</select>
 

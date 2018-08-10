@@ -79,25 +79,29 @@
             SELECT passageway_id as passagewayId,
                    count(distinct(CASE WHEN status in('0','1','4') THEN imei END)) AS requestCount,
                    count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
-                   count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
-                   count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
-            FROM dp_open_pay_order_result
-            where pay_time >= #{beginTime}
-              and pay_time &lt;= #{endTime}
-              and status in('0','1','4')
-              and (imei is not null or imei != '')
-              <if test="netType != null and netType != ''">
-                  and net_type = #{netType}
-              </if>
-              <if test="appId != null">
-                  and app_id = #{appId}
-              </if>
-              <if test="province != null and province != ''">
-                  and province = #{province}
-              </if>
-              <if test="passagewayId != null and passagewayId != ''">
-                  and passageway_id = #{passagewayId}
-              </if>
+                   count(CASE WHEN status ='1' THEN imei END) AS successCount,
+                   count(CASE WHEN status ='4' THEN imei END) AS riskCount
+            FROM
+               (
+                select distinct passageway_id,status,imei
+                FROM dp_open_pay_order_result
+                where pay_time >= #{beginTime}
+                  and pay_time &lt;= #{endTime}
+                  and status in('0','1','4')
+                  and (imei is not null or imei != '')
+                  <if test="netType != null and netType != ''">
+                      and net_type = #{netType}
+                  </if>
+                  <if test="appId != null">
+                      and app_id = #{appId}
+                  </if>
+                  <if test="province != null and province != ''">
+                      and province = #{province}
+                  </if>
+                  <if test="passagewayId != null and passagewayId != ''">
+                      and passageway_id = #{passagewayId}
+                  </if>
+                ) b
             group by passageway_id
            ) a
         LEFT JOIN
@@ -123,6 +127,99 @@
         order by successRate desc
         limit #{rowsPerPage} offset #{start}
     </select>
+    
+    <select id="selectTimeFrameSuccessRateInfoCount" parameterType="java.util.HashMap"
+        resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM
+           (
+            SELECT passageway_id as passagewayId,
+                   to_char(create_time,'yyyyMMdd-HH24') as timeFrame
+            FROM dp_open_pay_order_result
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
+              and status in('0','1','4')
+              and (imei is not null or imei != '')
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="appId != null">
+                  and app_id = #{appId}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
+              <if test="passagewayId != null and passagewayId != ''">
+                  and passageway_id = #{passagewayId}
+              </if>
+            group by passageway_id,timeFrame
+           ) a
+    </select>
+    
+    <select id="selectTimeFrameSuccessRateInfoList" parameterType="java.util.HashMap"
+        resultType="SuccessRateInfo">
+        SELECT a.passagewayId,
+               c.passageway_name as passagewayName,
+               a.timeFrame,
+               a.requestCount,
+               a.confirmCount,
+               a.successCount,
+               a.riskCount,
+               COALESCE(b.mrCount,0) as mrCount,
+               CASE WHEN a.confirmCount > 0 THEN ROUND(a.successCount::numeric/a.confirmCount::numeric,4) ELSE 0 END as successRate,
+               CASE WHEN a.successCount > 0 THEN ROUND(COALESCE(b.mrCount,0)::numeric/a.successCount::numeric,4) ELSE 0 END as syncRate
+        FROM
+           (
+            SELECT passageway_id as passagewayId,
+                   to_char(create_time,'yyyyMMdd-HH24') as timeFrame,
+                   count(distinct(CASE WHEN status in('0','1','4') THEN imei END)) AS requestCount,
+                   count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
+                   count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
+                   count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
+            FROM dp_open_pay_order_result
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
+              and status in('0','1','4')
+              and (imei is not null or imei != '')
+              <if test="netType != null and netType != ''">
+                  and net_type = #{netType}
+              </if>
+              <if test="appId != null">
+                  and app_id = #{appId}
+              </if>
+              <if test="province != null and province != ''">
+                  and province = #{province}
+              </if>
+              <if test="passagewayId != null and passagewayId != ''">
+                  and passageway_id = #{passagewayId}
+              </if>
+            group by passageway_id,timeFrame
+           ) a
+        LEFT JOIN
+           (
+            SELECT bx.sp_code,
+                   bx.timeFrame,
+                   count(*) as mrCount
+            from
+               (
+                select DISTINCT linkid,sp_code,pay_money,status,mobile,long_num,to_char(create_time,'yyyyMMdd-HH24') as timeFrame
+                from dp_third_note_pay_result
+                where create_time >= #{beginTime}
+                  and create_time &lt;= #{endTime}
+                  and status_desc = '1'
+                <if test="passagewayId != null and passagewayId != ''">
+                    and sp_code = #{passagewayId}
+                </if>
+               ) bx
+            group by bx.sp_code,bx.timeFrame
+           ) b 
+               ON a.passagewayId = b.sp_code
+              and a.timeFrame = b.timeFrame
+        LEFT JOIN dp_note_info c
+               ON a.passagewayId = c.passageway_id
+        order by a.timeFrame desc
+        limit #{rowsPerPage} offset #{start}
+    </select>
 
     <select id="selectProvinceSuccessRateInfoCount" parameterType="java.util.HashMap"
         resultType="java.lang.Integer">
@@ -141,6 +238,9 @@
               </if>
               <if test="province != null and province != ''">
                   and province = #{province}
+              </if>
+              <if test="passagewayId != null and passagewayId != ''">
+                  and passageway_id = #{passagewayId}
               </if>
             group by net_type,province
            ) a
@@ -161,19 +261,26 @@
                    province,
                    count(distinct(CASE WHEN status in('0','1','2','3','4') THEN imei END)) AS requestCount,
                    count(distinct(CASE WHEN status in('0','1') THEN imei END)) AS confirmCount,
-                   count(distinct(CASE WHEN status ='1' THEN imei END)) AS successCount,
-                   count(distinct(CASE WHEN status ='4' THEN imei END)) AS riskCount
-            FROM dp_open_pay_order_result
-            where pay_time >= #{beginTime}
-              and pay_time &lt;= #{endTime}
-              and status in('0','1','2','3','4')
-              and (imei is not null or imei != '')
-              <if test="netType != null and netType != ''">
-                  and net_type = #{netType}
-              </if>
-              <if test="province != null and province != ''">
-                  and province = #{province}
-              </if>
+                   count(CASE WHEN status ='1' THEN imei END) AS successCount,
+                   count(CASE WHEN status ='4' THEN imei END) AS riskCount
+            FROM
+               (
+                select distinct net_type,province,status,imei
+                FROM dp_open_pay_order_result
+                where pay_time >= #{beginTime}
+                  and pay_time &lt;= #{endTime}
+                  and status in('0','1','2','3','4')
+                  and (imei is not null or imei != '')
+                  <if test="netType != null and netType != ''">
+                      and net_type = #{netType}
+                  </if>
+                  <if test="province != null and province != ''">
+                      and province = #{province}
+                  </if>
+                  <if test="passagewayId != null and passagewayId != ''">
+                      and passageway_id = #{passagewayId}
+                  </if>
+                ) b
             group by net_type,province
            ) a
         order by successRate desc
@@ -220,6 +327,45 @@
            ) a
         LEFT JOIN dp_note_info b
                ON a.passagewayId = b.passageway_id
+        limit #{rowsPerPage} offset #{start}
+    </select>
+    
+    <select id="selectResultErrorInfoCount" parameterType="java.util.HashMap"
+        resultType="java.lang.Integer">
+        select count(*)
+        from (
+            select passageway_id,err_code
+            from dp_open_pay_order_result
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
+              <if test="passagewayId != null and passagewayId != ''">
+                  and passageway_id = #{passagewayId}
+              </if>
+              and status='0'
+            group by passageway_id,err_code
+        ) a
+    </select>
+    
+    <select id="selectResultErrorInfoList" parameterType="java.util.HashMap"
+        resultType="ResultErrorInfo">
+        select a.passageway_id as passagewayId,
+               b.passageway_name as passagewayName,
+               a.err_code as errorCode,
+               a.error_count as errorCount
+        from (
+            select passageway_id,err_code,count(distinct imsi) as error_count
+            from dp_open_pay_order_result
+            where pay_time >= #{beginTime}
+              and pay_time &lt;= #{endTime}
+              <if test="passagewayId != null and passagewayId != ''">
+                  and passageway_id = #{passagewayId}
+              </if>
+              and status='0'
+            group by passageway_id,err_code
+            order by error_count desc
+        ) a
+        left join dp_note_info b
+               on a.passageway_id = b.passageway_id
         limit #{rowsPerPage} offset #{start}
     </select>
 </mapper>

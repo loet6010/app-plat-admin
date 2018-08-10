@@ -20,7 +20,9 @@ import com.sooying.pay.app.api.common.constant.Constants;
 import com.sooying.pay.app.api.common.enums.ApiStatusEnum;
 import com.sooying.pay.app.api.controller.grade.dto.PassagewayCoefInfoDto;
 import com.sooying.pay.app.api.dao.platform.grade.PassagewayCoefInfoDao;
+import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.model.platform.grade.PassagewayCoefInfo;
+import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 import com.sooying.pay.app.api.service.grade.PassagewayCoefInfoService;
 import com.sooying.pay.app.api.util.BeanDateCopyUtil;
 import com.sooying.pay.app.api.util.CheckUtil;
@@ -39,6 +41,8 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     @Resource
     PassagewayCoefInfoDao passagewayCoefInfoDao;
+    @Resource
+    NoteInfoDao noteInfoDao;
 
     /**
      * 获取通道系数配置列表
@@ -74,8 +78,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         List<PassagewayCoefInfo> list = passagewayCoefInfoDao.selectPassagewayCoefInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(list);
+        List<Object> dataList = new ArrayList<Object>(list);
 
         String msg = "获取通道系数配置成功";
         logger.info("PassagewayCoefInfoServiceImpl getPassagewayCoefInfoList {}", msg);
@@ -195,5 +198,28 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         CheckUtil.idCheck(passagewayCoefInfoDto.getId());
 
         return passagewayCoefInfoDao.selectPassagewayCoefInfoById(Long.parseLong(passagewayCoefInfoDto.getId()));
+    }
+
+    /**
+     * 获取代码资费
+     * 
+     * @param passagewayCoefInfoDto
+     * @return
+     */
+    @Override
+    public String getPassagewayIdPrice(PassagewayCoefInfoDto passagewayCoefInfoDto) {
+        logger.info("PassagewayCoefInfoServiceImpl getPassagewayIdPrice user is {}, passagewayId is {}",
+                passagewayCoefInfoDto.getLoginName(), passagewayCoefInfoDto.getPassagewayId());
+
+        // 查询短信明细
+        NoteInfo noteInfo = noteInfoDao.selectNoteInfoByPassagewayId(passagewayCoefInfoDto.getPassagewayId());
+        Assert.isTrue(noteInfo != null, "当前通道ID不存在短信明细！通道：" + passagewayCoefInfoDto.getPassagewayId());
+
+        List<Object> dataList = new ArrayList<Object>();
+        dataList.add(noteInfo);
+
+        String msg = "获取代码资费成功";
+        logger.info("PassagewayCoefInfoServiceImpl getPassagewayIdPrice {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 }

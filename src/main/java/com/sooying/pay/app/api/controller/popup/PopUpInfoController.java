@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.popup;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +30,12 @@ public class PopUpInfoController {
     /**
      * 获取二次确认弹窗列表
      *
-     * @param request
      * @param popUpInfoDto
      * @return
      */
     @RequestMapping(value = "/popup/getPopUpInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getPopUpInfoList(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
+    public String getPopUpInfoList(PopUpInfoDto popUpInfoDto) {
         logger.info("PopUpInfoController getPopUpInfoList 获取二次确认弹窗列表");
 
         try {
@@ -56,13 +54,12 @@ public class PopUpInfoController {
     /**
      * 修改二次确认弹窗
      *
-     * @param request
      * @param popUpInfoDto
      * @return
      */
     @RequestMapping(value = "/popup/modifyPopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyPopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
+    public String modifyPopUpInfo(PopUpInfoDto popUpInfoDto) {
         logger.info("PopUpInfoController modifyPopUpInfo 修改二次确认弹窗");
 
         try {
@@ -81,13 +78,12 @@ public class PopUpInfoController {
     /**
      * 删除二次确认弹窗
      *
-     * @param request
      * @param popUpInfoDto
      * @return
      */
     @RequestMapping(value = "/popup/removePopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String removePopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
+    public String removePopUpInfo(PopUpInfoDto popUpInfoDto) {
         logger.info("PopUpInfoController removePopUpInfo 删除二次确认弹窗");
 
         try {
@@ -106,13 +102,12 @@ public class PopUpInfoController {
     /**
      * 修改二次确认弹窗激活状态
      *
-     * @param request
      * @param popUpInfoDto
      * @return
      */
     @RequestMapping(value = "/popup/modifyPopUpInfoStatus.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String modifyPopUpInfoStatus(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
+    public String modifyPopUpInfoStatus(PopUpInfoDto popUpInfoDto) {
         logger.info("PopUpInfoController modifyPopUpInfoStatus 修改二次确认弹窗激活状态");
 
         try {
@@ -131,13 +126,12 @@ public class PopUpInfoController {
     /**
      * 新增二次确认弹窗
      *
-     * @param request
      * @param popUpInfoDto
      * @return
      */
     @RequestMapping(value = "/popup/addPopUpInfo.json", method = { RequestMethod.POST })
     @ResponseBody
-    public String addPopUpInfo(HttpServletRequest request, PopUpInfoDto popUpInfoDto) {
+    public String addPopUpInfo(PopUpInfoDto popUpInfoDto) {
         logger.info("PopUpInfoController addPopUpInfo 新增二次确认弹窗");
 
         try {

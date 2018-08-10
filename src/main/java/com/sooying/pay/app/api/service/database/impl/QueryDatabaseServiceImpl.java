@@ -21,14 +21,18 @@ import com.bench.common.lang.StringUtils;
 import com.sooying.pay.app.api.common.base.BasePagination;
 import com.sooying.pay.app.api.common.constant.Constants;
 import com.sooying.pay.app.api.common.enums.ApiStatusEnum;
+import com.sooying.pay.app.api.common.enums.NetOperatorEnum;
 import com.sooying.pay.app.api.controller.database.dto.DatabaseInfoDto;
 import com.sooying.pay.app.api.dao.collect.database.QueryCollectDao;
 import com.sooying.pay.app.api.dao.platform.database.QueryPlatformDao;
+import com.sooying.pay.app.api.dao.platform.note.NoteInfoDao;
 import com.sooying.pay.app.api.model.collect.database.StartDataInfo;
 import com.sooying.pay.app.api.model.platform.database.OverallDataInfo;
 import com.sooying.pay.app.api.model.platform.database.OverallFeeInfo;
 import com.sooying.pay.app.api.model.platform.database.ProvinceSuccessRateInfo;
+import com.sooying.pay.app.api.model.platform.database.ResultErrorInfo;
 import com.sooying.pay.app.api.model.platform.database.SuccessRateInfo;
+import com.sooying.pay.app.api.model.platform.note.NoteInfo;
 import com.sooying.pay.app.api.service.database.QueryDatabaseService;
 import com.sooying.pay.app.api.util.ResultReturnUtil;
 
@@ -47,6 +51,8 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
     QueryPlatformDao queryPlatformDao;
     @Resource
     QueryCollectDao queryCollectDao;
+    @Resource
+    NoteInfoDao noteInfoDao;
 
     /**
      * 获取大盘数据
@@ -110,16 +116,24 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         logger.info("QueryDatabaseServiceImpl getSuccessRateInfoList user is {}, passagewayId is {}",
                 databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
 
-        Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getNetType()), "运营商不能为空！");
+        // 通道ID有传值时，取通道ID的运营商
+        String netType = databaseInfoDto.getNetType();
+        if (StringUtils.isNotBlank(databaseInfoDto.getPassagewayId())) {
+            // 查询短信明细
+            NoteInfo noteInfo = noteInfoDao.selectNoteInfoByPassagewayId(databaseInfoDto.getPassagewayId());
+            Assert.isTrue(noteInfo != null, "当前通道ID不存在短信明细！通道：" + databaseInfoDto.getPassagewayId());
+            netType = NetOperatorEnum.getNameByCode(noteInfo.getNetOperator());
+        }
+        Assert.isTrue(StringUtils.isNotBlank(netType), "运营商不能为空！");
 
         Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("netType", databaseInfoDto.getNetType());
+        paramsMap.put("netType", netType);
         paramsMap.put("province", databaseInfoDto.getProvince());
         paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
         Integer appId = null;
         if (StringUtils.isNotBlank(databaseInfoDto.getAppId())) {
             Assert.isTrue(NumberUtils.isDigits(databaseInfoDto.getAppId()), "应用ID必须是整数！");
-            
+
             appId = Integer.parseInt(databaseInfoDto.getAppId());
         }
         paramsMap.put("appId", appId);
@@ -130,8 +144,15 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         paramsMap.put("beginTime", searchTimeInfo.getBeginTime());
         paramsMap.put("endTime", searchTimeInfo.getEndTime());
 
-        // 查询总数
-        int totalCount = queryPlatformDao.selectSuccessRateInfoCount(paramsMap);
+        // 区分是否分时段查询总数
+        int totalCount;
+        if (Constants.STRING_ONE.equals(databaseInfoDto.getTimeFrameStatus())) {
+            Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getPassagewayId()), "分时段查询通道ID不能为空！");
+
+            totalCount = queryPlatformDao.selectTimeFrameSuccessRateInfoCount(paramsMap);
+        } else {
+            totalCount = queryPlatformDao.selectSuccessRateInfoCount(paramsMap);
+        }
 
         // 初始化分页信息
         BasePagination pagination = new BasePagination(totalCount);
@@ -142,11 +163,16 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
 
-        List<SuccessRateInfo> successRateInfoList = queryPlatformDao.selectSuccessRateInfoList(paramsMap);
+        // 区分是否分时段查询列表
+        List<SuccessRateInfo> successRateInfoList;
+        if (Constants.STRING_ONE.equals(databaseInfoDto.getTimeFrameStatus())) {
+            successRateInfoList = queryPlatformDao.selectTimeFrameSuccessRateInfoList(paramsMap);
+        } else {
+            successRateInfoList = queryPlatformDao.selectSuccessRateInfoList(paramsMap);
+        }
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(successRateInfoList);
+        List<Object> dataList = new ArrayList<Object>(successRateInfoList);
 
         String msg = "获取代码成功率成功";
         logger.info("QueryDatabaseServiceImpl getSuccessRateInfoList {}", msg);
@@ -164,11 +190,20 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         logger.info("QueryDatabaseServiceImpl getProvinceSuccessRateInfoList user is {}, netType is {}, province is {}",
                 databaseInfoDto.getLoginName(), databaseInfoDto.getNetType(), databaseInfoDto.getProvince());
 
-        Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getNetType()), "运营商不能为空！");
+        // 通道ID有传值时，取通道ID的运营商
+        String netType = databaseInfoDto.getNetType();
+        if (StringUtils.isNotBlank(databaseInfoDto.getPassagewayId())) {
+            // 查询短信明细
+            NoteInfo noteInfo = noteInfoDao.selectNoteInfoByPassagewayId(databaseInfoDto.getPassagewayId());
+            Assert.isTrue(noteInfo != null, "当前通道ID不存在短信明细！通道：" + databaseInfoDto.getPassagewayId());
+            netType = NetOperatorEnum.getNameByCode(noteInfo.getNetOperator());
+        }
+        Assert.isTrue(StringUtils.isNotBlank(netType), "运营商不能为空！");
 
         Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("netType", databaseInfoDto.getNetType());
+        paramsMap.put("netType", netType);
         paramsMap.put("province", databaseInfoDto.getProvince());
+        paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
 
         // 获取代码分省份成功率查询时间，间隔最多1天
         SearchTimeInfo searchTimeInfo = getValidateSearchTime(databaseInfoDto.getBeginTime(),
@@ -188,12 +223,11 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
 
-        List<ProvinceSuccessRateInfo> successRateInfoList = queryPlatformDao
+        List<ProvinceSuccessRateInfo> provinceSuccessRateInfoList = queryPlatformDao
                 .selectProvinceSuccessRateInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(successRateInfoList);
+        List<Object> dataList = new ArrayList<Object>(provinceSuccessRateInfoList);
 
         String msg = "获取代码分省份成功率成功";
         logger.info("QueryDatabaseServiceImpl getProvinceSuccessRateInfoList {}", msg);
@@ -232,14 +266,57 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
 
-        List<OverallFeeInfo> successRateInfoList = queryPlatformDao.selectOverallFeeInfoList(paramsMap);
+        List<OverallFeeInfo> overallFeeInfoList = queryPlatformDao.selectOverallFeeInfoList(paramsMap);
 
         // list装入返回类型
-        List<Object> dataList = new ArrayList<Object>();
-        dataList.addAll(successRateInfoList);
+        List<Object> dataList = new ArrayList<Object>(overallFeeInfoList);
 
         String msg = "获取大盘同步信息费成功";
         logger.info("QueryDatabaseServiceImpl getOverallFeeInfoList {}", msg);
+        return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
+    }
+
+    /**
+     * 获取结果表错误码占比
+     * 
+     * @param databaseInfoDto
+     * @return
+     */
+    @Override
+    public String getResultErrorInfoList(DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseServiceImpl getResultErrorInfoList user is {}, passagewayId is {}",
+                databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
+
+        Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getPassagewayId()), "通道ID不能为空！");
+        
+        Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
+
+        // 获取大盘同步信息费查询时间，间隔最多7天
+        SearchTimeInfo searchTimeInfo = getValidateSearchTime(databaseInfoDto.getBeginTime(),
+                databaseInfoDto.getEndTime(), 7);
+        paramsMap.put("beginTime", searchTimeInfo.getBeginTime());
+        paramsMap.put("endTime", searchTimeInfo.getEndTime());
+
+        // 查询总数
+        int totalCount = queryPlatformDao.selectResultErrorInfoCount(paramsMap);
+
+        // 初始化分页信息
+        BasePagination pagination = new BasePagination(totalCount);
+        pagination.setCurrentPage(databaseInfoDto.getPage());
+        pagination.setRowsPerPage(databaseInfoDto.getRows());
+        pagination.initPage();
+
+        paramsMap.put("start", pagination.getStart());
+        paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
+
+        List<ResultErrorInfo> resultErrorInfoList = queryPlatformDao.selectResultErrorInfoList(paramsMap);
+
+        // list装入返回类型
+        List<Object> dataList = new ArrayList<Object>(resultErrorInfoList);
+
+        String msg = "获取结果表错误码占比成功";
+        logger.info("QueryDatabaseServiceImpl getResultErrorInfoList {}", msg);
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
@@ -318,20 +395,21 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         private Date beginTime;
         private Date endTime;
 
-        public Date getBeginTime() {
+        Date getBeginTime() {
             return beginTime;
         }
 
-        public void setBeginTime(Date beginTime) {
+        void setBeginTime(Date beginTime) {
             this.beginTime = beginTime;
         }
 
-        public Date getEndTime() {
+        Date getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(Date endTime) {
+        void setEndTime(Date endTime) {
             this.endTime = endTime;
         }
     }
+
 }

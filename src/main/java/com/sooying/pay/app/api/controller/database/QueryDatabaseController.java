@@ -1,7 +1,6 @@
 package com.sooying.pay.app.api.controller.database;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +30,12 @@ public class QueryDatabaseController {
     /**
      * 获取大盘数据
      *
-     * @param request
-     * @param noteInfoDto
+     * @param databaseInfoDto
      * @return
      */
     @RequestMapping(value = "/database/getOverallDataInfo.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getOverallDataInfo(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+    public String getOverallDataInfo(DatabaseInfoDto databaseInfoDto) {
         logger.info("QueryDatabaseController getOverallDataInfo 获取大盘数据");
 
         try {
@@ -56,13 +54,12 @@ public class QueryDatabaseController {
     /**
      * 获取代码成功率
      *
-     * @param request
      * @param databaseInfoDto
      * @return
      */
     @RequestMapping(value = "/database/getSuccessRateInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getSuccessRateInfoList(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+    public String getSuccessRateInfoList(DatabaseInfoDto databaseInfoDto) {
         logger.info("QueryDatabaseController getSuccessRateInfoList 获取代码成功率");
 
         try {
@@ -81,13 +78,12 @@ public class QueryDatabaseController {
     /**
      * 获取代码分省份成功率
      *
-     * @param request
      * @param databaseInfoDto
      * @return
      */
     @RequestMapping(value = "/database/getProvinceSuccessRateInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getProvinceSuccessRateInfoList(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+    public String getProvinceSuccessRateInfoList(DatabaseInfoDto databaseInfoDto) {
         logger.info("QueryDatabaseController getProvinceSuccessRateInfoList 获取代码成功率");
 
         try {
@@ -106,13 +102,12 @@ public class QueryDatabaseController {
     /**
      * 获取大盘同步信息费
      *
-     * @param request
      * @param databaseInfoDto
      * @return
      */
     @RequestMapping(value = "/database/getOverallFeeInfoList.json", method = { RequestMethod.GET })
     @ResponseBody
-    public String getOverallFeeInfoList(HttpServletRequest request, DatabaseInfoDto databaseInfoDto) {
+    public String getOverallFeeInfoList(DatabaseInfoDto databaseInfoDto) {
         logger.info("QueryDatabaseController getOverallFeeInfoList 获取大盘同步信息费");
 
         try {
@@ -127,4 +122,29 @@ public class QueryDatabaseController {
             return ResultReturnUtil.getExceptionString(e.getMessage());
         }
     }
+
+    /**
+     * 获取结果表错误码占比
+     *
+     * @param databaseInfoDto
+     * @return
+     */
+    @RequestMapping(value = "/database/getResultErrorInfoList.json", method = { RequestMethod.GET })
+    @ResponseBody
+    public String getResultErrorInfoList(DatabaseInfoDto databaseInfoDto) {
+        logger.info("QueryDatabaseController getResultErrorInfoList 获取结果表错误码占比");
+
+        try {
+            return queryDatabaseService.getResultErrorInfoList(databaseInfoDto);
+        } catch (IllegalArgumentException e) {
+            logger.info("QueryDatabaseController 获取结果表错误码占比，参数验证错误：{}", e.getMessage());
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        } catch (Exception e) {
+            logger.info("QueryDatabaseController 获取结果表错误码占比异常：", e);
+
+            return ResultReturnUtil.getExceptionString(e.getMessage());
+        }
+    }
+
 }
