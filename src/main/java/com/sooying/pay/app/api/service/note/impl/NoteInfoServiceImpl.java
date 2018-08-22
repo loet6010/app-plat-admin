@@ -71,10 +71,7 @@ public class NoteInfoServiceImpl implements NoteInfoService {
         int totalCount = noteInfoDao.selectNoteInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(noteInfoDto.getPage());
-        pagination.setRowsPerPage(noteInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount,noteInfoDto.getPage(),noteInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());

@@ -30,9 +30,9 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
  * 通道系数配置
- * 
- * @Description PassagewayCoefInfoServiceImpl
+ *
  * @author liurh
+ * @Description PassagewayCoefInfoServiceImpl
  * @date 2018年6月15日
  */
 @Service("passagewayCoefInfoService")
@@ -46,7 +46,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     /**
      * 获取通道系数配置列表
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      */
@@ -66,10 +66,8 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         int totalCount = passagewayCoefInfoDao.selectPassagewayCoefInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(passagewayCoefInfoDto.getPage());
-        pagination.setRowsPerPage(passagewayCoefInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, passagewayCoefInfoDto.getPage(),
+                passagewayCoefInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -87,7 +85,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     /**
      * 修改通道系数配置
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      * @throws InvocationTargetException
@@ -115,7 +113,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     /**
      * 删除通道系数配置
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      */
@@ -137,7 +135,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     /**
      * 新增通道系数配置
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      */
@@ -150,8 +148,8 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         validatePassagewayCoefInfo(passagewayCoefInfoDto);
         Assert.isTrue(NumberUtils.isDigits(passagewayCoefInfoDto.getPassagewayId()), "通道ID必须是整数！");
 
-        String netOperator = passagewayCoefInfoDao
-                .selectNetOperatorByPassagewayId(Integer.parseInt(passagewayCoefInfoDto.getPassagewayId()));
+        String netOperator = passagewayCoefInfoDao.selectNetOperatorByPassagewayId(
+                Integer.parseInt(passagewayCoefInfoDto.getPassagewayId()));
         Assert.isTrue(netOperator != null, "通道ID不存在！");
 
         int existCount = passagewayCoefInfoDao.selectExistPassagewayIdCount(passagewayCoefInfoDto.getPassagewayId());
@@ -180,13 +178,13 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
         Assert.isTrue(NumberUtils.isNumber(passagewayCoefInfoDto.getCountRate()), "结算率必须是数字！");
         Assert.isTrue(StringUtils.isNotBlank(passagewayCoefInfoDto.getPrice()), "资费不能为空！");
         Assert.isTrue(NumberUtils.isDigits(passagewayCoefInfoDto.getPrice()), "资费必须为整数！");
-        Assert.isTrue(Constants.STRING_ONE.equals(passagewayCoefInfoDto.getChangeStatus())
-                || Constants.STRING_ZERO.equals(passagewayCoefInfoDto.getChangeStatus()), "固定标志必须是0或1！");
+        Assert.isTrue(Constants.STRING_ONE.equals(passagewayCoefInfoDto.getChangeStatus()) ||
+                Constants.STRING_ZERO.equals(passagewayCoefInfoDto.getChangeStatus()), "固定标志必须是0或1！");
     }
 
     /**
      * 根据ID获取通道系数配置
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      */
@@ -202,7 +200,7 @@ public class PassagewayCoefInfoServiceImpl implements PassagewayCoefInfoService 
 
     /**
      * 获取代码资费
-     * 
+     *
      * @param passagewayCoefInfoDto
      * @return
      */

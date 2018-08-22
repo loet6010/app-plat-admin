@@ -29,9 +29,9 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
  * 通道过滤规则
- * 
- * @Description RuleInfoServiceImpl
+ *
  * @author liurh
+ * @Description RuleInfoServiceImpl
  * @date 2018年6月11日
  */
 @Service("ruleInfoService")
@@ -43,7 +43,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 获取通道过滤规则列表
-     * 
+     *
      * @param ruleInfoDto
      * @return
      */
@@ -63,10 +63,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
         int totalCount = ruleInfoDao.selectRuleInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(ruleInfoDto.getPage());
-        pagination.setRowsPerPage(ruleInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, ruleInfoDto.getPage(), ruleInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -84,7 +81,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 修改通道过滤规则
-     * 
+     *
      * @param ruleInfoDto
      * @return
      * @throws InvocationTargetException
@@ -113,7 +110,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 删除通道过滤规则
-     * 
+     *
      * @param ruleInfoDto
      * @return
      */
@@ -136,7 +133,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 修改通道过滤规则激活状态
-     * 
+     *
      * @param ruleInfoDto
      * @return
      */
@@ -162,7 +159,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 新增通道过滤规则
-     * 
+     *
      * @param ruleInfoDto
      * @return
      */
@@ -172,8 +169,8 @@ public class RuleInfoServiceImpl implements RuleInfoService {
                 ruleInfoDto.toString());
 
         // 参数验证
-        Assert.isTrue(NumberUtils.isNumber(ruleInfoDto.getPassagewayId())
-                && StringUtils.isNotBlank(ruleInfoDto.getPassagewayId()), "通道ID不能为空且必须是数字！");
+        Assert.isTrue(NumberUtils.isNumber(ruleInfoDto.getPassagewayId()) &&
+                StringUtils.isNotBlank(ruleInfoDto.getPassagewayId()), "通道ID不能为空且必须是数字！");
         Assert.isTrue(StringUtils.isNotBlank(ruleInfoDto.getStartTime()), "生效时间不能为空！");
 
         // 获取代码类型
@@ -308,7 +305,7 @@ public class RuleInfoServiceImpl implements RuleInfoService {
 
     /**
      * 根据ID获取通道过滤规则
-     * 
+     *
      * @param ruleInfoDto
      * @return
      */

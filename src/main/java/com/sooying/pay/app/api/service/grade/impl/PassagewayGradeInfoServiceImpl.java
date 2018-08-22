@@ -25,9 +25,9 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
  * 通道分级系数数据
- * 
- * @Description PassagewayGradeInfoServiceImpl
+ *
  * @author liurh
+ * @Description PassagewayGradeInfoServiceImpl
  * @date 2018年6月14日
  */
 @Service("passagewayGradeInfoService")
@@ -39,7 +39,7 @@ public class PassagewayGradeInfoServiceImpl implements PassagewayGradeInfoServic
 
     /**
      * 获取通道分级系数数据列表
-     * 
+     *
      * @param passagewayGradeInfoDto
      * @return
      */
@@ -72,10 +72,8 @@ public class PassagewayGradeInfoServiceImpl implements PassagewayGradeInfoServic
         int totalCount = passagewayGradeInfoDao.selectPassagewayGradeInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(passagewayGradeInfoDto.getPage());
-        pagination.setRowsPerPage(passagewayGradeInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, passagewayGradeInfoDto.getPage(),
+                passagewayGradeInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());

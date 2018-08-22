@@ -7,10 +7,11 @@ import java.util.List;
 import org.springframework.util.Assert;
 
 /**
- * 储存分页处理工具类 在调用此类的方法之前需设置总页数(即得先从数据库查询到相应数据的数据量)
- * 
- * @author chendiwen
- * @version $ v 0.1 2015-9-14 下午2:14:34 chendiwen Exp $
+ * 分页基础类
+ *
+ * @Description BasePageDto
+ * @author liurh
+ * @date 2018年6月4日
  */
 public class BasePagination implements Serializable {
 
@@ -41,21 +42,13 @@ public class BasePagination implements Serializable {
         this.totalCount = 0;
     }
 
-    public BasePagination(int totalCount) {
+    public BasePagination(int totalCount, int currentPage, int rowsPerPage) {
         this.start = 0;
         this.end = 0;
-        this.currentPage = 1;
+        this.currentPage = currentPage;
         this.totalCount = totalCount;
-    }
-
-    public BasePagination(int totalCount, int numPerPage) {
-        this.start = 0;
-        this.end = 0;
-        this.totalCount = totalCount;
-        this.currentPage = 1;
-        if (numPerPage > 0) {
-            rowsPerPage = numPerPage;
-        }
+        setRowsPerPage(rowsPerPage);
+        initPage();
     }
 
     /**
@@ -207,7 +200,7 @@ public class BasePagination implements Serializable {
     /**
      * 分页器数据计算
      */
-    public void initPage() {
+    private void initPage() {
         gotoPage(this.currentPage);
         int startPageIndex = getStart();
         setStart(startPageIndex);

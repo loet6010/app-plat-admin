@@ -30,9 +30,9 @@ import com.sooying.pay.app.api.util.StringUtil;
 
 /**
  * 地市黑名单
- * 
- * @Description CityBlacklistInfoServiceImpl
+ *
  * @author liurh
+ * @Description CityBlacklistInfoServiceImpl
  * @date 2018年8月3日
  */
 @Service("cityBlacklistInfoService")
@@ -46,7 +46,7 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
 
     /**
      * 获取地市黑名单列表
-     * 
+     *
      * @param cityBlacklistInfoDto
      * @return
      */
@@ -56,9 +56,11 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
                 cityBlacklistInfoDto.getLoginName(), cityBlacklistInfoDto.getPage(), cityBlacklistInfoDto.getRows(),
                 cityBlacklistInfoDto.toString());
 
+        String msg = "获取地市黑名单成功";
+
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         Integer passagewayId = null;
-        if (NumberUtils.isDigits(cityBlacklistInfoDto.getPassagewayId())) {
+        if (StringUtils.isNotBlank(cityBlacklistInfoDto.getPassagewayId())) {
             passagewayId = Integer.parseInt(cityBlacklistInfoDto.getPassagewayId());
         }
         paramsMap.put("passagewayId", passagewayId);
@@ -69,10 +71,8 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
         int totalCount = cityBlacklistInfoDao.selectCityBlacklistInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(cityBlacklistInfoDto.getPage());
-        pagination.setRowsPerPage(cityBlacklistInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, cityBlacklistInfoDto.getPage(),
+                cityBlacklistInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -83,14 +83,13 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
         // list装入返回类型
         List<Object> dataList = new ArrayList<Object>(list);
 
-        String msg = "获取地市黑名单成功";
         logger.info("CityBlacklistInfoServiceImpl getCityBlacklistInfoList {}", msg);
         return ResultReturnUtil.getResultString(ApiStatusEnum.API_STATUS_SUCCESS.getStatus(), msg, dataList);
     }
 
     /**
      * 修改地市黑名单
-     * 
+     *
      * @param cityBlacklistInfoDto
      * @return
      */
@@ -116,7 +115,7 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
 
     /**
      * 删除地市黑名单
-     * 
+     *
      * @param cityBlacklistInfoDto
      * @return
      */
@@ -138,7 +137,7 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
 
     /**
      * 修改地市黑名单激活状态
-     * 
+     *
      * @param cityBlacklistInfoDto
      * @return
      */
@@ -164,7 +163,7 @@ public class CityBlacklistInfoServiceImpl implements CityBlacklistInfoService {
 
     /**
      * 新增地市黑名单
-     * 
+     *
      * @param cityBlacklistInfoDto
      * @return
      */

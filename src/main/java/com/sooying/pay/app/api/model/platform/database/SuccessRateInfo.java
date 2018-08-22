@@ -171,15 +171,15 @@ public class SuccessRateInfo {
     }
 
     /**
-     * @return the mrCoun
+     * @return the mrCount
      */
     public int getMrCount() {
         return mrCount;
     }
 
     /**
-     * @param mrCoun
-     *            the mrCoun to set
+     * @param mrCount
+     *            the mrCount to set
      */
     public void setMrCount(int mrCount) {
         this.mrCount = mrCount;

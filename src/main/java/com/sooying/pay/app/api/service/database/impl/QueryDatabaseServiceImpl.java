@@ -38,9 +38,9 @@ import com.sooying.pay.app.api.util.ResultReturnUtil;
 
 /**
  * 数据库查询
- * 
- * @Description QueryDatabaseServiceImpl
+ *
  * @author liurh
+ * @Description QueryDatabaseServiceImpl
  * @date 2018年6月19日
  */
 @Service("queryDatabaseService")
@@ -56,7 +56,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 获取大盘数据
-     * 
+     *
      * @param databaseInfoDto
      * @return
      */
@@ -107,7 +107,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 获取代码成功率
-     * 
+     *
      * @param databaseInfoDto
      * @return
      */
@@ -155,10 +155,8 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         }
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(databaseInfoDto.getPage());
-        pagination.setRowsPerPage(databaseInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, databaseInfoDto.getPage(),
+                databaseInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -181,7 +179,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 获取代码分省份成功率
-     * 
+     *
      * @param databaseInfoDto
      * @return
      */
@@ -215,16 +213,14 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         int totalCount = queryPlatformDao.selectProvinceSuccessRateInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(databaseInfoDto.getPage());
-        pagination.setRowsPerPage(databaseInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, databaseInfoDto.getPage(),
+                databaseInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
 
-        List<ProvinceSuccessRateInfo> provinceSuccessRateInfoList = queryPlatformDao
-                .selectProvinceSuccessRateInfoList(paramsMap);
+        List<ProvinceSuccessRateInfo> provinceSuccessRateInfoList = queryPlatformDao.selectProvinceSuccessRateInfoList(
+                paramsMap);
 
         // list装入返回类型
         List<Object> dataList = new ArrayList<Object>(provinceSuccessRateInfoList);
@@ -236,7 +232,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 获取大盘同步信息费
-     * 
+     *
      * @param databaseInfoDto
      * @return
      */
@@ -258,10 +254,8 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         int totalCount = queryPlatformDao.selectOverallFeeInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(databaseInfoDto.getPage());
-        pagination.setRowsPerPage(databaseInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, databaseInfoDto.getPage(),
+                databaseInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -278,7 +272,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 获取结果表错误码占比
-     * 
+     *
      * @param databaseInfoDto
      * @return
      */
@@ -288,7 +282,7 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
                 databaseInfoDto.getLoginName(), databaseInfoDto.getPassagewayId());
 
         Assert.isTrue(StringUtils.isNotBlank(databaseInfoDto.getPassagewayId()), "通道ID不能为空！");
-        
+
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("passagewayId", databaseInfoDto.getPassagewayId());
 
@@ -302,10 +296,8 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         int totalCount = queryPlatformDao.selectResultErrorInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(databaseInfoDto.getPage());
-        pagination.setRowsPerPage(databaseInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, databaseInfoDto.getPage(),
+                databaseInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -332,8 +324,8 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
         SearchTimeInfo searchTimeInfo = new SearchTimeInfo();
 
         // 验证日期格式
-        Assert.isTrue((StringUtils.isNotBlank(beginTime) && StringUtils.isNotBlank(endTime))
-                || (StringUtils.isBlank(beginTime) && StringUtils.isBlank(endTime)), "开始时间和结束时间必须同时为空或同时不为空！");
+        Assert.isTrue((StringUtils.isNotBlank(beginTime) && StringUtils.isNotBlank(endTime)) ||
+                (StringUtils.isBlank(beginTime) && StringUtils.isBlank(endTime)), "开始时间和结束时间必须同时为空或同时不为空！");
         Assert.isTrue(StringUtils.isBlank(beginTime) || beginTime.matches(Constants.DATE_TIME_REGEXP), "开始时间格式不正确！");
         Assert.isTrue(StringUtils.isBlank(endTime) || endTime.matches(Constants.DATE_TIME_REGEXP), "结束时间格式不正确！");
 
@@ -386,9 +378,9 @@ public class QueryDatabaseServiceImpl implements QueryDatabaseService {
 
     /**
      * 查询时间Bean
-     * 
-     * @Description SearchTimeInfo
+     *
      * @author liurh
+     * @Description SearchTimeInfo
      * @date 2018年6月22日
      */
     private class SearchTimeInfo {

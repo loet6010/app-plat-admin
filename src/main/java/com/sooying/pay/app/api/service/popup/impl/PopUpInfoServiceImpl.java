@@ -28,9 +28,9 @@ import com.sooying.pay.app.api.util.StringUtil;
 
 /**
  * 二次确认弹窗
- * 
- * @Description PopUpInfoServiceImpl
+ *
  * @author liurh
+ * @Description PopUpInfoServiceImpl
  * @date 2018年6月13日
  */
 @Service("popUpInfoService")
@@ -42,7 +42,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
     /**
      * 获取二次确认弹窗列表
-     * 
+     *
      * @param popUpInfoDto
      * @return
      */
@@ -61,10 +61,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
         int totalCount = popUpInfoDao.selectPopUpInfoCount(paramsMap);
 
         // 初始化分页信息
-        BasePagination pagination = new BasePagination(totalCount);
-        pagination.setCurrentPage(popUpInfoDto.getPage());
-        pagination.setRowsPerPage(popUpInfoDto.getRows());
-        pagination.initPage();
+        BasePagination pagination = new BasePagination(totalCount, popUpInfoDto.getPage(), popUpInfoDto.getRows());
 
         paramsMap.put("start", pagination.getStart());
         paramsMap.put("rowsPerPage", pagination.getRowsPerPage());
@@ -82,7 +79,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
     /**
      * 修改二次确认弹窗
-     * 
+     *
      * @param popUpInfoDto
      * @return
      */
@@ -108,7 +105,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
     /**
      * 删除二次确认弹窗
-     * 
+     *
      * @param popUpInfoDto
      * @return
      */
@@ -130,7 +127,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
     /**
      * 修改二次确认弹窗激活状态
-     * 
+     *
      * @param popUpInfoDto
      * @return
      */
@@ -156,7 +153,7 @@ public class PopUpInfoServiceImpl implements PopUpInfoService {
 
     /**
      * 新增二次确认弹窗
-     * 
+     *
      * @param popUpInfoDto
      * @return
      */

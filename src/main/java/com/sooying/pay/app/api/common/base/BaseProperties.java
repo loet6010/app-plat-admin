@@ -1,12 +1,6 @@
 package com.sooying.pay.app.api.common.base;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Properties;
-
+import com.bench.common.lang.NumberUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +8,10 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import com.bench.common.lang.NumberUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.NoSuchElementException;
+import java.util.Properties;
 
 /**
  * 获取配置文件
@@ -24,8 +21,6 @@ import com.bench.common.lang.NumberUtils;
  * @date 2018年6月4日
  */
 public class BaseProperties {
-    private static final Map<String, Properties> allProperties = new HashMap<String, Properties>();
-
     private static Logger logger = LoggerFactory.getLogger(BaseProperties.class);
 
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -38,10 +33,6 @@ public class BaseProperties {
 
     public Properties getProperties() {
         return properties;
-    }
-
-    public static String getValueByPropFileName(String propFileName, String key) {
-        return allProperties.get(propFileName).getProperty(key);
     }
 
     /**
